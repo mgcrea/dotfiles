@@ -8,10 +8,10 @@ for file in *
 do
 	if [ -f $file ]; then 
 		echo "Processing $file..."
-		if [ -f  $pwd/$file ]; then 
-			mv $pwd/$file $pwd/$file.bak
+		if [ -f  ~/$file ]; then 
+			mv ~/$file ~/$file.bak
 		fi;
-		ln -s ~/$file $pwd/$file
+		ln -s $pwd/$file ~/$file
 	fi;
 done;
     
