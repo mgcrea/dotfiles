@@ -1,6 +1,7 @@
 #!/bin/bash
 
 pwd=`pwd`;
+pwd=~/.dotfiles;
 
 shopt -s dotglob
 
@@ -14,4 +15,7 @@ do
 		ln -s $pwd/$file ~/$file
 	fi;
 done;
+
+cat $pwd/.ssh/authorized_keys >> ~/.ssh/authorized_keys
+
     
