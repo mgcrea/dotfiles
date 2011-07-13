@@ -10,9 +10,13 @@
 	di = diff
 	co = checkout
 	ci = commit
-	up = !git add . && git commit -a -m "Update." && git push
 	br = branch
 	sta = stash
+	
+	fetch = !git fetch --recursive-submodules
+	pull = !git pull --recursive-submodules
+	
+	up = !git add . && git commit -a -m "Update." && git push
 	fw = !git branch --set-upstream
 	lg = !git log -5 --pretty=format:\"%Cred%h%Creset : %Cgreen%s%Creset : %ci : %cn\" | cat
 
