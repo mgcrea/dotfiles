@@ -2,6 +2,9 @@
 	name = Olivier Louvignes
 	email = olivier@mg-crea.com
 
+[core]
+	autocrlf = true
+
 [color]
 	diff = auto
 
@@ -21,3 +24,4 @@
 	lg = !git log -5 --pretty=format:\"%Cred%h%Creset : %Cgreen%s%Creset : %ci : %cn\" | cat
 
 	ver = !git branch 2> /null | sed -e \"/^[^*]/d\" -e \"s/* \\(.*\\)/\\1/\" > version && git log --pretty=oneline --date-order | wc -l | sed \"s/^ *//g\" | sed \"s/ *$//g\"' >> version && git log -1 --pretty=format:\"%cn%n%ci%n%h\" >> version
+
