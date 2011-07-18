@@ -3,7 +3,7 @@
 	email = olivier@mg-crea.com
 
 [core]
-	autocrlf = true
+	autocrlf = input
 
 [color]
 	diff = auto
