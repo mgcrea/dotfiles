@@ -15,7 +15,8 @@
 	
 	fetch = !git fetch --recursive-submodules
 	pull = !git pull --recursive-submodules
-	repull = !git reset --hard; git clean -f -d; git pull
+	repull = !git reset --hard && git clean -f -d && git pull --recursive-submodules
+	subreset = !git submodule foreach "git reset --hard &&  git clean -f -d;"
 	
 	up = !git add . && git commit -a -m "Update." && git push
 	fw = !git branch --set-upstream
