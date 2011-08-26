@@ -31,4 +31,14 @@ fi;
 # Developer
 alias cdcol='cd /srv/www/carlipa-online.com/carlipa-online'
 alias cdbmt='cd /srv/www/beemeet.com/beemeet'
-function cdsites { cd /srv/www/$1 }
+function cdsites
+{
+	cd /srv/www/$1
+}
+
+# Git
+alias gps="git push"
+alias gpl="git pull"
+alias gs="git status"
+alias gc="git commit -m"
+alias gca="git commit -am"
