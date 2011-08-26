@@ -16,6 +16,4 @@ do
 	fi;
 done;
 
-cat $pwd/.ssh/authorized_keys >> ~/.ssh/authorized_keys
-
-    
+#cat $pwd/.ssh/authorized_keys > ~/.ssh/authorized_keys
