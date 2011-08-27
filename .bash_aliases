@@ -19,7 +19,7 @@ alias grep='grep --color'
 if [ -d /Users ];
 then
 	# OSX
-
+	alias;
 else
 	# *NIX
 	
