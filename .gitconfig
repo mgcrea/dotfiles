@@ -27,3 +27,17 @@
 	lg = !git log -5 --pretty=format:\"%Cred%h%Creset : %Cgreen%s%Creset : %ci : %cn\" | cat
 
 	ver = !git branch 2> /null | sed -e \"/^[^*]/d\" -e \"s/* \\(.*\\)/\\1/\" > version && git log --pretty=oneline --date-order | wc -l | sed \"s/^ *//g\" | sed \"s/ *$//g\"' >> version && git log -1 --pretty=format:\"%cn%n%ci%n%h\" >> version
+[diff]
+	tool = ksdiff
+[difftool "ksdiff"]
+	cmd = ksdiff \"$LOCAL\" \"$REMOTE\"
+[merge]
+	tool = diffmerge
+[mergetool "ksdiff"]
+	cmd = "ksdiff -w \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\""
+	trustExitCode = true
+[difftool "diffmerge"]
+	cmd = diffmerge \"$LOCAL\" \"$REMOTE\"
+[mergetool "diffmerge"]
+	cmd = "diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""
+	trustExitCode = true
