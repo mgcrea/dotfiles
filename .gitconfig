@@ -20,8 +20,10 @@
 	pull = !git pull --recurse-submodules
 	repull = !git reset --hard && git clean -f -d && git pull --recurse-submodules && git submodule init && git submodule update
 
-	subreset = !git submodule foreach "git reset --hard &&  git clean -f -d;"
-	
+	subreset = !git submodule foreach "git reset --hard && git clean -f -d;"
+	subupdate = !git submodule init;git submodule update
+	subrepull = !git submodule foreach "git reset --hard && git clean -fd;git submodule init; git submodule update"
+
 	up = !git add . && git commit -a -m "Update." && git push
 	fw = !git branch --set-upstream
 	lg = !git log -5 --pretty=format:\"%Cred%h%Creset : %Cgreen%s%Creset : %ci : %cn\" | cat

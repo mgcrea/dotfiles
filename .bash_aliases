@@ -9,6 +9,7 @@ alias l="ls -CF"
 # Miscellaneous
 alias c="clear";
 alias h="cd ~";
+alias cd..="cd .."
 alias up="cd .."
 alias up2="cd ../.."
 alias up3="cd ../../.."
