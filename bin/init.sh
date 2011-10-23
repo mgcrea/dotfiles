@@ -15,5 +15,3 @@ do
 		ln -s $pwd/$file ~/$file
 	fi;
 done;
-
-#cat $pwd/.ssh/authorized_keys > ~/.ssh/authorized_keys
