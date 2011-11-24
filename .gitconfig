@@ -16,7 +16,7 @@
 	br = branch
 	sta = stash
 	
-	repull = !git reset --hard && git clean -f -d && git submodule foreach "git reset --hard && git clean -f -d;" && git pull --recurse-submodules && git submodule update --init
+	repull = !git reset --hard && git clean -f -d && git submodule foreach 'git reset --hard && git clean -f -d' && git pull --recurse-submodules && git submodule update --init
 	subreset = !git submodule foreach "git reset --hard && git clean -f -d;"
 	subupdate = !git submodule update --init
 	subrepull = !git submodule foreach "git repull"
