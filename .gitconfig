@@ -16,13 +16,10 @@
 	br = branch
 	sta = stash
 	
-	fetch = !git fetch --recurse-submodules
-	pull = !git pull --recurse-submodules
-	repull = !git reset --hard && git clean -f -d && git pull --recurse-submodules && git submodule init && git submodule update
-
+	repull = !git reset --hard && git clean -f -d && git submodule foreach "git reset --hard && git clean -f -d;" && git pull --recurse-submodules && git submodule update --init
 	subreset = !git submodule foreach "git reset --hard && git clean -f -d;"
-	subupdate = !git submodule init;git submodule update
-	subrepull = !git submodule foreach "git reset --hard && git clean -fd;git submodule init; git submodule update"
+	subupdate = !git submodule update --init
+	subrepull = !git submodule foreach "git repull"
 
 	up = !git add . && git commit -a -m "Update." && git push
 	fw = !git branch --set-upstream
@@ -30,9 +27,12 @@
 
 	ver = !git branch 2> /null | sed -e \"/^[^*]/d\" -e \"s/* \\(.*\\)/\\1/\" > version && git log --pretty=oneline --date-order | wc -l | sed \"s/^ *//g\" | sed \"s/ *$//g\"' >> version && git log -1 --pretty=format:\"%cn%n%ci%n%h\" >> version
 [diff]
-	tool = ksdiff
+	prompt = no
+	tool = bbdiff
 [difftool "ksdiff"]
 	cmd = ksdiff \"$LOCAL\" \"$REMOTE\"
+[difftool "bbdiff"] 
+        cmd = /usr/bin/bbdiff --wait --resume "$LOCAL" "$REMOTE" 
 [merge]
 	tool = diffmerge
 [mergetool "ksdiff"]
