@@ -16,6 +16,7 @@ alias up3="cd ../../.."
 alias up4="cd ../../../.."
 alias up5="cd ../../../../.."
 alias grep="grep --color"
+alias tf="tail -fn200"
 
 if [ -d /Users ];
 then
@@ -30,8 +31,6 @@ else
 fi;
 
 # Developer
-alias cdcol='cd /srv/www/carlipa-online.com/carlipa-online'
-alias cdbmt='cd /srv/www/beemeet.com/beemeet'
 function cdsites
 {
 	cd /srv/www/$1
@@ -41,5 +40,6 @@ function cdsites
 alias gps="git push"
 alias gpl="git pull"
 alias gs="git status"
+alias gco="git checkout"
 alias gc="git commit -m"
 alias gca="git commit -am"
