@@ -17,6 +17,10 @@ alias up4="cd ../../../.."
 alias up5="cd ../../../../.."
 alias grep="grep --color"
 
+# Chmod
+alias chmod644="sudo chmod -R 644 ./ && sudo find ./ -type d -exec chmod 0755 {} \;"
+alias chmod660="sudo chmod -R 660 ./ && sudo find ./ -type d -exec chmod 0770 {} \;"
+
 if [ -d /Users ];
 then
 	# OSX
@@ -30,8 +34,6 @@ else
 fi;
 
 # Developer
-alias cdcol='cd /srv/www/carlipa-online.com/carlipa-online'
-alias cdbmt='cd /srv/www/beemeet.com/beemeet'
 function cdsites
 {
 	cd /srv/www/$1
