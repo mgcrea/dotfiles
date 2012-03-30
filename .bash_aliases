@@ -16,6 +16,7 @@ alias up3="cd ../../.."
 alias up4="cd ../../../.."
 alias up5="cd ../../../../.."
 alias grep="grep --color"
+alias tf="tail -fn200"
 
 # Chmod
 alias chmod644="sudo chmod -R 644 ./ && sudo find ./ -type d -exec chmod 0755 {} \;"
@@ -43,5 +44,6 @@ function cdsites
 alias gps="git push"
 alias gpl="git pull"
 alias gs="git status"
+alias gco="git checkout"
 alias gc="git commit -m"
 alias gca="git commit -am"
