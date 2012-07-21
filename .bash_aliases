@@ -21,6 +21,7 @@ alias tf="tail -fn200"
 # Chmod
 alias chmod644="sudo chmod -R 644 ./ && sudo find ./ -type d -exec chmod 0755 {} \;"
 alias chmod660="sudo chmod -R 660 ./ && sudo find ./ -type d -exec chmod 0770 {} \;"
+alias chownwww="sudo chown -R www-data:www-data"
 
 if [ -d /Users ];
 then
