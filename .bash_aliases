@@ -1,5 +1,5 @@
 # Directory
-alias md="mkdir"
+function md { mkdir --parents "$1"; cd "$1"; }
 alias ls="ls -hF --color=tty"
 alias dir="ls --color=auto --format=vertical"
 alias vdir="ls --color=auto --format=long"
