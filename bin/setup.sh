@@ -1,16 +1,16 @@
 #!/bin/bash
 
-p="/Users/olivier/.dotfiles";
+p="/home/`whoami`/.dotfiles";
 for f in $(find $p -maxdepth 1 -mindepth 1 -type f -print0 | xargs -0); do
 	f=`basename "$f"`
 	echo "Prossessing $f"
-	ln -Fs ".dotfiles/$f" "/Users/olivier/$f"
+	ln -fs ".dotfiles/$f" "/home/`whoami`/$f"
 	echo "."
 done;
 
 if [[ $OSTYPE =~ "darwin" ]]; then
 	echo "Prossessing .profile"
-	ln -Fs ".dotfiles/.profile" "/Users/olivier/.profile"
+	ln -s ".dotfiles/.profile" "/Users/olivier/.profile"
 	echo "."
 	# echo "Apply osx config"
 	# bash "$p/osx/.osx"
