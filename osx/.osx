@@ -13,10 +13,10 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ###############################################################################
 
 # Set computer name (as done via System Preferences → Sharing)
-sudo scutil --set ComputerName "OlMacPro"
-sudo scutil --set HostName "OlMacPro"
-sudo scutil --set LocalHostName "OlMac-Pro"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "OlMac-Pro"
+sudo scutil --set ComputerName "OliMacBookPro"
+sudo scutil --set HostName "OliMacBookPro"
+sudo scutil --set LocalHostName "OliMacBook-Pro"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "OliMacBook-Pro"
 
 # Menu bar: disable transparency
 #defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false
@@ -127,8 +127,8 @@ sudo chmod 444 /private/var/db/.AccessibilityAPIEnabled
 #sudo osascript -e 'tell application "System Events" to set UI elements enabled to true'
 
 # Use scroll gesture with the Ctrl (^) modifier key to zoom
-defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
-defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
+# defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
+# defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
 # Follow the keyboard focus while zoomed in
 defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
 
@@ -209,7 +209,7 @@ defaults write com.apple.finder ShowStatusBar -bool true
 defaults write com.apple.finder QLEnableTextSelection -bool true
 
 # Display full POSIX path as Finder window title
-defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+# defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
 
 # When performing a search, search the current folder by default
 defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
@@ -393,20 +393,20 @@ defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 # iTunes (pre-iTunes 11 only)                                                 #
 ###############################################################################
 
-# Disable the iTunes store link arrows
-defaults write com.apple.iTunes show-store-link-arrows -bool false
+# # Disable the iTunes store link arrows
+# defaults write com.apple.iTunes show-store-link-arrows -bool false
 
-# Disable the Genius sidebar in iTunes
-defaults write com.apple.iTunes disableGeniusSidebar -bool true
+# # Disable the Genius sidebar in iTunes
+# defaults write com.apple.iTunes disableGeniusSidebar -bool true
 
-# Disable radio stations in iTunes
-defaults write com.apple.iTunes disableRadio -bool true
+# # Disable radio stations in iTunes
+# defaults write com.apple.iTunes disableRadio -bool true
 
-# Make ⌘ + F focus the search input in iTunes
-# To use these commands in another language, browse iTunes’s package contents,
-# open `Contents/Resources/your-language.lproj/Localizable.strings`, and look
-# for `kHiddenMenuItemTargetSearch`.
-defaults write com.apple.iTunes NSUserKeyEquivalents -dict-add "Target Search Field" "@F"
+# # Make ⌘ + F focus the search input in iTunes
+# # To use these commands in another language, browse iTunes’s package contents,
+# # open `Contents/Resources/your-language.lproj/Localizable.strings`, and look
+# # for `kHiddenMenuItemTargetSearch`.
+# defaults write com.apple.iTunes NSUserKeyEquivalents -dict-add "Target Search Field" "@F"
 
 ###############################################################################
 # Mail                                                                        #
@@ -430,7 +430,7 @@ defaults write com.apple.mail NSUserKeyEquivalents -dict-add "Send" "@\\U21a9"
 defaults write com.apple.terminal StringEncodings -array 4
 
 # Use a modified version of the Pro theme by default in Terminal.app
-open "$HOME/.dotfiles/files/Olivier.terminal"
+open "$HOME/.dotfiles/osx/Olivier.terminal"
 sleep 1 # Wait a bit to make sure the theme is loaded
 defaults write com.apple.terminal "Default Window Settings" -string "Olivier"
 defaults write com.apple.terminal "Startup Window Settings" -string "Olivier"

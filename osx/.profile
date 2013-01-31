@@ -32,8 +32,8 @@ fi
 
 # Custom aliases
 alias apache2="sudo /opt/local/apache2/bin/apachectl"
-alias cdcol="cd ~/Sites/carlipa-online/carlipa-online"
-alias cdblk="cd ~/Sites/beelink/beelink"
+alias cdcol="cd ~/Dropbox/Sites/carlipa-online/carlipa-online"
+alias cdblk="cd ~/Dropbox/Sites/beelink/beelink"
 
 # Ssh aliases
 alias sshblk="ssh -p2222 mgcrea@beelinkapp.com -A"
