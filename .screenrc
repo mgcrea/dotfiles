@@ -1,0 +1,8 @@
+# Disable the startup message
+startup_message off
+
+# Eliminate apparent delay when entering copy mode
+msgminwait 0
+
+# Scrollback
+defscrollback 10000
