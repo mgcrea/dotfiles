@@ -38,7 +38,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 # *NIX
 else
 	# Aptitude
-	alias upgrade="apt-get update; apt-get upgrade -y; apt-get dist-upgrade -y; reboot; exit"
+	alias upgrade="sudo apt-get update; sudo apt-get upgrade -y; sudo apt-get dist-upgrade -y; sudo reboot; exit"
 fi;
 
 # Git
