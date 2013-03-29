@@ -42,7 +42,7 @@ else
   # Aptitude
   alias update='sudo apt-get update; sudo apt-get upgrade -y; sudo npm update npm -g; sudo npm update -g'
   alias upgrade="update; sudo reboot; exit"
-  alias pbcopy="cat | nc -q1 localhost 2224"
+  alias pbcopy="cat $* | nc -q1 localhost 2224"
 fi;
 
 # Git
