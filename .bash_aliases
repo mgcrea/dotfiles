@@ -24,8 +24,8 @@ alias up5="cd ../../../../.."
 alias grep="grep --color"
 
 alias tf="tail -fn200 $*"
+alias static="python -m SimpleHTTPServer"
 alias static-dev="static -H '{\"Cache-Control\": \"no-cache, must-revalidate\"}' $*"
-alias static="python -m SimpleHTTPServer 8080"
 
 # Rights
 alias chmod644="sudo chmod -R 644 ./ && sudo find ./ -type d -exec chmod 0755 {} \;"
@@ -42,7 +42,8 @@ else
   # Aptitude
   alias update='sudo apt-get update; sudo apt-get upgrade -y; sudo npm update npm -g; sudo npm update -g'
   alias upgrade="update; sudo reboot; exit"
-  alias pbcopy="cat $* | nc -q1 localhost 2224"
+  alias pbcopy="cat | nc -q0 localhost 2224"
+  alias rsub="rmate -p 2226"
 fi;
 
 # Git
