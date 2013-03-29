@@ -17,6 +17,11 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 	# echo "."
 	#
 	# ioreg -lw0 | grep \"EDID\" | sed "/[^<]*</s///" | xxd -p -r | strings -6
+else
+	# Setup rmate
+	curl https://raw.github.com/aurora/rmate/master/rmate > rmate
+	sudo mv rmate /usr/local/bin
+	sudo chmod +x /usr/local/bin/rmate
 fi;
 
 # pwd=`pwd`;
