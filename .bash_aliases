@@ -25,6 +25,7 @@ alias grep="grep --color"
 
 alias tf="tail -fn200 $*"
 alias static-dev="static -H '{\"Cache-Control\": \"no-cache, must-revalidate\"}' $*"
+alias static="python -m SimpleHTTPServer 8080"
 
 # Rights
 alias chmod644="sudo chmod -R 644 ./ && sudo find ./ -type d -exec chmod 0755 {} \;"
@@ -33,12 +34,15 @@ alias chownwww="sudo chown -R www-data:www-data ./"
 
 # OSX
 if [[ $OSTYPE =~ "darwin" ]]; then
-	# Applications
-	alias st="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
+  # Applications
+  alias st="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
+  alias update='sudo softwareupdate -i -a; sudo npm update npm -g; sudo npm update -g; sudo port selfupdate; sudo port upgrade outdated'
 # *NIX
 else
-	# Aptitude
-	alias upgrade="sudo apt-get update; sudo apt-get upgrade -y; sudo apt-get dist-upgrade -y; sudo reboot; exit"
+  # Aptitude
+  alias update='sudo apt-get update; sudo apt-get upgrade -y; sudo npm update npm -g; sudo npm update -g'
+  alias upgrade="update; sudo reboot; exit"
+  alias pbcopy="cat | nc -q1 localhost 2224"
 fi;
 
 # Git
