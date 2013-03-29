@@ -34,16 +34,14 @@ alias chownwww="sudo chown -R www-data:www-data ./"
 
 # OSX
 if [[ $OSTYPE =~ "darwin" ]]; then
-  # Applications
   alias st="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
   alias update='sudo softwareupdate -i -a; sudo npm update npm -g; sudo npm update -g; sudo port selfupdate; sudo port upgrade outdated'
 # *NIX
 else
-  # Aptitude
+  alias st="rmate -p 2226"
   alias update='sudo apt-get update; sudo apt-get upgrade -y; sudo npm update npm -g; sudo npm update -g'
   alias upgrade="update; sudo reboot; exit"
   alias pbcopy="cat | nc -q0 localhost 2224"
-  alias rsub="rmate -p 2226"
 fi;
 
 # Git
