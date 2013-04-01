@@ -24,7 +24,7 @@ alias up5="cd ../../../../.."
 alias grep="grep --color"
 
 alias tf="tail -fn200 $*"
-alias static="python -m SimpleHTTPServer"
+alias static-py="python -m SimpleHTTPServer"
 alias static-dev="static -H '{\"Cache-Control\": \"no-cache, must-revalidate\"}' $*"
 
 # Rights
