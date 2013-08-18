@@ -44,7 +44,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 # *NIX
 else
   alias st="rmate -p 2226"
-  alias update='sudo apt-get update; sudo apt-get upgrade -y; sudo npm update npm -g; sudo npm update -g'
+  alias update='sudo apt-get update; sudo apt-get dist-upgrade -y; sudo apt-get upgrade -y; sudo npm update npm -g; sudo npm update -g'
   alias upgrade="update; sudo reboot; exit"
   alias chownwww="sudo chown -R www-data:www-data ."
   alias pbcopy="cat | nc -q0 localhost 2224"
