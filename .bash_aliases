@@ -23,30 +23,42 @@ alias up4="cd ../../../.."
 alias up5="cd ../../../../.."
 alias grep="grep --color"
 
-alias tf="tail -fn200 $*"
+alias tf="tail -fn200"
 alias static-py="python -m SimpleHTTPServer"
-alias static-dev="static -H '{\"Cache-Control\": \"no-cache, must-revalidate\"}' $*"
+function static-dev { http-server -c-1 $*; }
+tgz() { cd "$1"; tar -cvzf "./../$1.tgz" .; cd ..; }
 
 # Rights
 alias chmod644="sudo chmod -R 644 ./ && sudo find ./ -type d -exec chmod 0755 {} \;"
 alias chmod660="sudo chmod -R 660 ./ && sudo find ./ -type d -exec chmod 0770 {} \;"
-alias chownwww="sudo chown -R www-data:www-data ./"
 
 # OSX
 if [[ $OSTYPE =~ "darwin" ]]; then
-  alias st="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
-  alias update='sudo softwareupdate -i -a; sudo npm update npm -g; sudo npm update -g; sudo port selfupdate; sudo port upgrade outdated'
+  alias d="cd ~/Dropbox/Developer"
+  alias st="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
+  alias st2="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
+  alias chrome-dev="open /Applications/Google\ Chrome\ Canary.app --args --incognito --allow-file-access-from-files --disable-web-security"
+  alias update="sudo softwareupdate -i -a; sudo port selfupdate; sudo port upgrade outdated; sudo npm update -g"
+  alias salt-start="sudo salt-master -d"
+  alias salt-stop="sudo kill -TERM \`cat /var/run/salt-master.pid\`"
 # *NIX
 else
   alias st="rmate -p 2226"
   alias update='sudo apt-get update; sudo apt-get upgrade -y; sudo npm update npm -g; sudo npm update -g'
   alias upgrade="update; sudo reboot; exit"
+  alias chownwww="sudo chown -R www-data:www-data ."
   alias pbcopy="cat | nc -q0 localhost 2224"
 fi;
 
 # Git
-alias gps="git push"
+alias gps="git push; git push --tags"
+alias gpsf="git push --force; git push --tags --force"
 alias gpl="git pull"
 alias gs="git status"
 alias gco="git checkout"
+alias gtc="git clone -o github"
 alias gc="git commit -am"
+
+# Npm
+alias npmlist="node -p \"Object.keys(JSON.parse(require('fs').readFileSync('./package.json')).dependencies).join(' ')\""
+alias npmlistdev="node -p \"Object.keys(JSON.parse(require('fs').readFileSync('./package.json')).devDependencies).join(' ')\""

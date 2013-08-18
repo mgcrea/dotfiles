@@ -9,8 +9,17 @@ export LANG=en_US.UTF-8
 # Adding an appropriate PATH variable for use with MacPorts.
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 
-# use the GNU tools by default
+# Use the GNU tools by default
 export PATH=/opt/local/libexec/gnubin:$PATH
+
+# Use NPM module binaries
+export PATH=~/node_modules/.bin:$PATH
+
+# Use Android SDK tools
+export PATH="/Applications/Android Studio.app/sdk/tools":"/Applications/Android Studio.app/sdk/platform-tools":$PATH
+
+# Use Python binaries
+export PATH="/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin":$PATH
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
@@ -37,5 +46,6 @@ alias cdblk="cd ~/Dropbox/Sites/beelink/beelink"
 
 # Ssh aliases
 alias sshblk="ssh -p2222 mgcrea@beelinkapp.com -A"
+alias sshdev="ssh -p2222 mgcrea@dev.beelinkapp.com -A"
 function sshcol { ssh -p 2222 -A mgcrea@${1}.carlipa-online.com; }
 function sshcolp { ssh -p2222 -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no user@${*}; }

@@ -6,3 +6,6 @@ msgminwait 0
 
 # Scrollback
 defscrollback 10000
+
+# Scrollwheel
+termcapinfo xterm* ti@:te@
