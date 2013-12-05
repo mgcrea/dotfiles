@@ -1,16 +1,22 @@
 #!/bin/bash
 
-p="/home/`whoami`/.dotfiles";
+if [[ $OSTYPE =~ "darwin" ]]; then
+	home="/Users/`whoami`"
+else
+	home="/home/`whoami`"
+fi;
+
+p="$home/.dotfiles";
 for f in $(find $p -maxdepth 1 -mindepth 1 -type f -print0 | xargs -0); do
 	f=`basename "$f"`
 	echo "Prossessing $f"
-	ln -fs ".dotfiles/$f" "/home/`whoami`/$f"
+	ln -fs ".dotfiles/$f" "$home/$f"
 	echo "."
 done;
 
 if [[ $OSTYPE =~ "darwin" ]]; then
 	echo "Prossessing .profile"
-	ln -s ".dotfiles/.profile" "/Users/olivier/.profile"
+	ln -fs ".dotfiles/osx/.profile" "/Users/olivier/.profile"
 	echo "."
 	# echo "Apply osx config"
 	# bash "$p/osx/.osx"

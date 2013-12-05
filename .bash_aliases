@@ -25,18 +25,20 @@ alias grep="grep --color"
 
 alias tf="tail -fn200"
 alias static-py="python -m SimpleHTTPServer"
-function static-dev { http-server -c-1 $*; }
+function static-dev { http-server $@ -c-1; }
 tgz() { cd "$1"; tar -cvzf "./../$1.tgz" .; cd ..; }
 
 # Rights
 alias chmod644="sudo chmod -R 644 ./ && sudo find ./ -type d -exec chmod 0755 {} \;"
 alias chmod660="sudo chmod -R 660 ./ && sudo find ./ -type d -exec chmod 0770 {} \;"
+alias chmod600="sudo chmod -R 600 ./ && sudo find ./ -type d -exec chmod 0700 {} \;"
 
 # OSX
 if [[ $OSTYPE =~ "darwin" ]]; then
   alias d="cd ~/Dropbox/Developer"
   alias st="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
   alias st2="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
+  alias vlc="/Applications/VLC.app/Contents/MacOS/vlc"
   alias chrome-dev="open /Applications/Google\ Chrome\ Canary.app --args --incognito --allow-file-access-from-files --disable-web-security"
   alias update="sudo softwareupdate -i -a; sudo port selfupdate; sudo port upgrade outdated; sudo npm update -g"
   alias salt-start="sudo salt-master -d"
