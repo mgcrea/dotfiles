@@ -26,8 +26,9 @@ alias grep="grep --color"
 alias tf="tail -fn200"
 alias json="python -mjson.tool"
 alias static-py="python -m SimpleHTTPServer"
-function static-dev { http-server $@ -c-1; chrome "http://localhost:8080"; }
+static-dev() { http-server $@ -c-1; chrome "http://localhost:8080"; }
 tgz() { cd "$1"; tar -cvzf "./../$1.tgz" .; cd ..; }
+purgekernel() { sudo apt-get remove --purge $(dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d'); }
 
 # Rights
 alias chmod644="sudo chmod -R 644 ./ && sudo find ./ -type d -exec chmod 0755 {} \;"
@@ -46,7 +47,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 # *NIX
 else
   alias st="rmate -p 2226"
-  alias update='sudo apt-get update; sudo apt-get dist-upgrade -y; sudo apt-get upgrade -y; sudo npm update npm -g; sudo npm update -g'
+  alias update="sudo apt-get update; sudo apt-get dist-upgrade -y; sudo apt-get upgrade -y; sudo npm update npm -g; sudo npm update -g"
   alias upgrade="update; sudo reboot; exit"
   alias chownwww="sudo chown -R www-data:www-data ."
   alias pbcopy="cat | nc -q0 localhost 2224"
