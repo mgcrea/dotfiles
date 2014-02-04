@@ -46,6 +46,7 @@ alias cdblk="cd ~/Dropbox/Sites/beelink/beelink"
 
 # Ssh aliases
 alias sshblk="ssh -p2222 mgcrea@beelinkapp.com -A"
-alias sshdev="ssh -p2222 mgcrea@dev.beelinkapp.com -A"
+alias sshdev="ssh -p2222 mgcrea@dev.mg-crea.com -A"
+alias sshnew="ssh -p2222 mgcrea@ns3296921.ip-5-135-153.eu -A"
 function sshcol { ssh -p 2222 -A mgcrea@${1}.carlipa-online.com; }
 function sshcolp { ssh -p2222 -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no user@${*}; }

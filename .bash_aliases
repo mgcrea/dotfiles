@@ -24,8 +24,9 @@ alias up5="cd ../../../../.."
 alias grep="grep --color"
 
 alias tf="tail -fn200"
+alias json="python -mjson.tool"
 alias static-py="python -m SimpleHTTPServer"
-function static-dev { http-server $@ -c-1; }
+function static-dev { http-server $@ -c-1; chrome "http://localhost:8080"; }
 tgz() { cd "$1"; tar -cvzf "./../$1.tgz" .; cd ..; }
 
 # Rights
@@ -36,13 +37,12 @@ alias chmod600="sudo chmod -R 600 ./ && sudo find ./ -type d -exec chmod 0700 {}
 # OSX
 if [[ $OSTYPE =~ "darwin" ]]; then
   alias d="cd ~/Dropbox/Developer"
+  alias p="cd ~/Dropbox/Projects"
   alias st="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
-  alias st2="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
   alias vlc="/Applications/VLC.app/Contents/MacOS/vlc"
+  alias chrome="open -a /Applications/Google\ Chrome.app"
   alias chrome-dev="open /Applications/Google\ Chrome\ Canary.app --args --incognito --allow-file-access-from-files --disable-web-security"
   alias update="sudo softwareupdate -i -a; sudo port selfupdate; sudo port upgrade outdated; sudo npm update -g"
-  alias salt-start="sudo salt-master -d"
-  alias salt-stop="sudo kill -TERM \`cat /var/run/salt-master.pid\`"
 # *NIX
 else
   alias st="rmate -p 2226"
@@ -58,9 +58,16 @@ alias gpsf="git push --force; git push --tags --force"
 alias gpl="git pull"
 alias gs="git status"
 alias gco="git checkout"
+alias gcb="git checkout -b"
 alias gtc="git clone -o github"
-alias gc="git commit -am"
+alias gc="git commit -m"
+
+# Grunt
+alias gtdocs="grunt docs; git add --all .; git commit -am 'chore(docs): update to latest master'; git push"
 
 # Npm
 alias npmlist="node -p \"Object.keys(JSON.parse(require('fs').readFileSync('./package.json')).dependencies).join(' ')\""
 alias npmlistdev="node -p \"Object.keys(JSON.parse(require('fs').readFileSync('./package.json')).devDependencies).join(' ')\""
+# Bower
+alias bowerlist="node -p \"Object.keys(JSON.parse(require('fs').readFileSync('./bower.json')).dependencies).join(' ')\""
+alias bowerlistdev="node -p \"Object.keys(JSON.parse(require('fs').readFileSync('./bower.json')).devDependencies).join(' ')\""
