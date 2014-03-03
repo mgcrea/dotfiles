@@ -1,16 +1,10 @@
 #!/bin/bash
 
-if [[ $OSTYPE =~ "darwin" ]]; then
-	home="/Users/`whoami`"
-else
-	home="/home/`whoami`"
-fi;
-
-p="$home/.dotfiles";
+p="$HOME/.dotfiles";
 for f in $(find $p -maxdepth 1 -mindepth 1 -type f -print0 | xargs -0); do
 	f=`basename "$f"`
 	echo "Prossessing $f"
-	ln -fs ".dotfiles/$f" "$home/$f"
+	ln -fs ".dotfiles/$f" "$HOME/$f"
 	echo "."
 done;
 
