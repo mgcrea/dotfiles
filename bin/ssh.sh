@@ -1,2 +1,8 @@
 #/bin/bash
-cat ~/.dotfiles/.ssh/authorized_keys > ~/.ssh/authorized_keys
+
+user=$(whoami)
+chown $user:$user $HOME
+cat ~/.dotfiles/.ssh/authorized_keys > $HOME/.ssh/authorized_keys
+chown -R $user:$user $HOME/.ssh
+chmod 700 $HOME/.ssh
+chmod 600 $HOME/.ssh/authorized_keys
