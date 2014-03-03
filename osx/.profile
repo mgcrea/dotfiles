@@ -13,7 +13,7 @@ export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 export PATH=/opt/local/libexec/gnubin:$PATH
 
 # Use NPM module binaries
-export PATH=~/node_modules/.bin:$PATH
+export PATH=$HOME/node_modules/.bin:$PATH
 
 # Use Android SDK tools
 export PATH="/Applications/Android Studio.app/sdk/tools":"/Applications/Android Studio.app/sdk/platform-tools":$PATH
@@ -21,17 +21,24 @@ export PATH="/Applications/Android Studio.app/sdk/tools":"/Applications/Android 
 # Use Python binaries
 export PATH="/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin":$PATH
 
-# if running bash
+# If running bash
 if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
+    # Include .bashrc if it exists
     if [ -f "$HOME/.bashrc" ]; then
         . "$HOME/.bashrc"
     fi
 fi
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
+# Set PATH so it includes user's private bin if it exists
+if [[ $OSTYPE =~ "darwin" ]]; then
+  if [ -d "$HOME/.bin" ]; then
+      PATH=$HOME/.bin:$PATH
+  fi
+# Custom *NIX
+else
+  if [ -d "$HOME/bin" ]; then
+      PATH=$HOME/bin:$PATH
+  fi
 fi
 
 # MacPorts Bash shell command completion
@@ -49,4 +56,5 @@ alias sshblk="ssh -p2222 mgcrea@beelinkapp.com -A"
 alias sshdev="ssh -p2222 mgcrea@dev.mg-crea.com -A"
 alias sshnew="ssh -p2222 mgcrea@ns3296921.ip-5-135-153.eu -A"
 function sshcol { ssh -p 2222 -A mgcrea@${1}.carlipa-online.com; }
-function sshcolp { ssh -p2222 -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no user@${*}; }
+function sshcolp { ssh -p 2222 -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no user@${*}; }
+function cgz() { cd "$1"; tar -cvzf "./../${1%/}.cgz" . --exclude "*/.tmp" --exclude "./.git" --exclude "*/node_modules"; cd ..; }

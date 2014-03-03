@@ -23,7 +23,7 @@
 
 	up = !git add . && git commit -a -m "Update." && git push
 	fw = !git branch --set-upstream
-	lg = !git log -5 --pretty=format:\"%Cred%h%Creset : %Cgreen%s%Creset : %ci : %cn\" | cat
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
 
 	ver = !git branch 2> /null | sed -e \"/^[^*]/d\" -e \"s/* \\(.*\\)/\\1/\" > version && git log --pretty=oneline --date-order | wc -l | sed \"s/^ *//g\" | sed \"s/ *$//g\"' >> version && git log -1 --pretty=format:\"%cn%n%ci%n%h\" >> version
 [diff]
