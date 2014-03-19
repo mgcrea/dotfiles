@@ -10,7 +10,7 @@ done;
 
 if [[ $OSTYPE =~ "darwin" ]]; then
 	echo "Prossessing .profile"
-	ln -fs ".dotfiles/osx/.profile" "/Users/olivier/.profile"
+	ln -fs ".dotfiles/osx/.profile" "$HOME/.profile"
 	echo "."
 	# echo "Apply osx config"
 	# bash "$p/osx/.osx"
