@@ -46,6 +46,9 @@ if [ -f /opt/local/etc/bash_completion ]; then
     . /opt/local/etc/bash_completion
 fi
 
+# Docker setup
+export DOCKER_HOST=tcp://127.0.0.1:4243
+
 # Custom aliases
 alias apache2="sudo /opt/local/apache2/bin/apachectl"
 alias cdcol="cd ~/Dropbox/Sites/carlipa-online/carlipa-online"
@@ -56,5 +59,7 @@ alias sshblk="ssh -p2222 mgcrea@beelinkapp.com -A"
 alias sshdev="ssh -p2222 mgcrea@dev.mg-crea.com -A"
 alias sshnew="ssh -p2222 mgcrea@ns3296921.ip-5-135-153.eu -A"
 function sshcol { ssh -p 2222 -A mgcrea@${1}.carlipa-online.com; }
-function sshcolp { ssh -p 2222 -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no user@${*}; }
-function cgz() { cd "$1"; tar -cvzf "./../${1%/}.cgz" . --exclude "*/.tmp" --exclude "./.git" --exclude "*/node_modules"; cd ..; }
+#function sshcolp { ssh -p 2222 -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no user@${*}; }
+function sshcolp { ssh -p 22 -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no carlipa@192.168.0.${*}; }
+function cgzapp() { cd "$1"; tar -cvzf "./../${1%/}.cgz" . --exclude ".DS_Store" --exclude "*/.tmp" --exclude "./.git" --exclude "./dist" --exclude "./admin/dist" --exclude "*/node_modules" --exclude ./test; cd ..; }
+function cgz() { cd "$1"; tar -cvzf "./../${1%/}.cgz" . --exclude ".DS_Store" --exclude "*/.tmp" --exclude "./.git" --exclude "./app" --exclude "./admin/app" --exclude "*/node_modules" --exclude ./test; cd ..; }
