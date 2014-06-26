@@ -60,6 +60,9 @@ alias npmlistdev="node -p \"Object.keys(JSON.parse(require('fs').readFileSync('.
 alias bowerlist="node -p \"Object.keys(JSON.parse(require('fs').readFileSync('./bower.json')).dependencies).join(' ')\""
 alias bowerlistdev="node -p \"Object.keys(JSON.parse(require('fs').readFileSync('./bower.json')).devDependencies).join(' ')\""
 
+# Docker
+function ssh-docker() { ssh -At docker@boot2docker ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -At root@$(docker inspect ${1} | jq -r .[0].NetworkSettings.IPAddress) $2; }
+
 # Custom OSX
 if [[ $OSTYPE =~ "darwin" ]]; then
   alias d="cd ~/Dropbox/Developer"
