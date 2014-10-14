@@ -40,6 +40,8 @@ alias gco="git checkout"
 alias gcb="git checkout -b"
 alias gtc="git clone -o github"
 alias gc="git commit -m"
+function gtp() { git add --all .; git ci -am "feat(update): ${1}"; git push; }
+function gtg() { git ci -am "chore(release): cut the ${1} release"; git tag ${1}; git push; git push --tags; npm publish; }
 
 # Ssh
 alias sshp="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
@@ -60,28 +62,34 @@ alias npmlistdev="node -p \"Object.keys(JSON.parse(require('fs').readFileSync('.
 alias bowerlist="node -p \"Object.keys(JSON.parse(require('fs').readFileSync('./bower.json')).dependencies).join(' ')\""
 alias bowerlistdev="node -p \"Object.keys(JSON.parse(require('fs').readFileSync('./bower.json')).devDependencies).join(' ')\""
 
-# Docker
-function ssh-docker() { ssh -At docker@boot2docker ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -At root@$(docker inspect ${1} | jq -r .[0].NetworkSettings.IPAddress) $2; }
-
 # Custom OSX
 if [[ $OSTYPE =~ "darwin" ]]; then
-  alias d="cd ~/Dropbox/Developer"
-  alias p="cd ~/Dropbox/Projects"
+
+  # Docker
+  function ssh-docker() { ssh -At docker@boot2docker ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -At root@$(docker inspect ${1} | jq -r .[0].NetworkSettings.IPAddress) $2; }
+
+  alias d="cd ~/DropboxBackup/Developer"
+  alias p="cd ~/DropboxBackup/Projects"
   alias st="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
   alias nw="/Applications/node-webkit.app/Contents/MacOS/node-webkit"
   alias vlc="/Applications/VLC.app/Contents/MacOS/vlc"
   alias cvlc="/Applications/VLC.app/Contents/MacOS/VLC -I dummy"
   alias chrome="open -a /Applications/Google\ Chrome.app"
-  alias chrome-dev="open /Applications/Google\ Chrome\ Canary.app --args --incognito --allow-file-access-from-files --disable-web-security"
+  alias chrome-dev="open -a /Applications/Google\ Chrome\ Canary.app --args --incognito --allow-file-access-from-files --disable-web-security"
   function open-static() { open -a /Applications/Google\ Chrome.app "http://localhost:8080"; http-server $@ -c-1; }
   alias update="sudo softwareupdate -i -a; sudo port selfupdate; sudo port upgrade outdated; sudo npm update -g"
   function dmg() { hdiutil create -volname "$(basename "$1")" -srcfolder "$1" -ov -format UDZO "$(basename "$1").dmg"; }
+
 # Custom *NIX
 else
+
+  # Docker
+  function ssh-docker() { ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -At root@$(docker inspect ${1} | jq -r .[0].NetworkSettings.IPAddress) $2; }
   function purgekernel() { sudo apt-get remove --purge $(dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d'); }
   alias st="rmate -p 2226"
   alias update="sudo apt-get update; sudo apt-get dist-upgrade -y; sudo apt-get upgrade -y; sudo npm update npm -g; sudo npm update -g"
   alias upgrade="update; sudo reboot; exit"
   alias chownwww="sudo chown -R www-data:www-data ."
   alias pbcopy="cat | nc -q0 localhost 2224"
+
 fi;

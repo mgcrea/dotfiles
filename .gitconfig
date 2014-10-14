@@ -17,6 +17,7 @@
 	sta = stash
 	cp = cherry-pick
 	
+	amend = !git ci --amend -m
 	repull = !git reset --hard && git clean -f -d && git submodule foreach 'git reset --hard && git clean -f -d' && git pull --recurse-submodules && git submodule update --init
 	subreset = !git submodule foreach "git reset --hard && git clean -f -d;"
 	subupdate = !git submodule update --init
