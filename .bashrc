@@ -41,24 +41,26 @@ esac
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+    # We have color support; assume it's compliant with Ecma-48
+    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+    # a case would tend to support setf rather than setaf.)
+    color_prompt=yes
     else
-	color_prompt=
+    color_prompt=
     fi
 fi
 
-# Git prompt support for OSX
 if [[ $OSTYPE =~ "darwin" ]]; then
-    # Homebrew
-    if [ -f "$BREW_PREFIX/etc/bash_completion.d/git-prompt.sh" ]; then
+    # Git prompt support for OSX
+    if [ -f "$BREW_PREFIX/etc/bash_completion.d/git-prompt.sh" ]; then # Homebrew
         . $BREW_PREFIX/etc/bash_completion.d/git-prompt.sh
     fi
-    # Macport
-    if [ -f "/opt/local/share/git-core/git-prompt.sh" ]; then
+    if [ -f "/opt/local/share/git-core/git-prompt.sh" ]; then # Macport
         . /opt/local/share/git-core/git-prompt.sh
+    fi
+    # Autojump for OSX
+    if [ -f "$BREW_PREFIX/etc/autojump.sh" ]; then # Homebrew
+        . $BREW_PREFIX/etc/autojump.sh
     fi
 fi
 
@@ -119,20 +121,3 @@ fi
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
-
-# enable marks
-# @url http://jeroenjanssens.com/2013/08/16/quickly-navigate-your-filesystem-from-the-command-line.html
-export MARKPATH=$HOME/.marks
-function jump {
-    cd -P $MARKPATH/$1 2>/dev/null || echo "No such mark: $1"
-}
-alias gt='jump'
-function mark {
-    mkdir -p $MARKPATH; ln -s $(pwd) $MARKPATH/$1
-}
-function unmark {
-    rm -i $MARKPATH/$1
-}
-function marks {
-    ls -l $MARKPATH | sed 's/  / /g' | cut -d' ' -f9- | sed 's/ -/\t-/g' | tail -n -1 && echo -n
-}
