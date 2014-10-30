@@ -6,17 +6,26 @@
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-# Adding an appropriate PATH variable for use with MacPorts.
-export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+# Pacakges managers
+export BREW_PREFIX=/usr/local
+export PORT_PREFIX=/opt/local
 
 # Use the GNU tools by default
-export PATH=/opt/local/libexec/gnubin:$PATH
+if [ -d "/usr/local/opt/coreutils/libexec" ]; then
+  export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+  export MANPATH=/usr/local/opt/coreutils/libexec/gnuman:$MANPATH
+fi
+if [ -d "/opt/local/libexec" ]; then
+  export PATH=$PORT_PREFIX/bin:$PORT_PREFIX/sbin:$PATH
+  export PATH=/opt/local/libexec/gnubin:$PATH
+fi
 
 # Use NPM module binaries
 export PATH=$HOME/node_modules/.bin:$PATH
 
 # Use Android SDK tools
 export PATH="/Applications/Android Studio.app/sdk/tools":"/Applications/Android Studio.app/sdk/platform-tools":$PATH
+export PATH="/Applications/Android Studio.app/sdk/build-tools/android-4.4W":$PATH
 
 # Use Python binaries
 export PATH="/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin":$PATH
@@ -30,34 +39,29 @@ if [ -n "$BASH_VERSION" ]; then
 fi
 
 # Set PATH so it includes user's private bin if it exists
-if [[ $OSTYPE =~ "darwin" ]]; then
-  if [ -d "$HOME/.bin" ]; then
-      PATH=$HOME/.bin:$PATH
-  fi
-# Custom *NIX
-else
-  if [ -d "$HOME/bin" ]; then
-      PATH=$HOME/bin:$PATH
-  fi
+if [ -d "$HOME/.bin" ]; then
+    PATH=$HOME/.bin:$PATH
+fi
+# Homebrew Bash completion
+if [ -f $BREW_PREFIX/etc/bash_completion ]; then
+  . $BREW_PREFIX/etc/bash_completion
+fi
+# Macport Bash completion
+if [ -f $PORT_PREFIX/etc/bash_completion ]; then
+    . $PORT_PREFIX/etc/bash_completion
 fi
 
-# MacPorts Bash shell command completion
-if [ -f /opt/local/etc/bash_completion ]; then
-    . /opt/local/etc/bash_completion
+# Node Version Manager
+if [ -d "$BREW_PREFIX/opt/nvm" ]; then
+  source $BREW_PREFIX/opt/nvm/nvm.sh
+  export NVM_DIR=~/.nvm
+  export PATH=$NVM_DIR/current/bin:$PATH
 fi
 
-# Docker setup
+# Docker
 export DOCKER_HOST=tcp://192.168.59.103:2375
 
 # Custom aliases
-alias apache2="sudo /opt/local/apache2/bin/apachectl"
-alias cdcol="cd ~/Dropbox/Sites/carlipa-online/carlipa-online"
-alias cdblk="cd ~/Dropbox/Sites/beelink/beelink"
-
-# Ssh aliases
-alias sshblk="ssh -p2222 mgcrea@beelinkapp.com -A"
-alias sshdev="ssh -p2222 mgcrea@dev.mg-crea.com -A"
-alias sshnew="ssh -p2222 mgcrea@ns3296921.ip-5-135-153.eu -A"
 function sshcol { ssh -p 2222 -A mgcrea@${1}.carlipa-online.com; }
 #function sshcolp { ssh -p 2222 -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no user@${*}; }
 function sshcolp { ssh -p 22 -A -L27017:127.0.0.1:27017 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no carlipa@player-${1}.local; }
