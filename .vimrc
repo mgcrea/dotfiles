@@ -40,4 +40,3 @@ filetype plugin indent on    " required
 set encoding=utf-8
 set number
 set background=dark
-colorscheme base16-default

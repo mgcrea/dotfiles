@@ -11,21 +11,21 @@ export BREW_PREFIX=/usr/local
 export PORT_PREFIX=/opt/local
 
 # Use the GNU tools by default
-if [ -d "/usr/local/opt/coreutils/libexec" ]; then
-  export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
-  export MANPATH=/usr/local/opt/coreutils/libexec/gnuman:$MANPATH
+if [ -d "$BREW_PREFIX/opt/coreutils/libexec" ]; then
+  export PATH=$BREW_PREFIX/opt/coreutils/libexec/gnubin:$PATH
+  export MANPATH=$BREW_PREFIX/opt/coreutils/libexec/gnuman:$MANPATH
 fi
-if [ -d "/opt/local/libexec" ]; then
+if [ -d "$PORT_PREFIX/libexec" ]; then
   export PATH=$PORT_PREFIX/bin:$PORT_PREFIX/sbin:$PATH
-  export PATH=/opt/local/libexec/gnubin:$PATH
+  export PATH=$PORT_PREFIX/libexec/gnubin:$PATH
 fi
 
 # Use NPM module binaries
 export PATH=$HOME/node_modules/.bin:$PATH
 
 # Use Android SDK tools
-export PATH="/Applications/Android Studio.app/sdk/tools":"/Applications/Android Studio.app/sdk/platform-tools":$PATH
-export PATH="/Applications/Android Studio.app/sdk/build-tools/android-4.4W":$PATH
+export PATH=$HOME/Library/Android/sdk/tools:$HOME/Library/Android/sdk/platform-tools:$PATH
+# export PATH="/Applications/Android Studio.app/sdk/build-tools/android-4.4W":$PATH
 
 # Use Python binaries
 export PATH="/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin":$PATH
@@ -59,10 +59,12 @@ if [ -d "$BREW_PREFIX/opt/nvm" ]; then
 fi
 
 # Docker
-export DOCKER_HOST=tcp://192.168.59.103:2375
+export DOCKER_HOST=tcp://192.168.59.103:2376
+export DOCKER_CERT_PATH=$HOME/.boot2docker/certs/boot2docker-vm
+export DOCKER_TLS_VERIFY=1
 
 # Custom aliases
-function sshcol { ssh -p 2222 -A mgcrea@${1}.carlipa-online.com; }
+function sshcol { ssh ${1}.carlipa-online.com; }
 #function sshcolp { ssh -p 2222 -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no user@${*}; }
 function sshcolp { ssh -p 22 -A -L27017:127.0.0.1:27017 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no carlipa@player-${1}.local; }
 function sshcoltp() { ssh -At root@tesla.local ssh -p 22 -L27017:127.0.0.1:27017 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -At carlipa@player-${1}.local; }

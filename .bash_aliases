@@ -68,8 +68,8 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   # Docker
   function ssh-docker() { ssh -At docker@boot2docker ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -At root@$(docker inspect ${1} | jq -r .[0].NetworkSettings.IPAddress) $2; }
 
-  alias d="cd ~/Dropbox/Developer"
-  alias p="cd ~/Dropbox/Projects"
+  alias d="cd ~/Developer"
+  alias p="cd ~/Projects"
   alias st="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
   alias nw="/Applications/node-webkit.app/Contents/MacOS/node-webkit"
   alias vlc="/Applications/VLC.app/Contents/MacOS/vlc"
