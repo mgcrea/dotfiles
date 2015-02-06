@@ -27,9 +27,9 @@ alias tf="tail -fn200"
 alias h?="history | grep"
 
 # Rights
-alias chmod644="sudo chmod -R 644 ./; sudo find ./ -type d -exec chmod 0755 {} \;"
-alias chmod660="sudo chmod -R 660 ./; sudo find ./ -type d -exec chmod 0770 {} \;"
-alias chmod600="sudo chmod -R 600 ./; sudo find ./ -type d -exec chmod 0700 {} \;"
+alias chmod644="chmod -R u+rwX,go+rX,go-w"
+alias chmod660="chmod -R ug+rwX,o-rwx"
+alias chmod600="chmod -R u+rwX,go-rwx"
 
 # Git
 alias gps="git push; git push --tags"

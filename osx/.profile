@@ -66,8 +66,8 @@ export DOCKER_TLS_VERIFY=1
 # Custom aliases
 function sshcol { ssh ${1}.carlipa-online.com; }
 #function sshcolp { ssh -p 2222 -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no user@${*}; }
-function sshcolp { ssh -p 22 -A -L27017:127.0.0.1:27017 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no carlipa@player-${1}.local; }
-function sshcoltp() { ssh -At root@tesla.local ssh -p 22 -L27017:127.0.0.1:27017 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -At carlipa@player-${1}.local; }
+function sshcolp { ssh -p 22 -A -L9222:127.0.0.1:9222 -L27017:127.0.0.1:27017 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no carlipa@player-${1}.local; }
+function sshcoltp() { ssh -At root@tesla.local ssh -p 22 -L9222:127.0.0.1:9222 -L27017:127.0.0.1:27017 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -At carlipa@player-${1}.local; }
 function cgzapp() { cd "$1"; tar -cvzf "./../${1%/}.cgz" . --exclude ".DS_Store" --exclude "*/.tmp" --exclude "./.git" --exclude "./dist" --exclude "./admin/dist" --exclude "*/node_modules" --exclude ./test; cd ..; }
 function cgz() { cd "$1"; tar -cvzf "./../${1%/}.cgz" . --exclude ".DS_Store" --exclude "*/.tmp" --exclude "./.git" --exclude "./app" --exclude "./admin/app" --exclude "*/node_modules" --exclude ./test; cd ..; }
 function cgtw() { sudo route delete default; sudo route add default 192.168.0.23; }
