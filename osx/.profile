@@ -53,8 +53,8 @@ fi
 
 # Node Version Manager
 if [ -d "$BREW_PREFIX/opt/nvm" ]; then
-  source $BREW_PREFIX/opt/nvm/nvm.sh
   export NVM_DIR=~/.nvm
+  source $BREW_PREFIX/opt/nvm/nvm.sh
   export PATH=$NVM_DIR/current/bin:$PATH
 fi
 
@@ -65,8 +65,10 @@ export DOCKER_TLS_VERIFY=1
 
 # Custom aliases
 function sshcol { ssh ${1}.carlipa-online.com; }
+function sshcio { ssh ${1}.carlipa.io; }
 #function sshcolp { ssh -p 2222 -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no user@${*}; }
-function sshcolp { ssh -p 22 -A -L9222:127.0.0.1:9222 -L27017:127.0.0.1:27017 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no carlipa@player-${1}.local; }
+function sshcolp { sshc; ssh -p 22 -A -L5900:127.0.0.1:5900 -L8080:127.0.0.1:8080 -L9080:127.0.0.1:9080 -L9222:127.0.0.1:9222 -L27017:127.0.0.1:27017 -L6379:127.0.0.1:6379 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no carlipa@player-${1}.local; }
+function sshcols { sshc; ssh -p 22 -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no carlipa@server-${1}.local; }
 function sshcoltp() { ssh -At root@tesla.local ssh -p 22 -L9222:127.0.0.1:9222 -L27017:127.0.0.1:27017 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -At carlipa@player-${1}.local; }
 function cgzapp() { cd "$1"; tar -cvzf "./../${1%/}.cgz" . --exclude ".DS_Store" --exclude "*/.tmp" --exclude "./.git" --exclude "./dist" --exclude "./admin/dist" --exclude "*/node_modules" --exclude ./test; cd ..; }
 function cgz() { cd "$1"; tar -cvzf "./../${1%/}.cgz" . --exclude ".DS_Store" --exclude "*/.tmp" --exclude "./.git" --exclude "./app" --exclude "./admin/app" --exclude "*/node_modules" --exclude ./test; cd ..; }

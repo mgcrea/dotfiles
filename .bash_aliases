@@ -9,7 +9,7 @@ alias la="ls --color=auto -la"
 alias l="ls --color=auto -CF"
 function mkd() { mkdir -p "$@" && cd "$_"; }
 function cdw() { cd "/srv/www/$1"; }
-function tgz() { cd "$1"; tar -cvzf "./../${1%/}.tgz" .; cd ..; }
+function tgz() { cd "$1"; tar --exclude=.DS_Store -cvzf "./../${1%/}.tgz" .; cd ..; }
 
 # Miscellaneous
 alias c="clear"
@@ -44,6 +44,7 @@ function gtp() { git add --all .; git ci -am "feat(update): ${1}"; git push; }
 function gtg() { git ci -am "chore(release): cut the ${1} release"; git tag ${1}; git push; git push --tags; npm publish; }
 
 # Ssh
+alias sshc="cat ~/.ssh/conf.d/* > ~/.ssh/config"
 alias sshp="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
 # Dev
@@ -52,6 +53,7 @@ alias static-py="python -m SimpleHTTPServer"
 alias static-dev="http-server -c-1"
 alias gtdocs="grunt docs; git add --all .; git commit -am 'chore(docs): update to latest master'; git push"
 alias docker-clean="docker rm \`docker ps -a -q\`; docker rmi \`docker images | awk '/^<none>/ { print $3 }'\`"
+alias cdvp="cd cordova; cordova prepare; cd -"
 alias scan-local="sudo nmap -sP -n 192.168.0.0/24"
 
 # Npm
@@ -76,6 +78,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   alias cvlc="/Applications/VLC.app/Contents/MacOS/VLC -I dummy"
   alias chrome="open -a /Applications/Google\ Chrome.app"
   alias chrome-dev="open -a /Applications/Google\ Chrome\ Canary.app --args --incognito --allow-file-access-from-files --disable-web-security"
+  function marked() { open -a /Applications/Marked\ 2.app/Contents/MacOS/Marked\ 2 "`pwd`/$1"; }
   function open-static() { open -a /Applications/Google\ Chrome.app "http://localhost:8080"; http-server $@ -c-1; }
   alias update="sudo softwareupdate -i -a; sudo port selfupdate; sudo port upgrade outdated; sudo npm update -g"
   function dmg() { hdiutil create -volname "$(basename "$1")" -srcfolder "$1" -ov -format UDZO "$(basename "$1").dmg"; }
