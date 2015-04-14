@@ -53,6 +53,7 @@ alias static-py="python -m SimpleHTTPServer"
 alias static-dev="http-server -c-1"
 alias gtdocs="grunt docs; git add --all .; git commit -am 'chore(docs): update to latest master'; git push"
 alias docker-clean="docker rm \`docker ps -a -q\`; docker rmi \`docker images | awk '/^<none>/ { print $3 }'\`"
+function docker-ip() { docker inspect ${1} | jq -r .[0].NetworkSettings.IPAddress; }
 alias cdvp="cd cordova; cordova prepare; cd -"
 alias scan-local="sudo nmap -sP -n 192.168.0.0/24"
 
@@ -78,6 +79,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   alias cvlc="/Applications/VLC.app/Contents/MacOS/VLC -I dummy"
   alias chrome="open -a /Applications/Google\ Chrome.app"
   alias chrome-dev="open -a /Applications/Google\ Chrome\ Canary.app --args --incognito --allow-file-access-from-files --disable-web-security"
+  alias flushdns="sudo discoveryutil mdnsflushcache"
   function marked() { open -a /Applications/Marked\ 2.app/Contents/MacOS/Marked\ 2 "`pwd`/$1"; }
   function open-static() { open -a /Applications/Google\ Chrome.app "http://localhost:8080"; http-server $@ -c-1; }
   alias update="sudo softwareupdate -i -a; sudo port selfupdate; sudo port upgrade outdated; sudo npm update -g"
