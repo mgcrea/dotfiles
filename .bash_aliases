@@ -49,6 +49,7 @@ alias sshp="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
 # Dev
 alias json="python -mjson.tool"
+alias post-json="curl -X POST -H \"Content-Type: application/json\" -d"
 alias static-py="python -m SimpleHTTPServer"
 alias static-dev="http-server -c-1"
 alias gtdocs="grunt docs; git add --all .; git commit -am 'chore(docs): update to latest master'; git push"
@@ -56,6 +57,7 @@ alias docker-clean="docker rm \`docker ps -a -q\`; docker rmi \`docker images | 
 function docker-ip() { docker inspect ${1} | jq -r .[0].NetworkSettings.IPAddress; }
 alias cdvp="cd cordova; cordova prepare; cd -"
 alias scan-local="sudo nmap -sP -n 192.168.0.0/24"
+alias lgulp="node_modules/.bin/gulp"
 
 # Npm
 alias npmlist="node -p \"Object.keys(JSON.parse(require('fs').readFileSync('./package.json')).dependencies).join(' ')\""
