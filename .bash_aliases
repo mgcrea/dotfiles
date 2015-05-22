@@ -46,18 +46,21 @@ function gtg() { git ci -am "chore(release): cut the ${1} release"; git tag ${1}
 # Ssh
 alias sshc="cat ~/.ssh/conf.d/* > ~/.ssh/config"
 alias sshp="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+alias sshpw="sshp -o PreferredAuthentications=password -o PubkeyAuthentication=no"
 
 # Dev
 alias json="python -mjson.tool"
 alias post-json="curl -X POST -H \"Content-Type: application/json\" -d"
 alias static-py="python -m SimpleHTTPServer"
 alias static-dev="http-server -c-1"
-alias gtdocs="grunt docs; git add --all .; git commit -am 'chore(docs): update to latest master'; git push"
+function release-pages() { git checkout -b tmp; git branch -D gh-pages; git checkout --orphan gh-pages; git add --all .; git ci -am "docs(release): build docs pages"; git push github gh-pages:gh-pages --force; git branch -D tmp; }
 alias docker-clean="docker rm \`docker ps -a -q\`; docker rmi \`docker images | awk '/^<none>/ { print $3 }'\`"
 function docker-ip() { docker inspect ${1} | jq -r .[0].NetworkSettings.IPAddress; }
 alias cdvp="cd cordova; cordova prepare; cd -"
-alias scan-local="sudo nmap -sP -n 192.168.0.0/24"
+alias scan-local="sudo nmap -sP -n $@"
 alias lgulp="node_modules/.bin/gulp"
+alias apb="ansible-playbook -i inventory playbook.yml"
+alias apbp="ansible-playbook -i inventory_production playbook.yml"
 
 # Npm
 alias npmlist="node -p \"Object.keys(JSON.parse(require('fs').readFileSync('./package.json')).dependencies).join(' ')\""
@@ -81,7 +84,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   alias cvlc="/Applications/VLC.app/Contents/MacOS/VLC -I dummy"
   alias chrome="open -a /Applications/Google\ Chrome.app"
   alias chrome-dev="open -a /Applications/Google\ Chrome\ Canary.app --args --incognito --allow-file-access-from-files --disable-web-security"
-  alias flushdns="sudo discoveryutil mdnsflushcache"
+  function flushdn() { sudo discoveryutil mdnsflushcache; sudo discoveryutil udnsflushcaches; }
   function marked() { open -a /Applications/Marked\ 2.app/Contents/MacOS/Marked\ 2 "`pwd`/$1"; }
   function open-static() { open -a /Applications/Google\ Chrome.app "http://localhost:8080"; http-server $@ -c-1; }
   alias update="sudo softwareupdate -i -a; sudo port selfupdate; sudo port upgrade outdated; sudo npm update -g"
