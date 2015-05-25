@@ -7,6 +7,8 @@ alias vdir="ls --color=auto --format=long"
 alias ll="ls --color=auto -lh"
 alias la="ls --color=auto -la"
 alias l="ls --color=auto -CF"
+alias rscp='rsync -aP'
+alias rsmv='rsync -aP --remove-source-files'
 function mkd() { mkdir -p "$@" && cd "$_"; }
 function cdw() { cd "/srv/www/$1"; }
 function tgz() { cd "$1"; tar --exclude=.DS_Store -cvzf "./../${1%/}.tgz" .; cd ..; }
