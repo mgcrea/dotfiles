@@ -66,7 +66,8 @@ fi
 
 if [ "$color_prompt" = yes ]; then
     if [[ $OSTYPE =~ "darwin" ]]; then
-        PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\w\[\033[01;33m\]$(__git_ps1 "@%s")\[\033[00m\]\$ '
+        #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\w\[\033[01;33m\]$(__git_ps1 "@%s")\[\033[00m\]\$ '
+        PS1='\[\033[01;36m\]λ\[\033[00m\] \[\033[01;32m\]\w\[\033[00m\]\[\033[01;33m\]$(__git_ps1 " (%s)")\[\033[00m\]\n➜\[\033[00m\] '
     else
         PS1='${debian_chroot:+($debian_chroot)}\[\033[01;36m\]\u@\h\[\033[00m\]:\w\[\033[01;33m\]$(__git_ps1 "@%s")\[\033[00m\]\$ '
     fi
@@ -120,4 +121,9 @@ fi
 # sources /etc/bash.bashrc).
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
+fi
+
+export NVM_DIR="$HOME/.nvm"
+if [ -f "$NVM_DIR/nvm.sh" ]; then
+    . "$NVM_DIR/nvm.sh"
 fi

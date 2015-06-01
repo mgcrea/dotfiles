@@ -43,7 +43,8 @@ alias gcb="git checkout -b"
 alias gtc="git clone -o github"
 alias gc="git commit -m"
 function gtp() { git add --all .; git ci -am "feat(update): ${1}"; git push; }
-function gtg() { git ci -am "chore(release): cut the ${1} release"; git tag ${1}; git push; git push --tags; npm publish; }
+function gtg() { git ci -am "chore(release): cut the `cat package.json | jq -r .version` release"; git tag `cat package.json | jq -r .version`; git push; git push --tags; npm publish; }
+function gtpg() { git checkout -b tmp; git branch -D gh-pages; git checkout --orphan gh-pages; git add --all .; git ci -am "docs(release): build `cat ./../package.json | jq -r .version` docs pages"; git push github gh-pages:gh-pages --force; git branch -D tmp; }
 
 # Ssh
 alias sshc="cat ~/.ssh/conf.d/* > ~/.ssh/config"
@@ -55,18 +56,22 @@ alias json="python -mjson.tool"
 alias post-json="curl -X POST -H \"Content-Type: application/json\" -d"
 alias static-py="python -m SimpleHTTPServer"
 alias static-dev="http-server -c-1"
-function release-pages() { git checkout -b tmp; git branch -D gh-pages; git checkout --orphan gh-pages; git add --all .; git ci -am "docs(release): build docs pages"; git push github gh-pages:gh-pages --force; git branch -D tmp; }
-alias docker-clean="docker rm \`docker ps -a -q\`; docker rmi \`docker images | awk '/^<none>/ { print $3 }'\`"
-function docker-ip() { docker inspect ${1} | jq -r .[0].NetworkSettings.IPAddress; }
 alias cdvp="cd cordova; cordova prepare; cd -"
 alias scan-local="sudo nmap -sP -n $@"
 alias lgulp="node_modules/.bin/gulp"
+
+# Docker
+alias docker-clean="docker rm \`docker ps -a -q\`; docker rmi \`docker images | awk '/^<none>/ { print $3 }'\`"
+function docker-ip() { docker inspect ${1} | jq -r .[0].NetworkSettings.IPAddress; }
+
+# Ansible
 alias apb="ansible-playbook -i inventory playbook.yml"
 alias apbp="ansible-playbook -i inventory_production playbook.yml"
 
 # Npm
 alias npmlist="node -p \"Object.keys(JSON.parse(require('fs').readFileSync('./package.json')).dependencies).join(' ')\""
 alias npmlistdev="node -p \"Object.keys(JSON.parse(require('fs').readFileSync('./package.json')).devDependencies).join(' ')\""
+alias cnpm="npm --registry=https://registry.npm.taobao.org --cache=$HOME/.npm/.cache/cnpm --disturl=https://npm.taobao.org/dist --userconfig=$HOME/.cnpmrc"
 
 # Bower
 alias bowerlist="node -p \"Object.keys(JSON.parse(require('fs').readFileSync('./bower.json')).dependencies).join(' ')\""
@@ -86,7 +91,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   alias cvlc="/Applications/VLC.app/Contents/MacOS/VLC -I dummy"
   alias chrome="open -a /Applications/Google\ Chrome.app"
   alias chrome-dev="open -a /Applications/Google\ Chrome\ Canary.app --args --incognito --allow-file-access-from-files --disable-web-security"
-  function flushdn() { sudo discoveryutil mdnsflushcache; sudo discoveryutil udnsflushcaches; }
+  function flushdns() { sudo discoveryutil mdnsflushcache; sudo discoveryutil udnsflushcaches; }
   function marked() { open -a /Applications/Marked\ 2.app/Contents/MacOS/Marked\ 2 "`pwd`/$1"; }
   function open-static() { open -a /Applications/Google\ Chrome.app "http://localhost:8080"; http-server $@ -c-1; }
   alias update="sudo softwareupdate -i -a; sudo port selfupdate; sudo port upgrade outdated; sudo npm update -g"

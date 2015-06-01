@@ -27,9 +27,6 @@ export PATH=$HOME/node_modules/.bin:$PATH
 export PATH=$HOME/Library/Android/sdk/tools:$HOME/Library/Android/sdk/platform-tools:$PATH
 # export PATH="/Applications/Android Studio.app/sdk/build-tools/android-4.4W":$PATH
 
-# Use Python binaries
-export PATH="/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin":$PATH
-
 # If running bash
 if [ -n "$BASH_VERSION" ]; then
     # Include .bashrc if it exists
@@ -59,9 +56,9 @@ if [ -d "$BREW_PREFIX/opt/nvm" ]; then
 fi
 
 # Docker
-export DOCKER_HOST=tcp://192.168.59.103:2376
-export DOCKER_CERT_PATH=$HOME/.boot2docker/certs/boot2docker-vm
 export DOCKER_TLS_VERIFY=1
+export DOCKER_HOST=tcp://192.168.59.104:2376
+export DOCKER_CERT_PATH=$HOME/.boot2docker/certs/boot2docker-vm
 
 # Custom aliases
 function sshcol { ssh ${1}.carlipa-online.com; }
