@@ -47,7 +47,7 @@ function gtg() { git ci -am "chore(release): cut the `cat package.json | jq -r .
 function gtpg() { git checkout -b tmp; git branch -D gh-pages; git checkout --orphan gh-pages; git add --all .; git ci -am "docs(release): build `cat ./../package.json | jq -r .version` docs pages"; git push github gh-pages:gh-pages --force; git branch -D tmp; }
 
 # Ssh
-alias sshc="cat ~/.ssh/conf.d/* > ~/.ssh/config"
+alias sshc="find ~/.ssh/conf.d -type f ! -name .DS_Store ! -name README.md ! -wholename '*.git*' -print0 | xargs -0 -I file cat file > ~/.ssh/config"
 alias sshp="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 alias sshpw="sshp -o PreferredAuthentications=password -o PubkeyAuthentication=no"
 
@@ -82,6 +82,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 
   # Docker
   function ssh-docker() { ssh -At docker@boot2docker ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -At root@$(docker inspect ${1} | jq -r .[0].NetworkSettings.IPAddress) $2; }
+  function docker-ls { docker inspect --format='{{.Name}}' $(docker ps -aq --no-trunc) | cut -c2-; }
 
   alias d="cd ~/Developer"
   alias p="cd ~/Projects"
@@ -96,12 +97,16 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   function open-static() { open -a /Applications/Google\ Chrome.app "http://localhost:8080"; http-server $@ -c-1; }
   alias update="sudo softwareupdate -i -a; sudo port selfupdate; sudo port upgrade outdated; sudo npm update -g"
   function dmg() { hdiutil create -volname "$(basename "$1")" -srcfolder "$1" -ov -format UDZO "$(basename "$1").dmg"; }
+  alias lscolp="dns-sd -B _http._tcp"
+  alias lsavahi="dns-sd -B _services._dns-sd._udp"
 
 # Custom *NIX
 else
 
   # Docker
   function ssh-docker() { ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -At root@$(docker inspect ${1} | jq -r .[0].NetworkSettings.IPAddress) $2; }
+  function docker-ls { docker inspect --format='{{.Name}}' $(sudo docker ps -aq --no-trunc) | cut -c2-; }
+
   function purgekernel() { sudo apt-get remove --purge $(dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d'); }
   alias st="rmate -p 2226"
   alias update="sudo apt-get update; sudo apt-get dist-upgrade -y; sudo apt-get upgrade -y; sudo npm update npm -g; sudo npm update -g"
