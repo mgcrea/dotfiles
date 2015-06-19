@@ -47,7 +47,7 @@ function gtg() { git ci -am "chore(release): cut the `cat package.json | jq -r .
 function gtpg() { git checkout -b tmp; git branch -D gh-pages; git checkout --orphan gh-pages; git add --all .; git ci -am "docs(release): build `cat ./../package.json | jq -r .version` docs pages"; git push github gh-pages:gh-pages --force; git branch -D tmp; }
 
 # Ssh
-alias sshc="find ~/.ssh/conf.d -type f ! -name .DS_Store ! -name README.md ! -wholename '*.git*' -print0 | xargs -0 -I file cat file > ~/.ssh/config"
+alias sshc="find ~/.ssh/conf.d -type f -name '*.conf' -print0 | xargs -0 -I file cat file > ~/.ssh/config"
 alias sshp="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 alias sshpw="sshp -o PreferredAuthentications=password -o PubkeyAuthentication=no"
 
