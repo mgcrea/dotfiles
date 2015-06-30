@@ -104,6 +104,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 else
 
   # Docker
+  alias d="cd /opt/docker"
   function ssh-docker() { ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -At root@$(docker inspect ${1} | jq -r .[0].NetworkSettings.IPAddress) $2; }
   function docker-ls { docker inspect --format='{{.Name}}' $(sudo docker ps -aq --no-trunc) | cut -c2-; }
 
