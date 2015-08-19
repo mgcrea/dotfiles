@@ -62,6 +62,10 @@ if [[ $OSTYPE =~ "darwin" ]]; then
     if [ -f "$BREW_PREFIX/etc/autojump.sh" ]; then # Homebrew
         . $BREW_PREFIX/etc/autojump.sh
     fi
+else
+    if [ -f "/usr/lib/git-core/git-sh-prompt" ]; then # Debian
+        . /usr/lib/git-core/git-sh-prompt
+    fi
 fi
 
 if [ "$color_prompt" = yes ]; then
@@ -72,9 +76,6 @@ if [ "$color_prompt" = yes ]; then
         PS1='${debian_chroot:+($debian_chroot)}\[\033[01;36m\]\u@\h\[\033[00m\]:\w\[\033[01;33m\]$(__git_ps1 "@%s")\[\033[00m\]\$ '
     fi
 else
-    if [ -f "/usr/lib/git-core/git-sh-prompt" ]; then # Debian
-        . /usr/lib/git-core/git-sh-prompt
-    fi
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w$(__git_ps1 "@%s")\$ '
 fi
 unset color_prompt force_color_prompt
