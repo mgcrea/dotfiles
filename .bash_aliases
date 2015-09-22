@@ -12,6 +12,7 @@ alias rsmv='rsync -aP --remove-source-files'
 function mkd() { mkdir -p "$@" && cd "$_"; }
 function cdw() { cd "/srv/www/$1"; }
 function tgz() { cd "$1"; tar --exclude=.DS_Store -cvzf "./../${1%/}.tgz" .; cd ..; }
+function fdir() { find . -maxdepth 1 -mindepth 1 -type d -print0 | xargs -0 -I '{}' sh -c "cd {}; $@; cd -"; }
 
 # Miscellaneous
 alias c="clear"
@@ -43,13 +44,15 @@ alias gcb="git checkout -b"
 alias gtc="git clone -o github"
 alias gc="git commit -m"
 function gtp() { git add --all .; git ci -am "feat(update): ${1}"; git push; }
-function gtg() { git ci -am "chore(release): cut the `cat package.json | jq -r .version` release"; git tag `cat package.json | jq -r .version`; git push; git push --tags; npm publish; }
+function gtg() { git ci -am "chore(release): cut the `cat package.json | jq -r .version` release"; git tag v`cat package.json | jq -r .version`; git push; git push --tags; npm publish; }
 function gtpg() { git checkout -b tmp; git branch -D gh-pages; git checkout --orphan gh-pages; git add --all .; git ci -am "docs(release): build `cat ./../package.json | jq -r .version` docs pages"; git push github gh-pages:gh-pages --force; git branch -D tmp; }
+function gtpm() { git checkout -b tmp; git branch -D master; git checkout --orphan master; git add --all .; git ci -am "chore(release): build `cat ./../package.json | jq -r .version`"; git push github master:master --force; git branch -D tmp; }
 
 # Ssh
 alias sshc="find ~/.ssh/conf.d -type f -name '*.conf' -print0 | xargs -0 -I file cat file > ~/.ssh/config"
 alias sshp="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 alias sshpw="sshp -o PreferredAuthentications=password -o PubkeyAuthentication=no"
+alias clean-hosts="sed '/^192/ d' -i ~/.ssh/known_hosts; sed '/^player-/ d' -i ~/.ssh/known_hosts; sed '/^10/ d' -i ~/.ssh/known_hosts"
 
 # Dev
 alias json="python -mjson.tool"
@@ -58,7 +61,7 @@ alias static-py="python -m SimpleHTTPServer"
 alias static-dev="http-server -c-1"
 alias cdvp="cd cordova; cordova prepare; cd -"
 alias scan-local="sudo nmap -sP -n $@"
-alias lgulp="node_modules/.bin/gulp"
+function lgulp() { $(npm bin)/gulp $@; }
 
 # Docker
 alias docker-clean="docker rm \`docker ps -a -q\`; docker rmi \`docker images | awk '/^<none>/ { print $3 }'\`"
@@ -83,6 +86,9 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   # Docker
   function ssh-docker() { ssh -At docker@boot2docker ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -At root@$(docker inspect ${1} | jq -r .[0].NetworkSettings.IPAddress) $2; }
   function docker-ls { docker inspect --format='{{.Name}}' $(docker ps -aq --no-trunc) | cut -c2-; }
+
+  # Homebrew
+  alias bubu="brew update && brew upgrade"
 
   alias d="cd ~/Developer"
   alias p="cd ~/Projects"

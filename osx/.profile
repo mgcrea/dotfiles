@@ -11,6 +11,9 @@ export BREW_PREFIX=/usr/local
 export PORT_PREFIX=/opt/local
 
 # Use the GNU tools by default
+if [ -d "$BREW_PREFIX/bin" ]; then
+  export PATH=$BREW_PREFIX/bin:$BREW_PREFIX/sbin:$PATH
+fi
 if [ -d "$BREW_PREFIX/opt/coreutils/libexec" ]; then
   export PATH=$BREW_PREFIX/opt/coreutils/libexec/gnubin:$PATH
   export MANPATH=$BREW_PREFIX/opt/coreutils/libexec/gnuman:$MANPATH
@@ -50,15 +53,16 @@ fi
 
 # Node Version Manager
 if [ -d "$BREW_PREFIX/opt/nvm" ]; then
-  export NVM_DIR=~/.nvm
+  export NVM_DIR=$HOME/.nvm
   source $BREW_PREFIX/opt/nvm/nvm.sh
-  export PATH=$NVM_DIR/current/bin:$PATH
+  export PATH=$(dirname $(which node)):$PATH
 fi
 
 # Docker
 export DOCKER_TLS_VERIFY=1
 export DOCKER_HOST=tcp://192.168.59.103:2376
 export DOCKER_CERT_PATH=$HOME/.boot2docker/certs/boot2docker-vm
+export GOPATH=$HOME/.go
 
 # Custom aliases
 function sshcol { ssh ${1}.carlipa-online.com; }
@@ -69,4 +73,4 @@ function sshcols { sshc; ssh -p 22 -A -o UserKnownHostsFile=/dev/null -o StrictH
 function sshcoltp() { ssh -At root@tesla.local ssh -p 22 -L9222:127.0.0.1:9222 -L27017:127.0.0.1:27017 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -At carlipa@player-${1}.local; }
 function cgzapp() { cd "$1"; tar -cvzf "./../${1%/}.cgz" . --exclude ".DS_Store" --exclude "*/.tmp" --exclude "./.git" --exclude "./dist" --exclude "./admin/dist" --exclude "*/node_modules" --exclude ./test; cd ..; }
 function cgz() { cd "$1"; tar -cvzf "./../${1%/}.cgz" . --exclude ".DS_Store" --exclude "*/.tmp" --exclude "./.git" --exclude "./app" --exclude "./admin/app" --exclude "*/node_modules" --exclude ./test; cd ..; }
-function cgtw() { sudo route delete default; sudo route add default 192.168.0.23; }
+function cgtw() { sudo route delete default; sudo route add default 192.168.0.${1:-23}; }
