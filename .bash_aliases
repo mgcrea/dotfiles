@@ -30,9 +30,9 @@ alias tf="tail -fn200"
 alias h?="history | grep"
 
 # Rights
-alias chmod644="chmod -R u+rwX,go+rX,go-w"
-alias chmod660="chmod -R ug+rwX,o-rwx"
-alias chmod600="chmod -R u+rwX,go-rwx"
+function chmod644() { chmod -R u+rwX,go+rX,go-w ${1:-*}; }
+function chmod660() { chmod -R ug+rwX,o-rwx ${1:-*}; }
+function chmod600() { chmod -R u+rwX,go-rwx ${1:-*}; }
 
 # Git
 alias gps="git push; git push --tags"
@@ -118,7 +118,7 @@ else
   alias st="rmate -p 2226"
   alias update="sudo apt-get update; sudo apt-get dist-upgrade -y; sudo apt-get upgrade -y; sudo npm update npm -g; sudo npm update -g"
   alias upgrade="update; sudo reboot; exit"
-  alias chownwww="sudo chown -R www-data:www-data ."
+  function chownwww() { sudo chown -R www-data:www-data ${1:-*}; }
   alias pbcopy="cat | nc -q0 localhost 2224"
 
 fi;
