@@ -66,6 +66,10 @@ if [[ $OSTYPE =~ "darwin" ]]; then
     if [ -f "$BREW_PREFIX/etc/autojump.sh" ]; then # Homebrew
         . $BREW_PREFIX/etc/autojump.sh
     fi
+else
+    if [ -f "/usr/lib/git-core/git-sh-prompt" ]; then # Debian
+        . /usr/lib/git-core/git-sh-prompt
+    fi
 fi
 
 if [ "$color_prompt" = yes ]; then
