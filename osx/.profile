@@ -58,12 +58,6 @@ if [ -d "$BREW_PREFIX/opt/nvm" ]; then
   export PATH=$(dirname $(which node)):$PATH
 fi
 
-# Docker
-export DOCKER_TLS_VERIFY=1
-export DOCKER_HOST=tcp://192.168.59.103:2376
-export DOCKER_CERT_PATH=$HOME/.boot2docker/certs/boot2docker-vm
-export GOPATH=$HOME/.go
-
 # Custom aliases
 function sshcol { ssh ${1}.carlipa-online.com; }
 function sshcio { ssh ${1}.carlipa.io; }
