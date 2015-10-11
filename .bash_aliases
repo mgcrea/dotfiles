@@ -61,6 +61,7 @@ alias static-py="python -m SimpleHTTPServer"
 alias static-dev="http-server -c-1"
 alias cdvp="cd cordova; cordova prepare; cd -"
 alias scan-local="sudo nmap -sP -n $@"
+alias nbu="ncu -m bower"
 function lgulp() { $(npm bin)/gulp $@; }
 
 # Docker
@@ -83,7 +84,12 @@ alias bowerlistdev="node -p \"Object.keys(JSON.parse(require('fs').readFileSync(
 # Custom OSX
 if [[ $OSTYPE =~ "darwin" ]]; then
 
+  # Finder
+  alias show-files='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
+  alias hide-files='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+
   # Docker
+  alias boot2docker="bash --login '/Applications/Docker/Docker Quickstart Terminal.app/Contents/Resources/Scripts/start.sh'"
   function ssh-docker() { ssh -At docker@boot2docker ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -At root@$(docker inspect ${1} | jq -r .[0].NetworkSettings.IPAddress) $2; }
   function docker-ls { docker inspect --format='{{.Name}}' $(docker ps -aq --no-trunc) | cut -c2-; }
 
@@ -98,10 +104,12 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   alias cvlc="/Applications/VLC.app/Contents/MacOS/VLC -I dummy"
   alias chrome="open -a /Applications/Google\ Chrome.app"
   alias chrome-dev="open -a /Applications/Google\ Chrome\ Canary.app --args --incognito --allow-file-access-from-files --disable-web-security"
-  function flushdns() { sudo discoveryutil mdnsflushcache; sudo discoveryutil udnsflushcaches; }
+  function flushdnsnew() { sudo discoveryutil mdnsflushcache; sudo discoveryutil udnsflushcaches; }
+  function flushdns() { dscacheutil -flushcache; sudo killall -HUP mDNSResponder; }
   function marked() { open -a /Applications/Marked\ 2.app/Contents/MacOS/Marked\ 2 "`pwd`/$1"; }
   function open-static() { open -a /Applications/Google\ Chrome.app "http://localhost:8080"; http-server $@ -c-1; }
   alias update="sudo softwareupdate -i -a; sudo port selfupdate; sudo port upgrade outdated; sudo npm update -g"
+  function chownwww() { sudo chown -R `whoami`:staff ${1:-*}; }
   function dmg() { hdiutil create -volname "$(basename "$1")" -srcfolder "$1" -ov -format UDZO "$(basename "$1").dmg"; }
   alias lscolp="dns-sd -B _http._tcp"
   alias lsavahi="dns-sd -B _services._dns-sd._udp"
@@ -109,13 +117,16 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 # Custom *NIX
 else
 
+  # NodeJS
+  alias npmzh="npm --registry=https://registry.npm.taobao.org"
+
   # Docker
   alias d="cd /opt/docker"
   function ssh-docker() { ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -At root@$(docker inspect ${1} | jq -r .[0].NetworkSettings.IPAddress) $2; }
   function docker-ls { docker inspect --format='{{.Name}}' $(sudo docker ps -aq --no-trunc) | cut -c2-; }
 
   function purgekernel() { sudo apt-get remove --purge $(dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d'); }
-  alias st="rmate -p 2226"
+  alias st="jmate"
   alias update="sudo apt-get update; sudo apt-get dist-upgrade -y; sudo apt-get upgrade -y; sudo npm update npm -g; sudo npm update -g"
   alias upgrade="update; sudo reboot; exit"
   function chownwww() { sudo chown -R www-data:www-data ${1:-*}; }
