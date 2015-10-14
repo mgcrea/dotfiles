@@ -73,6 +73,8 @@ alias apb="ansible-playbook -i inventory playbook.yml"
 alias apbp="ansible-playbook -i inventory_production playbook.yml"
 
 # Npm
+alias npmzh="npm --registry=https://registry.npm.taobao.org"
+alias ncuu="ncu --upgradeAll"
 alias npmlist="node -p \"Object.keys(JSON.parse(require('fs').readFileSync('./package.json')).dependencies).join(' ')\""
 alias npmlistdev="node -p \"Object.keys(JSON.parse(require('fs').readFileSync('./package.json')).devDependencies).join(' ')\""
 alias cnpm="npm --registry=https://registry.npm.taobao.org --cache=$HOME/.npm/.cache/cnpm --disturl=https://npm.taobao.org/dist --userconfig=$HOME/.cnpmrc"
@@ -87,6 +89,16 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   # Finder
   alias show-files='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
   alias hide-files='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+  alias d="cd ~/Developer"
+  alias p="cd ~/Projects"
+
+  # Applications
+  alias st="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
+  alias nw="/Applications/node-webkit.app/Contents/MacOS/node-webkit"
+  alias vlc="/Applications/VLC.app/Contents/MacOS/vlc"
+  alias cvlc="/Applications/VLC.app/Contents/MacOS/VLC -I dummy"
+  alias chrome="open -a /Applications/Google\ Chrome.app"
+  alias chrome-dev="open -a /Applications/Google\ Chrome\ Canary.app --args --incognito --allow-file-access-from-files --disable-web-security"
 
   # Docker
   alias boot2docker="bash --login '/Applications/Docker/Docker Quickstart Terminal.app/Contents/Resources/Scripts/start.sh'"
@@ -96,14 +108,9 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   # Homebrew
   alias bubu="brew update && brew upgrade"
 
-  alias d="cd ~/Developer"
-  alias p="cd ~/Projects"
-  alias st="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
-  alias nw="/Applications/node-webkit.app/Contents/MacOS/node-webkit"
-  alias vlc="/Applications/VLC.app/Contents/MacOS/vlc"
-  alias cvlc="/Applications/VLC.app/Contents/MacOS/VLC -I dummy"
-  alias chrome="open -a /Applications/Google\ Chrome.app"
-  alias chrome-dev="open -a /Applications/Google\ Chrome\ Canary.app --args --incognito --allow-file-access-from-files --disable-web-security"
+  # NodeJS
+  function nvm-upgrade() { nvm install stable --reinstall-packages-from=`nvm current`; }
+
   function flushdnsnew() { sudo discoveryutil mdnsflushcache; sudo discoveryutil udnsflushcaches; }
   function flushdns() { dscacheutil -flushcache; sudo killall -HUP mDNSResponder; }
   function marked() { open -a /Applications/Marked\ 2.app/Contents/MacOS/Marked\ 2 "`pwd`/$1"; }
@@ -116,9 +123,6 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 
 # Custom *NIX
 else
-
-  # NodeJS
-  alias npmzh="npm --registry=https://registry.npm.taobao.org"
 
   # Docker
   alias d="cd /opt/docker"
