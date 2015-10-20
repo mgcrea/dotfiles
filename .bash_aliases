@@ -75,9 +75,10 @@ alias apbp="ansible-playbook -i inventory_production playbook.yml"
 # Npm
 alias npmzh="npm --registry=https://registry.npm.taobao.org"
 alias ncuu="ncu --upgradeAll"
-alias npmlist="node -p \"Object.keys(JSON.parse(require('fs').readFileSync('./package.json')).dependencies).join(' ')\""
-alias npmlistdev="node -p \"Object.keys(JSON.parse(require('fs').readFileSync('./package.json')).devDependencies).join(' ')\""
 alias cnpm="npm --registry=https://registry.npm.taobao.org --cache=$HOME/.npm/.cache/cnpm --disturl=https://npm.taobao.org/dist --userconfig=$HOME/.cnpmrc"
+alias npm-list="cat package.json | jq .dependencies | jq 'keys[]' -r | xargs"
+alias npm-list-dev="cat package.json | jq .devDependencies | jq 'keys[]' -r | xargs"
+function npm-link-dev() { npm link `cat package.json | jq .devDependencies | jq 'keys[]' -r | xargs`; }
 
 # Bower
 alias bowerlist="node -p \"Object.keys(JSON.parse(require('fs').readFileSync('./bower.json')).dependencies).join(' ')\""
