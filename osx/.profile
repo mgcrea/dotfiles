@@ -44,7 +44,7 @@ if [ -d "$HOME/.bin" ]; then
 fi
 # Homebrew Bash completion
 if [ -f $BREW_PREFIX/etc/bash_completion ]; then
-  # . $BREW_PREFIX/etc/bash_completion
+  . $BREW_PREFIX/etc/bash_completion
   . $BREW_PREFIX/etc/bash_completion.d/git-completion.bash
   . $BREW_PREFIX/etc/bash_completion.d/git-prompt.sh
 fi

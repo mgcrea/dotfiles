@@ -75,6 +75,8 @@ alias apbp="ansible-playbook -i inventory_production playbook.yml"
 # Npm
 alias npmzh="npm --registry=https://registry.npm.taobao.org"
 alias ncuu="ncu --upgradeAll"
+alias bcu="ncu -m bower"
+alias bcuu="ncu -m bower --upgradeAll"
 alias cnpm="npm --registry=https://registry.npm.taobao.org --cache=$HOME/.npm/.cache/cnpm --disturl=https://npm.taobao.org/dist --userconfig=$HOME/.cnpmrc"
 alias npm-list="cat package.json | jq .dependencies | jq 'keys[]' -r | xargs"
 alias npm-list-dev="cat package.json | jq .devDependencies | jq 'keys[]' -r | xargs"
@@ -88,6 +90,7 @@ alias bowerlistdev="node -p \"Object.keys(JSON.parse(require('fs').readFileSync(
 if [[ $OSTYPE =~ "darwin" ]]; then
 
   # Finder
+  alias open="open ."
   alias show-files='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
   alias hide-files='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
   alias d="cd ~/Developer"
@@ -132,8 +135,7 @@ else
 
   function purgekernel() { sudo apt-get remove --purge $(dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d'); }
   alias st="jmate"
-  alias update="sudo apt-get update; sudo apt-get dist-upgrade -y; sudo apt-get upgrade -y; sudo npm update npm -g; sudo npm update -g"
-  alias upgrade="update; sudo reboot; exit"
+  alias bubu="sudo apt-get update; sudo apt-get dist-upgrade -y"
   function chownwww() { sudo chown -R www-data:www-data ${1:-*}; }
   alias pbcopy="cat | nc -q0 localhost 2224"
 
