@@ -65,7 +65,13 @@ alias nbu="ncu -m bower"
 function lgulp() { $(npm bin)/gulp $@; }
 
 # Docker
-alias docker-clean="docker rm \`docker ps -a -q\`; docker rmi \`docker images | awk '/^<none>/ { print $3 }'\`"
+alias dk="docker"
+alias dkr="docker restart"
+alias dkc="docker-compose"
+alias dkm="docker-machine"
+function dkb() { docker exec -it $1 /bin/bash; }
+function dkl() { docker logs -f $1; }
+function docker-clean() { docker rm -f \`docker ps -a -q\`; docker rmi `docker images | awk '/^<none>/ { print $3 }'`; }
 function docker-ip() { docker inspect ${1} | jq -r .[0].NetworkSettings.IPAddress; }
 
 # Ansible
