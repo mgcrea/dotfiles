@@ -15,7 +15,7 @@ if [ -d "$BREW_PREFIX/bin" ]; then
   export PATH=$BREW_PREFIX/bin:$BREW_PREFIX/sbin:$PATH
 fi
 if [ -d "$BREW_PREFIX/opt/coreutils/libexec" ]; then
-  export PATH=$BREW_PREFIX/opt/coreutils/libexec/gnubin:$PATH
+  export PATH=$BREW_PREFIX/opt/coreutils/libexec/gnubin:$BREW_PREFIX/opt/gnu-tar/libexec/gnubin:$PATH
   export MANPATH=$BREW_PREFIX/opt/coreutils/libexec/gnuman:$MANPATH
 fi
 if [ -d "$PORT_PREFIX/libexec" ]; then
