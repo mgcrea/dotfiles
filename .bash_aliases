@@ -43,7 +43,7 @@ alias gco="git checkout"
 alias gcb="git checkout -b"
 alias gtc="git clone -o github"
 alias gc="git commit -m"
-function gtp() { git add --all .; git ci -am "feat(update): ${1}"; git push; }
+function gtp() { git add --all .; git ci -am "feat(update): ${1:-'minor changes'}"; git push; }
 function gtg() { git ci -am "chore(release): cut the `cat package.json | jq -r .version` release"; git tag v`cat package.json | jq -r .version`; git push; git push --tags; npm publish; }
 function gtpg() { git checkout -b tmp; git branch -D gh-pages; git checkout --orphan gh-pages; git add --all .; git ci -am "docs(release): build `cat ./../package.json | jq -r .version` docs pages"; git push github gh-pages:gh-pages --force; git branch -D tmp; }
 function gtpm() { git checkout -b tmp; git branch -D master; git checkout --orphan master; git add --all .; git ci -am "chore(release): build `cat ./../package.json | jq -r .version`"; git push github master:master --force; git branch -D tmp; }
