@@ -50,6 +50,7 @@ function gtpm() { git checkout -b tmp; git branch -D master; git checkout --orph
 
 # Ssh
 alias sshc="find ~/.ssh/conf.d -type f -name '*.conf' -print0 | xargs -0 -I file cat file > ~/.ssh/config"
+function sshf() { find ~/.ssh/conf.d -type f -name '*.conf' -print0 | xargs -0 -I file grep ^Host.*$1 -i file | cut -c6-; }
 alias sshp="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 alias sshpw="sshp -o PreferredAuthentications=password -o PubkeyAuthentication=no"
 alias clean-hosts="sed '/^192/ d' -i ~/.ssh/known_hosts; sed '/^player-/ d' -i ~/.ssh/known_hosts; sed '/^10/ d' -i ~/.ssh/known_hosts"
@@ -75,6 +76,8 @@ function docker-clean() { docker rm -f \`docker ps -a -q\`; docker rmi `docker i
 function docker-ip() { docker inspect ${1} | jq -r .[0].NetworkSettings.IPAddress; }
 
 # Ansible
+alias asb="ansible -s -i inventory -m shell -a"
+alias asbp="ansible -s -i inventory_production -m shell -a"
 alias apb="ansible-playbook -i inventory playbook.yml"
 alias apbp="ansible-playbook -i inventory_production playbook.yml"
 
