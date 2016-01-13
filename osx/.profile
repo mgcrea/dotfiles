@@ -54,11 +54,15 @@ if [ -f $PORT_PREFIX/etc/bash_completion ]; then
 fi
 
 # Node Version Manager
-if [ -d "$BREW_PREFIX/opt/nvm" ]; then
+if [ -d "$HOME/.nvm" ]; then
   export NVM_DIR=$HOME/.nvm
+  . "$NVM_DIR/nvm.sh"
+else if [ -d "$BREW_PREFIX/opt/nvm" ]; then
   source $BREW_PREFIX/opt/nvm/nvm.sh
   export PATH=$(dirname $(which node)):$PATH
 fi
+fi
+export WALLABY_NODE=$(which node)
 
 # Docker
 export DOCKER_TLS_VERIFY="1"

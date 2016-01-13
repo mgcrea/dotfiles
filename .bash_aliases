@@ -54,6 +54,7 @@ function sshf() { find ~/.ssh/conf.d -type f -name '*.conf' -print0 | xargs -0 -
 alias sshp="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 alias sshpw="sshp -o PreferredAuthentications=password -o PubkeyAuthentication=no"
 alias clean-hosts="sed '/^192/ d' -i ~/.ssh/known_hosts; sed '/^player-/ d' -i ~/.ssh/known_hosts; sed '/^10/ d' -i ~/.ssh/known_hosts"
+function randpw() { < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-16}; echo; }
 
 # Dev
 alias json="python -mjson.tool"
@@ -64,10 +65,14 @@ alias cdvp="cd cordova; cordova prepare; cd -"
 alias scan-local="sudo nmap -sP -n $@"
 alias nbu="ncu -m bower"
 function lgulp() { $(npm bin)/gulp $@; }
+function lbabel() { $(npm bin)/babel $@; }
+function lmocha() { $(npm bin)/mocha $@; }
 
 # Docker
 alias dk="docker"
+alias dki="docker inspect"
 alias dkr="docker restart"
+alias dkl="docker logs --tail=20 -f"
 alias dkc="docker-compose"
 alias dkm="docker-machine"
 function dkb() { docker exec -it $1 script -q -c "/bin/bash" /dev/null; }
