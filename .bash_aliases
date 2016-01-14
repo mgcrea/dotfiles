@@ -117,6 +117,32 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   alias cvlc="/Applications/VLC.app/Contents/MacOS/VLC -I dummy"
   alias chrome="open -a /Applications/Google\ Chrome.app"
   alias chrome-dev="open -a /Applications/Google\ Chrome\ Canary.app --args --incognito --allow-file-access-from-files --disable-web-security"
+  alias syncthing-gui="syncthing -browser-only"
+
+  # Services
+  # tf /usr/local/var/log/syncthing.log
+  function service() {
+    case $2 in
+      status)
+        pid=$(ps ax | grep -m1 $1' ' | grep -v grep | awk '{print $1}')
+        [[ $pid != "" ]] && echo "$1 start/running, process $pid" || echo "$1 stop/waiting"
+      ;;
+      stop)
+        plist=$(find ~/Library/LaunchAgents /Library/LaunchAgents -iname '*'$1'*.plist' | head -n1)
+        [[ $plist != "" ]] && launchctl unload "$plist" && echo "$1 stop/waiting" || echo "$1: unrecognized service"
+      ;;
+      start)
+        plist=$(find ~/Library/LaunchAgents /Library/LaunchAgents -iname '*'$1'*.plist' | head -n1)
+        [[ $plist != "" ]] && launchctl load "$plist" && echo "$1 start/running" || echo "$1: unrecognized service"
+      ;;
+      restart)
+        service $1 stop && service $1 start
+      ;;
+      *)
+        echo "Usage: service $1 {start|stop|restart|status}"
+      ;;
+    esac;
+  }
 
   # Docker
   alias boot2docker="bash --login '/Applications/Docker/Docker Quickstart Terminal.app/Contents/Resources/Scripts/start.sh'"
