@@ -43,7 +43,7 @@ alias gco="git checkout"
 alias gcb="git checkout -b"
 alias gtc="git clone -o github"
 alias gc="git commit -m"
-function gtp() { git add --all .; git ci -am "feat(update): ${1:-'minor changes'}"; git push; }
+function gtp() { git add --all .; git ci -am "feat(update): ${1:-minor changes}"; git push; }
 function gtg() { git ci -am "chore(release): cut the `cat package.json | jq -r .version` release"; git tag v`cat package.json | jq -r .version`; git push; git push --tags; npm publish; }
 function gtpg() { git checkout -b tmp; git branch -D gh-pages; git checkout --orphan gh-pages; git add --all .; git ci -am "docs(release): build `cat ./../package.json | jq -r .version` docs pages"; git push github gh-pages:gh-pages --force; git branch -D tmp; }
 function gtpm() { git checkout -b tmp; git branch -D master; git checkout --orphan master; git add --all .; git ci -am "chore(release): build `cat ./../package.json | jq -r .version`"; git push github master:master --force; git branch -D tmp; }
@@ -59,9 +59,9 @@ function randpw() { < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-16}; echo; 
 # Dev
 alias json="python -mjson.tool"
 alias post-json="curl -X POST -H \"Content-Type: application/json\" -d"
+alias get-json="curl -X GET -H \"Content-Type: application/json\""
 alias static-py="python -m SimpleHTTPServer"
 alias static-dev="http-server -c-1"
-alias cdvp="cd cordova; cordova prepare; cd -"
 alias scan-local="sudo nmap -sP -n $@"
 alias nbu="ncu -m bower"
 function lgulp() { $(npm bin)/gulp $@; }
@@ -87,6 +87,9 @@ alias apb="ansible-playbook -i inventory playbook.yml"
 alias apbp="ansible-playbook -i inventory_production playbook.yml"
 
 # Npm
+alias nrun="npm start"
+alias ntest="npm test"
+alias nbuild="npm run build"
 alias npmzh="npm --registry=https://registry.npm.taobao.org"
 alias ncuu="ncu --upgradeAll"
 alias bcu="ncu -m bower"
@@ -118,6 +121,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   alias chrome="open -a /Applications/Google\ Chrome.app"
   alias chrome-dev="open -a /Applications/Google\ Chrome\ Canary.app --args --incognito --allow-file-access-from-files --disable-web-security"
   alias syncthing-gui="syncthing -browser-only"
+  alias syncthing-log="tail -f /usr/local/var/log/syncthing.log"
 
   # Services
   # tf /usr/local/var/log/syncthing.log
@@ -164,19 +168,21 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   function dmg() { hdiutil create -volname "$(basename "$1")" -srcfolder "$1" -ov -format UDZO "$(basename "$1").dmg"; }
   alias lscolp="dns-sd -B _http._tcp"
   alias lsavahi="dns-sd -B _services._dns-sd._udp"
+  alias cdvp="cd cordova; cordova prepare; cd -"
 
 # Custom *NIX
 else
 
   # Docker
-  alias d="cd /opt/docker"
+  alias d="cd /srv/docker"
   function ssh-docker() { ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -At root@$(docker inspect ${1} | jq -r .[0].NetworkSettings.IPAddress) $2; }
   function docker-ls { docker inspect --format='{{.Name}}' $(sudo docker ps -aq --no-trunc) | cut -c2-; }
 
-  function purgekernel() { sudo apt-get remove --purge $(dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d'); }
   alias st="jmate"
+  alias j="autojump"
   alias bubu="sudo apt-get update; sudo apt-get dist-upgrade -y"
-  function chownwww() { sudo chown -R www-data:www-data ${1:-*}; }
   alias pbcopy="cat | nc -q0 localhost 2224"
+  function purgekernel() { sudo apt-get remove --purge $(dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d'); }
+  function chownwww() { sudo chown -R www-data:www-data ${1:-*}; }
 
 fi;

@@ -16,12 +16,13 @@
 	br = branch
 	sta = stash
 	cp = cherry-pick
-	
+
 	amend = !git ci --amend -m
 	repull = !git reset --hard && git clean -f -d && git submodule foreach 'git reset --hard && git clean -f -d' && git pull --recurse-submodules && git submodule update --init
 	subreset = !git submodule foreach "git reset --hard && git clean -f -d;"
 	subupdate = !git submodule update --init
 	subrepull = !git submodule foreach "git repull"
+	push-all = !git remote | xargs -L1 git push --all
 
 	up = !git add . && git commit -a -m "Update." && git push
 	fw = !git branch --set-upstream
@@ -33,8 +34,8 @@
 	tool = bbdiff
 [difftool "ksdiff"]
 	cmd = ksdiff \"$LOCAL\" \"$REMOTE\"
-[difftool "bbdiff"] 
-        cmd = /usr/bin/bbdiff --wait --resume "$LOCAL" "$REMOTE" 
+[difftool "bbdiff"]
+        cmd = /usr/bin/bbdiff --wait --resume "$LOCAL" "$REMOTE"
 [merge]
 	tool = diffmerge
 [mergetool "ksdiff"]
