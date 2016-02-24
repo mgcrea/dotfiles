@@ -62,13 +62,17 @@ if [[ $OSTYPE =~ "darwin" ]]; then
     if [ -f "/opt/local/share/git-core/git-prompt.sh" ]; then # Macport
         . /opt/local/share/git-core/git-prompt.sh
     fi
-    # Autojump for OSX
+    # Autojump
     if [ -f "$BREW_PREFIX/etc/autojump.sh" ]; then # Homebrew
         . $BREW_PREFIX/etc/autojump.sh
     fi
 else
     if [ -f "/usr/lib/git-core/git-sh-prompt" ]; then # Debian
         . /usr/lib/git-core/git-sh-prompt
+    fi
+    # Autojump
+    if [ -f "/usr/share/autojump/autojump.sh" ]; then
+        . /usr/share/autojump/autojump.sh
     fi
 fi
 
