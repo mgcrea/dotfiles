@@ -179,7 +179,8 @@ else
   function docker-ls { docker inspect --format='{{.Name}}' $(sudo docker ps -aq --no-trunc) | cut -c2-; }
 
   alias st="jmate"
-  alias j="autojump"
+  # alias j="autojump"
+  function j() { cd `autojump $@`; }
   alias bubu="sudo apt-get update; sudo apt-get dist-upgrade -y"
   alias pbcopy="cat | nc -q0 localhost 2224"
   function purgekernel() { sudo apt-get remove --purge $(dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d'); }
