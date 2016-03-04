@@ -57,6 +57,7 @@ alias clean-hosts="sed '/^192/ d' -i ~/.ssh/known_hosts; sed '/^player-/ d' -i ~
 function randpw() { < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-16}; echo; }
 
 # Dev
+alias isodate="date -u +'%Y-%m-%dT%H:%M:%SZ'"
 alias json="python -mjson.tool"
 alias post-json="curl -X POST -H \"Content-Type: application/json\" -d"
 alias get-json="curl -X GET -H \"Content-Type: application/json\""
@@ -75,7 +76,7 @@ alias dkr="docker restart"
 alias dkl="docker logs --tail=20 -f"
 alias dkc="docker-compose"
 alias dkm="docker-machine"
-function dkb() { docker exec -it $1 script -q -c "/bin/bash" /dev/null; }
+function dkb() { docker exec -it $1 script -q -c "TERM=xterm /bin/bash" /dev/null; }
 function dkl() { docker logs -f $1; }
 function docker-clean() {
   docker rm -v $(docker ps --filter status=exited -q 2>/dev/null) 2>/dev/null
