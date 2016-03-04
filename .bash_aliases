@@ -71,6 +71,7 @@ function lmocha() { $(npm bin)/mocha $@; }
 
 # Docker
 alias dk="docker"
+alias dkps="docker ps"
 alias dki="docker inspect"
 alias dkr="docker restart"
 alias dkl="docker logs --tail=20 -f"
