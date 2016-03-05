@@ -185,7 +185,7 @@ else
   function ssh-docker() { ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -At root@$(docker inspect ${1} | jq -r .[0].NetworkSettings.IPAddress) $2; }
   function docker-ls { docker inspect --format='{{.Name}}' $(sudo docker ps -aq --no-trunc) | cut -c2-; }
 
-  alias st="jmate"
+  function st() { touch $1; jmate $1; }
   # alias j="autojump"
   function j() { cd `autojump $@`; }
   alias bubu="sudo apt-get update; sudo apt-get dist-upgrade -y"
