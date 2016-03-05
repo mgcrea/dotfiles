@@ -30,6 +30,7 @@ alias tf="tail -fn200"
 alias h?="history | grep"
 
 # Rights
+alias ssu="sudo -s"
 function chmod644() { chmod -R u+rwX,go+rX,go-w ${1:-*}; }
 function chmod660() { chmod -R ug+rwX,o-rwx ${1:-*}; }
 function chmod600() { chmod -R u+rwX,go-rwx ${1:-*}; }
