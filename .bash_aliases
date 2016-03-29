@@ -69,6 +69,7 @@ alias nbu="ncu -m bower"
 function lgulp() { $(npm bin)/gulp $@; }
 function lbabel() { $(npm bin)/babel $@; }
 function lmocha() { $(npm bin)/mocha $@; }
+function rename() { find . -type f -name "*.${1}" | sed -e "p;s/\.${1}$/.${2}/" | xargs -n2 echo; }
 
 # Docker
 alias dk="docker"
@@ -129,6 +130,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   alias chrome-dev="open -a /Applications/Google\ Chrome\ Canary.app --args --incognito --allow-file-access-from-files --disable-web-security"
   alias syncthing-gui="syncthing -browser-only"
   alias syncthing-log="tail -f /usr/local/var/log/syncthing.log"
+  function pdfmerge() { /usr/local/bin/gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=$1 ${@:2}; }
 
   # Services
   # tf /usr/local/var/log/syncthing.log
@@ -188,7 +190,7 @@ else
   function st() { touch $1; jmate $1; }
   # alias j="autojump"
   function j() { cd `autojump $@`; }
-  alias bubu="sudo apt-get update; sudo apt-get dist-upgrade -y"
+  alias bubu="sudo apt update; sudo apt upgrade -y"
   alias pbcopy="cat | nc -q0 localhost 2224"
   function purgekernel() { sudo apt-get remove --purge $(dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d'); }
   function chownwww() { sudo chown -R www-data:www-data ${1:-*}; }
