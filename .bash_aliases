@@ -70,6 +70,7 @@ function lgulp() { $(npm bin)/gulp $@; }
 function lbabel() { $(npm bin)/babel $@; }
 function lmocha() { $(npm bin)/mocha $@; }
 function rename() { find . -type f -name "*.${1}" | sed -e "p;s/\.${1}$/.${2}/" | xargs -n2 echo; }
+function lsport() { lsof -i :$1; }
 
 # Docker
 alias dk="docker"
@@ -125,6 +126,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   alias st="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
   alias nw="/Applications/node-webkit.app/Contents/MacOS/node-webkit"
   alias vlc="/Applications/VLC.app/Contents/MacOS/vlc"
+  alias mpv="/Applications/mpv.app/Contents/MacOS/mpv"
   alias cvlc="/Applications/VLC.app/Contents/MacOS/VLC -I dummy"
   alias chrome="open -a /Applications/Google\ Chrome.app"
   alias chrome-dev="open -a /Applications/Google\ Chrome\ Canary.app --args --incognito --allow-file-access-from-files --disable-web-security"
