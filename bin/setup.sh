@@ -21,13 +21,13 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 	echo -e "		${CHECK} Done"
 fi
 
-if [[ $OSTYPE =~ "linux" ]]; then
-	echo -n "Installing \"rmate\"..."
-	curl https://raw.github.com/aurora/rmate/master/rmate > rmate
-	sudo mv rmate /usr/local/bin
-	sudo chmod +x /usr/local/bin/rmate
-	echo -e "		${CHECK} Done"
-fi
+# if [[ $OSTYPE =~ "linux" ]]; then
+# 	echo -n "Installing \"rmate\"..."
+# 	curl https://raw.github.com/aurora/rmate/master/rmate > rmate
+# 	sudo mv rmate /usr/local/bin
+# 	sudo chmod +x /usr/local/bin/rmate
+# 	echo -e "		${CHECK} Done"
+# fi
 
 echo -n "Installing \"Vundle\"..."
 if [[ ! -d ~/.vim/bundle/Vundle.vim ]]; then
