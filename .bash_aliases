@@ -31,6 +31,7 @@ alias h?="history | grep"
 
 # Rights
 alias ssu="sudo -s"
+function chmodx() { chmod -R ugo-x,ugo+X ${1:-*}; }
 function chmod644() { chmod -R u+rwX,go+rX,go-w ${1:-*}; }
 function chmod660() { chmod -R ug+rwX,o-rwx ${1:-*}; }
 function chmod600() { chmod -R u+rwX,go-rwx ${1:-*}; }
@@ -96,8 +97,9 @@ alias apb="ansible-playbook -i inventory playbook.yml"
 alias apbp="ansible-playbook -i inventory_production playbook.yml"
 
 # Npm
-alias nrun="npm start"
-alias ntest="npm test"
+alias npmr="npm run"
+alias npms="npm start"
+alias npmt="npm test"
 alias nbuild="npm run build"
 alias npmzh="npm --registry=https://registry.npm.taobao.org"
 alias ncuu="ncu --upgradeAll"
@@ -180,6 +182,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   alias lscolp="dns-sd -B _http._tcp"
   alias lsavahi="dns-sd -B _services._dns-sd._udp"
   alias cdvp="cd cordova; cordova prepare; cd -"
+  alias dunmount="diskutil unmountDisk"
 
 # Custom *NIX
 else

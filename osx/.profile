@@ -30,6 +30,9 @@ export PATH=$HOME/node_modules/.bin:$PATH
 export PATH=$HOME/Library/Android/sdk/tools:$HOME/Library/Android/sdk/platform-tools:$PATH
 # export PATH="/Applications/Android Studio.app/sdk/build-tools/android-4.4W":$PATH
 
+# Use PlatformIO toolchain
+export PATH=$HOME/.platformio/packages/toolchain-atmelavr/bin:$PATH
+
 # If running bash
 if [ -n "$BASH_VERSION" ]; then
     # Include .bashrc if it exists
