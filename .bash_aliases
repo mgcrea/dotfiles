@@ -55,6 +55,7 @@ alias sshc="find ~/.ssh/conf.d -type f -name '*.conf' -print0 | xargs -0 -I file
 function sshf() { find ~/.ssh/conf.d -type f -name '*.conf' -print0 | xargs -0 -I file grep ^Host.*$1 -i file | cut -c6-; }
 alias sshp="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 alias sshpw="sshp -o PreferredAuthentications=password -o PubkeyAuthentication=no"
+alias sshfp="ssh-keygen -l -E md5 -f"
 alias clean-hosts="sed '/^192/ d' -i ~/.ssh/known_hosts; sed '/^player-/ d' -i ~/.ssh/known_hosts; sed '/^10/ d' -i ~/.ssh/known_hosts"
 function randpw() { < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-16}; echo; }
 
@@ -67,6 +68,7 @@ alias static-py="python -m SimpleHTTPServer"
 alias static-dev="http-server -c-1"
 alias scan-local="sudo nmap -sP -n $@"
 alias nbu="ncu -m bower"
+alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 function lgulp() { $(npm bin)/gulp $@; }
 function lbabel() { $(npm bin)/babel $@; }
 function lmocha() { $(npm bin)/mocha $@; }
@@ -100,6 +102,10 @@ alias apbp="ansible-playbook -i inventory_production playbook.yml"
 alias npmr="npm run"
 alias npms="npm start"
 alias npmt="npm test"
+alias iedi="ied install -b"
+alias iedr="ied run"
+alias ieds="ied start"
+alias iedt="ied test"
 alias nbuild="npm run build"
 alias npmzh="npm --registry=https://registry.npm.taobao.org"
 alias ncuu="ncu --upgradeAll"
