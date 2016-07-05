@@ -65,7 +65,9 @@ if [[ $OSTYPE =~ "darwin" ]]; then
         . $BREW_PREFIX/etc/autojump.sh
     fi
 else
-    if [ -f "/usr/lib/git-core/git-sh-prompt" ]; then
+    if [ -f "$HOME/.git-sh-prompt" ]; then
+       . ~/.git-sh-prompt
+    elif [ -f "/usr/lib/git-core/git-sh-prompt" ]; then
         . /usr/lib/git-core/git-sh-prompt
     fi
     if [ -f "/usr/share/autojump/autojump.sh" ]; then
