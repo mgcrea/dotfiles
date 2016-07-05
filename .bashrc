@@ -65,10 +65,10 @@ if [[ $OSTYPE =~ "darwin" ]]; then
         . $BREW_PREFIX/etc/autojump.sh
     fi
 else
-    if [ -f "$HOME/.git-sh-prompt" ]; then
-       . ~/.git-sh-prompt
-    elif [ -f "/usr/lib/git-core/git-sh-prompt" ]; then
+    if [ -f "/usr/lib/git-core/git-sh-prompt" ]; then
         . /usr/lib/git-core/git-sh-prompt
+    elif [ -f "$HOME/.git-prompt" ]; then
+       . ~/.git-prompt
     fi
     if [ -f "/usr/share/autojump/autojump.sh" ]; then
         . /usr/share/autojump/autojump.sh
@@ -141,6 +141,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# Support NVM
 export NVM_DIR="$HOME/.nvm"
 if [ -f "$NVM_DIR/nvm.sh" ]; then
     . "$NVM_DIR/nvm.sh"

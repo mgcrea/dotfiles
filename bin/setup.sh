@@ -35,6 +35,10 @@ if [[ ! -d ~/.vim/bundle/Vundle.vim ]]; then
 fi
 echo -e "			${CHECK} Done"
 
+echo -n "Installing \"Git completion\"..."
+curl -L https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh > ~/.git-prompt
+echo -e "     ${CHECK} Done"
+
 echo -e "\n${HR}"
 echo -e "Dotfiles successfully setup at ${DATE}."
 echo -e "${HR}\n"
