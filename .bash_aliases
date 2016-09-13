@@ -150,8 +150,8 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   # Spotify
   alias spotify-artist="osascript -e'tell application \"Spotify\"' -e'get artist of current track' -e'end tell'"
   alias spotify-title="osascript -e'tell application \"Spotify\"' -e'get name of current track' -e'end tell'"
-  alias spotify-song="echo -e \"`spotify-artist` - `spotify-title`\""
-  alias spotify-lyrics="spotify-song; curl -s --get \"https://makeitpersonal.co/lyrics\" --data-urlencode \"artist=`spotify-artist`\" --data-urlencode \"title=`spotify-title`\""
+  function spotify-song() { echo -e "`spotify-artist` - `spotify-title`"; }
+  function spotify-lyrics() { hr; spotify-song; hr; curl -s --get "https://makeitpersonal.co/lyrics" --data-urlencode "artist=`spotify-artist`" --data-urlencode "title=`spotify-title`"; echo -e "\n"; }
 
   # Services
   # tf /usr/local/var/log/syncthing.log
