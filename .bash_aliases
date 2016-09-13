@@ -28,6 +28,7 @@ alias up5="cd ../../../../.."
 alias grep="grep --color"
 alias tf="tail -fn200"
 alias h?="history | grep"
+alias hr="printf '%*s\n' \"${COLUMNS:-$(tput cols)}\" '' | tr ' ' ="
 
 # Rights
 alias ssu="sudo -s"
@@ -72,6 +73,7 @@ alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 function lgulp() { $(npm bin)/gulp $@; }
 function lbabel() { $(npm bin)/babel $@; }
 function lmocha() { $(npm bin)/mocha $@; }
+function leslint() { $(npm bin)/eslint $@; }
 function rename() { find . -type f -name "*.${1}" | sed -e "p;s/\.${1}$/.${2}/" | xargs -n2 echo; }
 function lsport() { lsof -i :$1; }
 
@@ -102,10 +104,13 @@ alias apbp="ansible-playbook -i inventory_production playbook.yml"
 alias npmr="npm run"
 alias npms="npm start"
 alias npmt="npm test"
+alias npmc="npm --proxy http://localhost:4873 --https-proxy http://localhost:4873 --strict-ssl false"
+alias npm-proxy-cache="npm-proxy-cache -p 4873"
 alias iedi="ied install -b"
 alias iedr="ied run"
 alias ieds="ied start"
 alias iedt="ied test"
+alias iedc="NODE_ENV=development NODE_DEBUG=* IED_PROXY=http://localhost:4873 ied"
 alias nbuild="npm run build"
 alias npmzh="npm --registry=https://registry.npm.taobao.org"
 alias ncuu="ncu --upgradeAll"
@@ -142,6 +147,12 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   alias syncthing-log="tail -f /usr/local/var/log/syncthing.log"
   function pdfmerge() { /usr/local/bin/gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=$1 ${@:2}; }
 
+  # Spotify
+  alias spotify-artist="osascript -e'tell application \"Spotify\"' -e'get artist of current track' -e'end tell'"
+  alias spotify-title="osascript -e'tell application \"Spotify\"' -e'get name of current track' -e'end tell'"
+  alias spotify-song="echo -e \"`spotify-artist` - `spotify-title`\""
+  alias spotify-lyrics="spotify-song; curl -s --get \"https://makeitpersonal.co/lyrics\" --data-urlencode \"artist=`spotify-artist`\" --data-urlencode \"title=`spotify-title`\""
+
   # Services
   # tf /usr/local/var/log/syncthing.log
   function service() {
@@ -169,7 +180,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 
   # Docker
   alias boot2docker="bash --login '/Applications/Docker/Docker Quickstart Terminal.app/Contents/Resources/Scripts/start.sh'"
-  function ssh-docker() { ssh -At docker@boot2docker ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -At root@$(docker inspect ${1} | jq -r .[0].NetworkSettings.IPAddress) $2; }
+  function ssh-docker() { ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -At root@$(docker inspect ${1} | jq -r .[0].NetworkSettings.IPAddress) $2; }
   function docker-ls { docker inspect --format='{{.Name}}' $(docker ps -aq --no-trunc) | cut -c2-; }
 
   # Homebrew
