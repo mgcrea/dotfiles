@@ -141,8 +141,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# Support NVM
+# Support Nvm
 export NVM_DIR="$HOME/.nvm"
-if [ -f "$NVM_DIR/nvm.sh" ]; then
-    . "$NVM_DIR/nvm.sh"
+if [ -s $NVM_DIR/nvm.sh ]; then
+    . $NVM_DIR/nvm.sh
 fi

@@ -6,9 +6,12 @@
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-# Pacakges managers
+# Packages managers
 export BREW_PREFIX=/usr/local
-export PORT_PREFIX=/opt/local
+
+# limit.maxfiles.plist and limit.maxproc.plist
+ulimit -n 65536
+ulimit -u 2048
 
 # Use the GNU tools by default
 if [ -d "$BREW_PREFIX/bin" ]; then
@@ -17,10 +20,6 @@ fi
 if [ -d "$BREW_PREFIX/opt/coreutils/libexec" ]; then
   export PATH=$BREW_PREFIX/opt/coreutils/libexec/gnubin:$BREW_PREFIX/opt/gnu-tar/libexec/gnubin:$PATH
   export MANPATH=$BREW_PREFIX/opt/coreutils/libexec/gnuman:$MANPATH
-fi
-if [ -d "$PORT_PREFIX/libexec" ]; then
-  export PATH=$PORT_PREFIX/bin:$PORT_PREFIX/sbin:$PATH
-  export PATH=$PORT_PREFIX/libexec/gnubin:$PATH
 fi
 
 # Use NPM module binaries
@@ -42,36 +41,25 @@ if [ -n "$BASH_VERSION" ]; then
 fi
 
 # Set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/.bin" ]; then
+if [ -d $HOME/.bin ]; then
     PATH=$HOME/.bin:$PATH
 fi
+
 # Homebrew Bash completion
 if [ -f $BREW_PREFIX/etc/bash_completion ]; then
   . $BREW_PREFIX/etc/bash_completion
   . $BREW_PREFIX/etc/bash_completion.d/git-completion.bash
   . $BREW_PREFIX/etc/bash_completion.d/git-prompt.sh
 fi
-# Macport Bash completion
-if [ -f $PORT_PREFIX/etc/bash_completion ]; then
-    . $PORT_PREFIX/etc/bash_completion
+# Homebrew Autojump
+if [ -s $BREW_PREFIX/etc/profile.d/autojump.sh ]; then
+  . $BREW_PREFIX/etc/profile.d/autojump.sh
 fi
-
-# Node Version Manager
-if [ -d "$HOME/.nvm" ]; then
-  export NVM_DIR=$HOME/.nvm
-  . "$NVM_DIR/nvm.sh"
-else if [ -d "$BREW_PREFIX/opt/nvm" ]; then
-  source $BREW_PREFIX/opt/nvm/nvm.sh
-  export PATH=$(dirname $(which node)):$PATH
+# Homebrew Nvm
+export NVM_DIR=$HOME/.nvm
+if [ -s $BREW_PREFIX/opt/nvm/nvm.sh ]; then
+  . $BREW_PREFIX/opt/nvm/nvm.sh
 fi
-fi
-export WALLABY_NODE=$(which node)
-
-# Docker
-# export DOCKER_TLS_VERIFY="1"
-# export DOCKER_HOST="tcp://192.168.99.100:2376"
-# export DOCKER_CERT_PATH="$HOME/.docker/machine/machines/default"
-# export DOCKER_MACHINE_NAME="default"
 
 # Custom aliases
 function sshcol { ssh ${1}.carlipa-online.com; }
