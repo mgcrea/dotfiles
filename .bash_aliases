@@ -60,7 +60,7 @@ alias sshfp="ssh-keygen -l -E md5 -f"
 alias clean-hosts="sed '/^192/ d' -i ~/.ssh/known_hosts; sed '/^player-/ d' -i ~/.ssh/known_hosts; sed '/^10/ d' -i ~/.ssh/known_hosts"
 function randpw() { < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-16}; echo; }
 alias sshps="sshp -p2222 -A"
-alias rsyncps="rsync -avzP -e 'ssh -p2222' --rsync-path 'sudo rsync'"
+alias rsyncs="rsync -avzP -e 'ssh -p2222' --rsync-path 'sudo rsync'"
 
 # Dev
 alias isodate="date -u +'%Y-%m-%dT%H:%M:%SZ'"
