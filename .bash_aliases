@@ -32,10 +32,10 @@ alias hr="printf '%*s\n' \"${COLUMNS:-$(tput cols)}\" '' | tr ' ' ="
 
 # Rights
 alias ssu="sudo -s"
-function chmodx() { chmod -R ugo-x,ugo+X ${1:-*}; }
-function chmod644() { chmod -R u+rwX,go+rX,go-w ${1:-*}; }
-function chmod660() { chmod -R ug+rwX,o-rwx ${1:-*}; }
-function chmod600() { chmod -R u+rwX,go-rwx ${1:-*}; }
+function chmodx() { chmod -R ugo-x,ugo+X ${1:-.*}; }
+function chmod644() { chmod -R ugo-x,u+rwX,go+rX,go-w ${1:-.*}; }
+function chmod660() { chmod -R ug-x,ug+rwX,o-rwx ${1:-.*}; }
+function chmod600() { chmod -R u-x,u+rwX,go-rwx ${1:-.*}; }
 
 # Git
 alias gps="git push; git push --tags"
