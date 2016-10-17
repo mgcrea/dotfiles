@@ -88,6 +88,7 @@ alias dkl="docker logs --tail=20 -f"
 alias dkc="docker-compose"
 alias dkm="docker-machine"
 function dkb() { docker exec -it $1 script -q -c "TERM=xterm /bin/bash" /dev/null; }
+function dkrb() { docker run --rm -it -v /tmp:/tmp/host ${1:-"ubuntu:16.04"} script -q -c "TERM=xterm /bin/bash" /dev/null; }
 function dkl() { docker logs -f $1; }
 function docker-clean() {
   docker rm -v $(docker ps --filter status=exited -q 2>/dev/null) 2>/dev/null
@@ -138,7 +139,8 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   alias p="cd ~/Projects"
 
   # Applications
-  alias st="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
+  alias st="/usr/local/bin/atom"
+  alias stt="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
   alias nw="/Applications/node-webkit.app/Contents/MacOS/node-webkit"
   alias vlc="/Applications/VLC.app/Contents/MacOS/vlc"
   alias mpv="/Applications/mpv.app/Contents/MacOS/mpv"
