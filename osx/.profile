@@ -65,7 +65,7 @@ fi
 function sshcol { ssh ${1}.carlipa-online.com; }
 function sshcio { ssh ${1}.carlipa.io; }
 #function sshcolp { ssh -p 2222 -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no user@${*}; }
-function sshcolp { sshc; ssh -p 22 -A -R52698:127.0.0.1:52698 -L5900:127.0.0.1:5900 -L8080:127.0.0.1:8080 -L9080:127.0.0.1:9080 -L9222:127.0.0.1:9222 -L27017:127.0.0.1:27017 -L6379:127.0.0.1:6379 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no carlipa@player-${1}.${2:-local}; }
+function sshcolp { sshc; ssh -p 22 -A -R52698:127.0.0.1:52698 -L5900:127.0.0.1:5900 -L8080:127.0.0.1:8080 -L9080:127.0.0.1:9080 -L9222:127.0.0.1:9222 -L27018:127.0.0.1:27017 -L6380:127.0.0.1:6379 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no carlipa@player-${1}.${2:-local}; }
 function sshcols { sshc; ssh -p 22 -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no carlipa@server-${1}.local; }
 function sshcoltp() { ssh -At root@tesla.local ssh -p 22 -L9222:127.0.0.1:9222 -L27017:127.0.0.1:27017 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -At carlipa@player-${1}.local; }
 function cgzapp() { cd "$1"; tar -cvzf "./../${1%/}.cgz" . --exclude ".DS_Store" --exclude "*/.tmp" --exclude "./.git" --exclude "./dist" --exclude "./admin/dist" --exclude "*/node_modules" --exclude ./test; cd ..; }
