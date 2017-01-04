@@ -99,9 +99,9 @@ function docker-ip() { docker inspect ${1} | jq -r .[0].NetworkSettings.IPAddres
 
 # Ansible
 alias asb="ansible -s -i inventory -m shell -a"
-alias asbp="ansible -s -i inventory_production -m shell -a"
+function asbp() { ansible -s -i  inventories/inventory_${1:-"dev"} -m shell -a "${@:2}"; }
 alias apb="ansible-playbook -i inventory playbook.yml"
-alias apbp="ansible-playbook -i inventory_production playbook.yml"
+function apbp() { ansible-playbook -i inventories/inventory_${1:-"dev"} playbook.yml "${@:2}"; }
 
 # Npm
 alias npmr="npm run"
