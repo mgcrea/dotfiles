@@ -29,6 +29,12 @@ if [[ ! -d ~/.vim/bundle/Vundle.vim ]]; then
 fi
 printf ' \e[1;32m%s\e[m\n' ✔
 
+echo -n "Installing \"Tpm\"..."
+if [[ ! -d ~/.tmux/plugins/tpm ]]; then
+	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
+printf ' \e[1;32m%s\e[m\n' ✔
+
 if [[ $OSTYPE =~ "linux" ]]; then
 	echo -n "Installing \"Git completion\"..."
 	curl -L https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh > ~/.git-prompt
