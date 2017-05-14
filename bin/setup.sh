@@ -18,8 +18,12 @@ done
 if [[ $OSTYPE =~ "darwin" ]]; then
 	echo -n "Prossessing \".profile\"..."
 	ln -fs "${baseDirectory}/osx/.profile" "$HOME/.profile"
-	sudo cp ${baseDirectory}/osx/limit.maxfiles.plist /Library/LaunchDaemons/limit.maxfiles.plist
-	sudo cp ${baseDirectory}/osx/limit.maxproc.plist /Library/LaunchDaemons/limit.maxproc.plist
+	if [[ ! -L /Library/LaunchDaemons/limit.maxfiles.plist ]]; then
+		sudo ln -fs ${baseDirectory}/osx/limit.maxfiles.plist /Library/LaunchDaemons/limit.maxfiles.plist
+	fi
+	if [[ ! -L /Library/LaunchDaemons/limit.maxproc.plist ]]; then
+		sudo ln -fs ${baseDirectory}/osx/limit.maxproc.plist /Library/LaunchDaemons/limit.maxproc.plist
+	fi
 	printf ' \e[1;32m%s\e[m\n' ✔
 fi
 

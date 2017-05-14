@@ -77,7 +77,8 @@ alias scan-local="sudo nmap -sP -n $@"
 alias nbu="ncu -m bower"
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 alias tmuxa="tmux a -t"
-alias tmuxs="tmux new -s"
+alias tmuxc="tmux new -s"
+alias tmuxk="tmux kill-session -t"
 function lgulp() { $(npm bin)/gulp $@; }
 function lbabel() { $(npm bin)/babel $@; }
 function lmocha() { $(npm bin)/mocha $@; }
