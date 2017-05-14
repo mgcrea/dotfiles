@@ -18,6 +18,10 @@ function fdir() { find . -maxdepth 1 -mindepth 1 -type d -print0 | xargs -0 -I '
 alias c="clear"
 alias h="cd ~"
 alias ..="cd .."
+alias ...="cd ../.."
+alias ..3="cd ../../.."
+alias ..4="cd ../../../.."
+alias ..5="cd ../../../../.."
 alias cd..="cd .."
 alias cd-="cd -"
 alias up="cd .."
@@ -72,6 +76,8 @@ alias static-dev="http-server -c-1"
 alias scan-local="sudo nmap -sP -n $@"
 alias nbu="ncu -m bower"
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
+alias tmuxa="tmux a -t"
+alias tmuxs="tmux new -s"
 function lgulp() { $(npm bin)/gulp $@; }
 function lbabel() { $(npm bin)/babel $@; }
 function lmocha() { $(npm bin)/mocha $@; }
@@ -99,9 +105,9 @@ function docker-ip() { docker inspect ${1} | jq -r .[0].NetworkSettings.IPAddres
 
 # Ansible
 alias asb="ansible -s -i inventory -m shell -a"
-function asbp() { ansible -s -i  inventories/inventory_${1:-"dev"} -m shell -a "${@:2}"; }
+alias asbp="ansible -s -i inventories/ -m shell -a"
 alias apb="ansible-playbook -i inventory playbook.yml"
-function apbp() { ansible-playbook -i inventories/inventory_${1:-"dev"} playbook.yml "${@:2}"; }
+alias apbp="ansible-playbook -i inventories/ playbook.yml"
 
 # Npm
 alias npmr="npm run"
@@ -109,11 +115,6 @@ alias npms="npm start"
 alias npmt="npm test"
 alias npmc="npm --proxy http://localhost:4873 --https-proxy http://localhost:4873 --strict-ssl false"
 alias npm-proxy-cache="npm-proxy-cache -p 4873"
-alias iedi="ied install -b"
-alias iedr="ied run"
-alias ieds="ied start"
-alias iedt="ied test"
-alias iedc="NODE_ENV=development NODE_DEBUG=* IED_PROXY=http://localhost:4873 ied"
 alias nbuild="npm run build"
 alias npmzh="npm --registry=https://registry.npm.taobao.org"
 alias ncuu="ncu --upgradeAll"
@@ -147,6 +148,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   alias cvlc="/Applications/VLC.app/Contents/MacOS/VLC -I dummy"
   alias chrome="open -a /Applications/Google\ Chrome.app"
   alias chrome-dev="open -a /Applications/Google\ Chrome\ Canary.app --args --incognito --allow-file-access-from-files --disable-web-security"
+  alias electron="/Applications/Electron.app/Contents/MacOS/Electron"
   alias syncthing-gui="syncthing -browser-only"
   alias syncthing-log="tail -f /usr/local/var/log/syncthing.log"
   function pdfmerge() { /usr/local/bin/gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=$1 ${@:2}; }
