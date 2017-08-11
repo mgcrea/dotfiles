@@ -94,6 +94,7 @@ alias dkr="docker restart"
 alias dkl="docker logs --tail=200 -f"
 alias dkc="docker-compose"
 alias dkcl="docker-compose logs --tail=200 -f"
+alias dkcr="docker-compose restart"
 alias dkm="docker-machine"
 function dkb() { docker exec -it $1 script -q -c "TERM=xterm /bin/bash" /dev/null; }
 function dkrb() { docker run --rm -it -v /tmp:/tmp/host ${1:-"ubuntu:16.04"} script -q -c "TERM=xterm /bin/bash" /dev/null; }
