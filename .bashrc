@@ -60,6 +60,8 @@ export BREW_PREFIX=/usr/local
 if [[ $OSTYPE =~ "darwin" ]]; then
     if [ -f "$BREW_PREFIX/etc/bash_completion.d/git-prompt.sh" ]; then
         . $BREW_PREFIX/etc/bash_completion.d/git-prompt.sh
+        export GIT_PS1_SHOWCOLORHINTS=1
+        export GIT_PS1_SHOWDIRTYSTATE=1
     fi
     if [ -f "$BREW_PREFIX/etc/autojump.sh" ]; then
         . $BREW_PREFIX/etc/autojump.sh
@@ -75,17 +77,34 @@ else
     fi
 fi
 
-if [ "$color_prompt" = yes ]; then
-    if [[ $OSTYPE =~ "darwin" ]]; then
-        #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\w\[\033[01;33m\]$(__git_ps1 "@%s")\[\033[00m\]\$ '
-        PS1='\[\033[01;36m\]λ\[\033[00m\] \[\033[01;32m\]\w\[\033[00m\]\[\033[01;33m\]$(__git_ps1 " @%s")\[\033[00m\]\n\$\[\033[00m\] '
+function _update_ps1() {
+    if [ "$color_prompt" = yes ]; then
+        if [[ $OSTYPE =~ "darwin" ]]; then
+            # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\w\[\033[01;33m\]$(__git_ps1 "@%s")\[\033[00m\]\$ '
+            # PS1='\[\033[01;36m\]λ\[\033[00m\] \[\033[01;32m\]\w\[\033[00m\]\[\033[01;33m\]$(__git_ps1 " @%s")\[\033[00m\]\n\$\[\033[00m\] '
+            PS1='\[\e[01;36m\]λ\[\e[0m\]'
+            PS1=$PS1' \[\e[01;32m\]\w\[\e[0m\]'
+            PS1=$PS1'\[\e[01;33m\]$(__git_ps1 " @%s")\[\e[0m\]'
+            PS1=$PS1'\n\$\[\e[0m\] '
+            # PS1=''
+            # PS1=$PS1'\[\e[38;5;15m\]\[\e[48;5;31m\] λ'
+            #     PS1=$PS1'\[\e[48;5;238m\]\[\e[38;5;31m\]'
+            # PS1=$PS1'\[\e[01;32m\]\[\e[48;5;238m\] \w '
+            #     PS1=$PS1'\[\e[38;5;238m\]\[\e[48;5;31m\]'
+            # PS1=$PS1'\[\e[38;5;15m\]\[\e[48;5;31m\]$(__git_ps1 " @%s")'
+            #     PS1=$PS1'\[\e[48;5;0m\]\[\e[38;5;31m\]'
+            # PS1=$PS1'\[\e[0m\]\n\$ '
+        else
+            PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[\033[01;33m\]$(__git_ps1 "@%s")\[\033[00m\]\$ '
+        fi
     else
-        PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[\033[01;33m\]$(__git_ps1 "@%s")\[\033[00m\]\$ '
+        PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w$(__git_ps1 "@%s")\$ '
     fi
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w$(__git_ps1 "@%s")\$ '
-fi
-unset color_prompt force_color_prompt
+    # unset color_prompt force_color_prompt # @WHY?
+    # PS1="$(~/.powerline-shell.py $? 2> /dev/null)"
+}
+
+PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
