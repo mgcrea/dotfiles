@@ -40,6 +40,11 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
+# Include .osxrc if it exists
+if [ -f "$HOME/.osxrc" ]; then
+    . "$HOME/.osxrc"
+fi
+
 # Set PATH so it includes user's private bin if it exists
 if [ -d $HOME/.bin ]; then
     PATH=$HOME/.bin:$PATH
@@ -60,22 +65,3 @@ export NVM_DIR=$HOME/.nvm
 if [ -s $BREW_PREFIX/opt/nvm/nvm.sh ]; then
   . $BREW_PREFIX/opt/nvm/nvm.sh
 fi
-
-# Custom aliases
-function sshcol { ssh ${1}.carlipa-online.com; }
-function sshcio { ssh ${1}.carlipa.io; }
-function sshon { ssh ${1}.carlipa.online; }
-#function sshcolp { ssh -p 2222 -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no user@${*}; }
-function sshpp { ssh -p 22 -A -R52698:127.0.0.1:52698 -L5900:127.0.0.1:5900 -L8080:127.0.0.1:8080 -L9080:127.0.0.1:9080 -L9222:127.0.0.1:9222 -L27018:127.0.0.1:27017 -L6380:127.0.0.1:6379 -o UserKnownHostsFile=/dev/null carlipa@${1}; }
-function sshcolp { sshc; ssh -p 22 -A -R52698:127.0.0.1:52698 -L5900:127.0.0.1:5900 -L8080:127.0.0.1:8080 -L9080:127.0.0.1:9080 -L9222:127.0.0.1:9222 -L27018:127.0.0.1:27017 -L6380:127.0.0.1:6379 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no carlipa@player-${1}.${2:-local}; }
-function sshcols { sshc; ssh -p 22 -A -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no carlipa@server-${1}.local; }
-function sshcoltp() { ssh -At root@tesla.local ssh -p 22 -L9222:127.0.0.1:9222 -L27017:127.0.0.1:27017 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -At carlipa@player-${1}.local; }
-function cgzapp() { cd "$1"; tar -cvzf "./../${1%/}.cgz" . --exclude ".DS_Store" --exclude "*/.tmp" --exclude "./.git" --exclude "./dist" --exclude "./admin/dist" --exclude "*/node_modules" --exclude ./test; cd ..; }
-function cgz() { cd "$1"; tar -cvzf "./../${1%/}.cgz" . --exclude ".DS_Store" --exclude "*/.tmp" --exclude "./.git" --exclude "./app" --exclude "./admin/app" --exclude "*/node_modules" --exclude ./test; cd ..; }
-function cgtw() { sudo route delete default; sudo route add default 192.168.0.${1:-23}; }
-
-alias player-upgrade="ansible-playbook -i inventories/ playbook.yml -t player_configure_ssh,shell_upgrade -e 'playbook_shell=true' -l"
-alias player-major-upgrade="ansible-playbook -i inventories/ playbook.yml -t system_apt,system_watchdog,web_nodejs,multimedia_mpv,multimedia_electron,player_configure_ssh,shell_upgrade -e 'playbook_shell=true' -l"
-alias write-serial="curl -X \"POST\" \"http://localhost:8080/serial/write\" -H \"Accept: application/json\" -H \"Content-Type: application/json; charset=utf-8\""
-
-
