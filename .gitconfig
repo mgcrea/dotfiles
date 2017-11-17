@@ -1,6 +1,7 @@
 [user]
 	name = Olivier Louvignes
-	email = olivier@mg-crea.com
+	email = olivier@mgcrea.io
+	signingkey = 46E1684E3BEA9E92
 
 [core]
 	autocrlf = input

@@ -32,6 +32,9 @@ export PATH=$HOME/Library/Android/sdk/tools:$HOME/Library/Android/sdk/platform-t
 # Use PlatformIO toolchain
 export PATH=$HOME/.platformio/packages/toolchain-atmelavr/bin:$PATH
 
+# Export GPG tty
+export GPG_TTY=$(tty)
+
 # If running bash
 if [ -n "$BASH_VERSION" ]; then
     # Include .bashrc if it exists

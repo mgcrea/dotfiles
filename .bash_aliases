@@ -45,13 +45,26 @@ function chmod600() { chmod -R u-x,u+rwX,go-rwx ${1:-.*}; }
 alias gps="git push; git push --tags"
 alias gpsf="git push --force; git push --tags --force"
 alias gpl="git pull"
+alias gpr="git pull --rebase"
 alias gs="git status"
 alias gco="git checkout"
 alias gcb="git checkout -b"
 alias gtc="git clone -o github"
 alias gc="git commit -m"
 function gtp() { git add --all .; git ci -am "feat(update): ${1:-minor changes}"; git push; }
-function gtg() { git ci -am "chore(release): cut the `cat package.json | jq -r .version` release"; git tag v`cat package.json | jq -r .version`; git push; git push --tags; npm publish; }
+function gtg() {
+  VERSION=`cat package.json | jq -r .version`
+  git ci -am "chore(release): cut the ${VERSION} release";
+  git tag v${VERSION};
+  git push; git push --tags;
+  npm publish;
+}
+function gtgd() {
+  VERSION=`cat Makefile | grep 'IMAGE_VERSION :=' | cut -c18-`
+  git ci -am "chore(release): cut the ${VERSION} release";
+  git tag v${VERSION};
+  git push; git push --tags;
+}
 function gtpg() { git checkout -b tmp; git branch -D gh-pages; git checkout --orphan gh-pages; git add --all .; git ci -am "docs(release): build `cat ./../package.json | jq -r .version` docs pages"; git push github gh-pages:gh-pages --force; git branch -D tmp; }
 function gtpm() { git checkout -b tmp; git branch -D master; git checkout --orphan master; git add --all .; git ci -am "chore(release): build `cat ./../package.json | jq -r .version`"; git push github master:master --force; git branch -D tmp; }
 
@@ -208,6 +221,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   alias lsavahi="dns-sd -B _services._dns-sd._udp"
   alias cdvp="cd cordova; cordova prepare; cd -"
   alias dunmount="diskutil unmountDisk"
+  alias lsusb="ioreg -p IOUSB -l -w 0"
 
 # Custom *NIX
 else
