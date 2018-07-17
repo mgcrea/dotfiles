@@ -17,8 +17,9 @@ done
 
 if [[ $OSTYPE =~ "darwin" ]]; then
 	echo -n "Prossessing \".profile\"..."
-	ln -fs "${baseDirectory}/osx/.hushlogin" "$HOME/.hushlogin"
-	ln -fs "${baseDirectory}/osx/.profile" "$HOME/.profile"
+	ln -fs ".dotfiles/osx/.hushlogin" "$HOME/.hushlogin"
+	ln -fs ".dotfiles/osx/.profile" "$HOME/.profile"
+	# https://superuser.com/a/1171023
 	if [[ ! -L /Library/LaunchDaemons/limit.maxfiles.plist ]]; then
 		sudo ln -fs ${baseDirectory}/osx/limit.maxfiles.plist /Library/LaunchDaemons/limit.maxfiles.plist
 	fi

@@ -97,7 +97,9 @@ function lbabel() { $(npm bin)/babel $@; }
 function lmocha() { $(npm bin)/mocha $@; }
 function leslint() { $(npm bin)/eslint $@; }
 function rename() { find . -type f -name "*.${1}" | sed -e "p;s/\.${1}$/.${2}/" | xargs -n2 echo; }
+
 function lsport() { lsof -i :$1; }
+function killport() { lsof -i :$1 | tail -n-1 | awk '{print $2}' | xargs kill -9; }
 
 # Docker
 alias dk="docker"
@@ -118,6 +120,9 @@ function docker-clean() {
 }
 function docker-ip() { docker inspect ${1} | jq -r .[0].NetworkSettings.IPAddress; }
 
+# Kubernetes
+alias kb="kubectl"
+
 # Ansible
 alias asb="ansible -s -i inventory -m shell -a"
 alias asbp="ansible -s -i inventories/ -m shell -a"
@@ -136,13 +141,14 @@ alias ncuu="ncu --upgradeAll"
 alias bcu="ncu -m bower"
 alias bcuu="ncu -m bower --upgradeAll"
 alias cnpm="npm --registry=https://registry.npm.taobao.org --cache=$HOME/.npm/.cache/cnpm --disturl=https://npm.taobao.org/dist --userconfig=$HOME/.cnpmrc"
-alias npm-list="cat package.json | jq .dependencies | jq 'keys[]' -r | xargs"
-alias npm-list-dev="cat package.json | jq .devDependencies | jq 'keys[]' -r | xargs"
-function npm-link-dev() { npm link `cat package.json | jq .devDependencies | jq 'keys[]' -r | xargs`; }
 
-# Bower
-alias bowerlist="node -p \"Object.keys(JSON.parse(require('fs').readFileSync('./bower.json')).dependencies).join(' ')\""
-alias bowerlistdev="node -p \"Object.keys(JSON.parse(require('fs').readFileSync('./bower.json')).devDependencies).join(' ')\""
+# alias npm-list="cat package.json | jq .dependencies | jq 'keys[]' -r | xargs"
+# alias npm-list-dev="cat package.json | jq .devDependencies | jq 'keys[]' -r | xargs"
+# function npm-link-dev() { npm link `cat package.json | jq .devDependencies | jq 'keys[]' -r | xargs`; }
+
+
+alias sslcheck="openssl s_client -connect"
+
 
 # Custom OSX
 if [[ $OSTYPE =~ "darwin" ]]; then
@@ -162,10 +168,13 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   alias mpv="/Applications/mpv.app/Contents/MacOS/mpv"
   alias cvlc="/Applications/VLC.app/Contents/MacOS/VLC -I dummy"
   alias chrome="open -a /Applications/Google\ Chrome.app"
-  alias chrome-dev="open -a /Applications/Google\ Chrome\ Canary.app --args --incognito --allow-file-access-from-files --disable-web-security"
+  alias canary="open -a /Applications/Google\ Chrome\ Canary.app"
+  alias firefox="open -a /Applications/Firefox.app"
+  alias chrome-dev="open -a /Applications/Google\ Chrome\ Canary.app --args --incognito --allow-file-access-from-files --disable-web-security --user-data-dir"
   alias electron="/Applications/Electron.app/Contents/MacOS/Electron"
   alias syncthing-gui="syncthing -browser-only"
   alias syncthing-log="tail -f /usr/local/var/log/syncthing.log"
+  function google() { open -a /Applications/Google\ Chrome.app "http://www.google.com/search?q=$*"; }
   function pdfmerge() { /usr/local/bin/gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=$1 ${@:2}; }
 
   # Spotify

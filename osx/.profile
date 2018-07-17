@@ -52,6 +52,9 @@ fi
 if [ -d $HOME/.bin ]; then
     PATH=$HOME/.bin:$PATH
 fi
+if [ -d $HOME/.platformio ]; then
+    PATH=$HOME/.platformio/penv/bin:$PATH
+fi
 
 # Homebrew Bash completion
 if [ -f $BREW_PREFIX/etc/bash_completion ]; then
