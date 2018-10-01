@@ -33,6 +33,7 @@ alias grep="grep --color"
 alias tf="tail -fn200"
 alias h?="history | grep"
 alias hr="printf '%*s\n' \"${COLUMNS:-$(tput cols)}\" '' | tr ' ' ="
+function rename() { find . -type f -name "*.${1}" | sed -e "p;s/\.${1}$/.${2}/" | xargs -n2 echo; }
 
 # Rights
 alias ssu="sudo -s"
@@ -51,7 +52,9 @@ alias gco="git checkout"
 alias gcb="git checkout -b"
 alias gtc="git clone -o github"
 alias gc="git commit -m"
-function gtp() { git add --all .; git ci -am "feat(update): ${1:-minor changes}"; git push; }
+alias gaa="git add --all"
+alias gcnv="git commit --no-verify -m"
+function gtp() { git add --all .; git ci --no-verify -am "feat(update): ${1:-minor changes}"; git push; }
 function gtg() {
   VERSION=`cat package.json | jq -r .version`
   git ci -am "chore(release): cut the ${VERSION} release";
@@ -65,8 +68,6 @@ function gtgd() {
   git tag v${VERSION};
   git push; git push --tags;
 }
-function gtpg() { git checkout -b tmp; git branch -D gh-pages; git checkout --orphan gh-pages; git add --all .; git ci -am "docs(release): build `cat ./../package.json | jq -r .version` docs pages"; git push github gh-pages:gh-pages --force; git branch -D tmp; }
-function gtpm() { git checkout -b tmp; git branch -D master; git checkout --orphan master; git add --all .; git ci -am "chore(release): build `cat ./../package.json | jq -r .version`"; git push github master:master --force; git branch -D tmp; }
 
 # Ssh
 alias sshc="find ~/.ssh/conf.d -type f -name '*.conf' -print0 | xargs -0 -I file cat file > ~/.ssh/config"
@@ -79,7 +80,13 @@ function randpw() { < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-16}; echo; 
 alias sshps="sshp -p2222 -A"
 alias rsyncs="rsync -avzP -e 'ssh -p2222' --rsync-path 'sudo rsync'"
 
-# Dev
+# Network
+function lsport() { lsof -i :$1; }
+function killport() { lsof -i :$1 | tail -n-1 | awk '{print $2}' | xargs kill -9; }
+alias sslcheck="openssl s_client -connect"
+
+# Developer
+
 alias isodate="date -u +'%Y-%m-%dT%H:%M:%SZ'"
 alias json="python -mjson.tool"
 alias post-json="curl -X POST -H \"Content-Type: application/json\" -d"
@@ -89,19 +96,32 @@ alias static-dev="http-server -c-1"
 alias scan-local="sudo nmap -sP -n $@"
 alias nbu="ncu -m bower"
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
+
+## Tmux
+
 alias tmuxa="tmux a -t"
 alias tmuxc="tmux new -s"
 alias tmuxk="tmux kill-session -t"
-function lgulp() { $(npm bin)/gulp $@; }
-function lbabel() { $(npm bin)/babel $@; }
-function lmocha() { $(npm bin)/mocha $@; }
-function leslint() { $(npm bin)/eslint $@; }
-function rename() { find . -type f -name "*.${1}" | sed -e "p;s/\.${1}$/.${2}/" | xargs -n2 echo; }
 
-function lsport() { lsof -i :$1; }
-function killport() { lsof -i :$1 | tail -n-1 | awk '{print $2}' | xargs kill -9; }
+## NodeJS
 
-# Docker
+### npm
+alias npmr="npm run"
+alias npms="npm start"
+alias npmt="npm test"
+
+### npm-check-updates
+alias ncuu="ncu --upgradeAll"
+alias bcu="ncu -m bower"
+alias bcuu="ncu -m bower --upgradeAll"
+
+### yarn
+alias y="yarn"
+alias ys="yarn start"
+alias yr="yarn run"
+alias yt="yarn test"
+
+## Docker
 alias dk="docker"
 alias dkps="docker ps"
 alias dki="docker inspect"
@@ -120,35 +140,14 @@ function docker-clean() {
 }
 function docker-ip() { docker inspect ${1} | jq -r .[0].NetworkSettings.IPAddress; }
 
-# Kubernetes
+## Kubernetes
 alias kb="kubectl"
 
-# Ansible
+## Ansible
 alias asb="ansible -s -i inventory -m shell -a"
 alias asbp="ansible -s -i inventories/ -m shell -a"
 alias apb="ansible-playbook -i inventory playbook.yml"
 alias apbp="ansible-playbook -i inventories/ playbook.yml"
-
-# Npm
-alias npmr="npm run"
-alias npms="npm start"
-alias npmt="npm test"
-alias npmc="npm --proxy http://localhost:4873 --https-proxy http://localhost:4873 --strict-ssl false"
-alias npm-proxy-cache="npm-proxy-cache -p 4873"
-alias nbuild="npm run build"
-alias npmzh="npm --registry=https://registry.npm.taobao.org"
-alias ncuu="ncu --upgradeAll"
-alias bcu="ncu -m bower"
-alias bcuu="ncu -m bower --upgradeAll"
-alias cnpm="npm --registry=https://registry.npm.taobao.org --cache=$HOME/.npm/.cache/cnpm --disturl=https://npm.taobao.org/dist --userconfig=$HOME/.cnpmrc"
-
-# alias npm-list="cat package.json | jq .dependencies | jq 'keys[]' -r | xargs"
-# alias npm-list-dev="cat package.json | jq .devDependencies | jq 'keys[]' -r | xargs"
-# function npm-link-dev() { npm link `cat package.json | jq .devDependencies | jq 'keys[]' -r | xargs`; }
-
-
-alias sslcheck="openssl s_client -connect"
-
 
 # Custom OSX
 if [[ $OSTYPE =~ "darwin" ]]; then
@@ -170,7 +169,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   alias chrome="open -a /Applications/Google\ Chrome.app"
   alias canary="open -a /Applications/Google\ Chrome\ Canary.app"
   alias firefox="open -a /Applications/Firefox.app"
-  alias chrome-dev="open -a /Applications/Google\ Chrome\ Canary.app --args --incognito --allow-file-access-from-files --disable-web-security --user-data-dir"
+  alias chrome-dev="open -a /Applications/Google\ Chrome\ Canary.app --args --incognito --ignore-certificate-errors --allow-file-access-from-files --disable-web-security  --user-data-dir"
   alias electron="/Applications/Electron.app/Contents/MacOS/Electron"
   alias syncthing-gui="syncthing -browser-only"
   alias syncthing-log="tail -f /usr/local/var/log/syncthing.log"
