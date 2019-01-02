@@ -25,9 +25,12 @@ fi
 # Use NPM module binaries
 export PATH=$HOME/node_modules/.bin:$PATH
 
+# Use Java runtime
+export PATH=/Library/Java/JavaVirtualMachines/jdk1.8.0_191.jdk/Contents/Home/bin:$PATH
+
 # Use Android SDK tools
 export PATH=$HOME/Library/Android/sdk/tools:$HOME/Library/Android/sdk/platform-tools:$PATH
-# export PATH="/Applications/Android Studio.app/sdk/build-tools/android-4.4W":$PATH
+export ANDROID_HOME=$HOME/Library/Android/sdk
 
 # Use PlatformIO toolchain
 export PATH=$HOME/.platformio/packages/toolchain-atmelavr/bin:$PATH
@@ -54,6 +57,11 @@ if [ -d $HOME/.bin ]; then
 fi
 if [ -d $HOME/.platformio ]; then
     PATH=$HOME/.platformio/penv/bin:$PATH
+fi
+
+# RubyGems
+if [ -d /usr/local/lib/ruby/gems/2.5.0/bin ]; then
+    PATH=/usr/local/lib/ruby/gems/2.5.0/bin:$PATH
 fi
 
 # Homebrew Bash completion

@@ -167,3 +167,10 @@ if [ -s $NVM_DIR/nvm.sh ]; then
 fi
 
 export PATH="$HOME/.yarn/bin:$PATH"
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[ -f /Users/olivier/.config/yarn/global/node_modules/tabtab/.completions/serverless.bash ] && . /Users/olivier/.config/yarn/global/node_modules/tabtab/.completions/serverless.bash
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[ -f /Users/olivier/.config/yarn/global/node_modules/tabtab/.completions/sls.bash ] && . /Users/olivier/.config/yarn/global/node_modules/tabtab/.completions/sls.bash

@@ -15,6 +15,7 @@ function tgz() { cd "$1"; tar --exclude=.DS_Store -cvzf "./../${1%/}.tgz" .; cd 
 function fdir() { find . -maxdepth 1 -mindepth 1 -type d -print0 | xargs -0 -I '{}' sh -c "cd {}; $@; cd -"; }
 
 # Miscellaneous
+alias clear="clear && printf '\e[3J'"
 alias c="clear"
 alias h="cd ~"
 alias ..="cd .."
@@ -132,13 +133,14 @@ alias dkcl="docker-compose logs --tail=200 -f"
 alias dkcr="docker-compose restart"
 alias dkm="docker-machine"
 function dkb() { docker exec -it $1 script -q -c "TERM=xterm /bin/bash" /dev/null; }
-function dkrb() { docker run --rm -it -v /tmp:/tmp/host ${1:-"ubuntu:16.04"} script -q -c "TERM=xterm /bin/bash" /dev/null; }
+function dkrb() { docker run --rm -it -v /tmp:/tmp/host ${1:-"ubuntu:18.04"} script -q -c "TERM=xterm /bin/bash" /dev/null; }
+function dkjl() { journalctl -b CONTAINER_NAME=$1 ${@:2}; }
+function dkip() { docker inspect $1 | jq -r .[0].NetworkSettings.IPAddress; }
 function docker-clean() {
   docker rm -v $(docker ps --filter status=exited -q 2>/dev/null) 2>/dev/null
   docker rmi $(docker images --filter dangling=true -q 2>/dev/null) 2>/dev/null
   docker volume rm $(docker volume ls -qf dangling=true 2>/dev/null) 2>/dev/null
 }
-function docker-ip() { docker inspect ${1} | jq -r .[0].NetworkSettings.IPAddress; }
 
 ## Kubernetes
 alias kb="kubectl"
@@ -160,16 +162,16 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   alias p="cd ~/Projects"
 
   # Applications
-  alias st="/usr/local/bin/atom"
+  alias code="/Applications/Visual\ Studio\ Code\ -\ Insiders.app/Contents/Resources/app/bin/code"
+  alias st="code"
   alias stt="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
-  alias nw="/Applications/node-webkit.app/Contents/MacOS/node-webkit"
   alias vlc="/Applications/VLC.app/Contents/MacOS/vlc"
   alias mpv="/Applications/mpv.app/Contents/MacOS/mpv"
   alias cvlc="/Applications/VLC.app/Contents/MacOS/VLC -I dummy"
   alias chrome="open -a /Applications/Google\ Chrome.app"
   alias canary="open -a /Applications/Google\ Chrome\ Canary.app"
   alias firefox="open -a /Applications/Firefox.app"
-  alias chrome-dev="open -a /Applications/Google\ Chrome\ Canary.app --args --incognito --ignore-certificate-errors --allow-file-access-from-files --disable-web-security  --user-data-dir"
+  alias chrome-dev="open -a /Applications/Google\ Chrome\ Canary.app --args --incognito --ignore-certificate-errors --allow-file-access-from-files --disable-web-security --user-data-dir"
   alias electron="/Applications/Electron.app/Contents/MacOS/Electron"
   alias syncthing-gui="syncthing -browser-only"
   alias syncthing-log="tail -f /usr/local/var/log/syncthing.log"
