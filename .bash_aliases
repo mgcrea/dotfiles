@@ -61,7 +61,10 @@ function gtg() {
   git ci -am "chore(release): cut the ${VERSION} release";
   git tag v${VERSION};
   git push; git push --tags;
-  npm publish;
+  PRIVATE=`cat package.json | jq -r .private`
+  [[ ${PRIVATE} == "null" || ${PRIVATE} == "false" ]] && {
+    npm publish;
+  }
 }
 function gtgd() {
   VERSION=`cat Makefile | grep 'IMAGE_VERSION :=' | cut -c18-`
@@ -87,7 +90,6 @@ function killport() { lsof -i :$1 | tail -n-1 | awk '{print $2}' | xargs kill -9
 alias sslcheck="openssl s_client -connect"
 
 # Developer
-
 alias isodate="date -u +'%Y-%m-%dT%H:%M:%SZ'"
 alias json="python -mjson.tool"
 alias post-json="curl -X POST -H \"Content-Type: application/json\" -d"
@@ -95,8 +97,8 @@ alias get-json="curl -X GET -H \"Content-Type: application/json\""
 alias static-py="python -m SimpleHTTPServer"
 alias static-dev="http-server -c-1"
 alias scan-local="sudo nmap -sP -n $@"
-alias nbu="ncu -m bower"
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
+function screencap() { file="screencap_$(date +%Y%m%d_%H%M%S).png"; adb -d exec-out screencap -p > "${file}"; gm convert "${file}" -crop 1080x2160 "${file}"; }
 
 ## Tmux
 
@@ -112,15 +114,14 @@ alias npms="npm start"
 alias npmt="npm test"
 
 ### npm-check-updates
-alias ncuu="ncu --upgradeAll"
-alias bcu="ncu -m bower"
-alias bcuu="ncu -m bower --upgradeAll"
+alias ncuu="ncu -u"
 
 ### yarn
 alias y="yarn"
 alias ys="yarn start"
 alias yr="yarn run"
 alias yt="yarn test"
+alias yj="yarn jest"
 
 ## Docker
 alias dk="docker"
@@ -163,6 +164,9 @@ if [[ $OSTYPE =~ "darwin" ]]; then
 
   # Applications
   alias code="/Applications/Visual\ Studio\ Code\ -\ Insiders.app/Contents/Resources/app/bin/code"
+  alias vscode="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
+  alias vscodei="/Applications/Visual\ Studio\ Code\ -\ Insiders.app/Contents/Resources/app/bin/code"
+  alias vscodee="/Applications/Visual\ Studio\ Code\ -\ Exploration.app/Contents/Resources/app/bin/code"
   alias st="code"
   alias stt="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
   alias vlc="/Applications/VLC.app/Contents/MacOS/vlc"
