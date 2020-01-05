@@ -166,7 +166,8 @@ if [ -s $NVM_DIR/nvm.sh ]; then
     . $NVM_DIR/nvm.sh
 fi
 
-export PATH="$HOME/.yarn/bin:$PATH"
+# Add yarn global packages
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/bin:$PATH"
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`

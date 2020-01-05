@@ -15,6 +15,7 @@ function tgz() { cd "$1"; tar --exclude=.DS_Store -cvzf "./../${1%/}.tgz" .; cd 
 function fdir() { find . -maxdepth 1 -mindepth 1 -type d -print0 | xargs -0 -I '{}' sh -c "cd {}; $@; cd -"; }
 
 # Miscellaneous
+alias please="sudo"
 alias clear="clear && printf '\e[3J'"
 alias c="clear"
 alias h="cd ~"
@@ -32,7 +33,6 @@ alias up4="cd ../../../.."
 alias up5="cd ../../../../.."
 alias grep="grep --color"
 alias tf="tail -fn200"
-alias h?="history | grep"
 alias hr="printf '%*s\n' \"${COLUMNS:-$(tput cols)}\" '' | tr ' ' ="
 function rename() { find . -type f -name "*.${1}" | sed -e "p;s/\.${1}$/.${2}/" | xargs -n2 echo; }
 
@@ -119,6 +119,7 @@ alias ncuu="ncu -u"
 ### yarn
 alias y="yarn"
 alias ys="yarn start"
+alias yb="yarn build"
 alias yr="yarn run"
 alias yt="yarn test"
 alias yj="yarn jest"
@@ -144,6 +145,7 @@ function docker-clean() {
 }
 
 ## Kubernetes
+alias kubectl="/usr/local/bin/kubectl"
 alias kb="kubectl"
 
 ## Ansible
@@ -163,7 +165,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   alias p="cd ~/Projects"
 
   # Applications
-  alias code="/Applications/Visual\ Studio\ Code\ -\ Insiders.app/Contents/Resources/app/bin/code"
+  alias code="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
   alias vscode="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
   alias vscodei="/Applications/Visual\ Studio\ Code\ -\ Insiders.app/Contents/Resources/app/bin/code"
   alias vscodee="/Applications/Visual\ Studio\ Code\ -\ Exploration.app/Contents/Resources/app/bin/code"

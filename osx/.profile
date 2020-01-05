@@ -35,6 +35,9 @@ export ANDROID_HOME=$HOME/Library/Android/sdk
 # Use PlatformIO toolchain
 export PATH=$HOME/.platformio/packages/toolchain-atmelavr/bin:$PATH
 
+# Use Python pip packages
+# export PYTHONPATH="${PYTHONPATH}:/usr/local/lib/python2.7/site-packages:/usr/lib/python2.7/site-packages"
+
 # Export GPG tty
 export GPG_TTY=$(tty)
 
