@@ -148,6 +148,15 @@ alias sudo='sudo '
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
+# kubectl (https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/kubectl)
+if [ -f ~/.dotfiles/aliases/kubectl.bash ]; then
+    . ~/.dotfiles/aliases/kubectl.bash
+fi
+
+# Support microk8s
+if [ -s /snap/bin/microk8s.kubectl ]; then
+  alias kubectl="microk8s.kubectl"
+fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -166,12 +175,6 @@ if [ -s $NVM_DIR/nvm.sh ]; then
     . $NVM_DIR/nvm.sh
 fi
 
+
 # Add yarn global packages
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/bin:$PATH"
-
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[ -f /Users/olivier/.config/yarn/global/node_modules/tabtab/.completions/serverless.bash ] && . /Users/olivier/.config/yarn/global/node_modules/tabtab/.completions/serverless.bash
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[ -f /Users/olivier/.config/yarn/global/node_modules/tabtab/.completions/sls.bash ] && . /Users/olivier/.config/yarn/global/node_modules/tabtab/.completions/sls.bash

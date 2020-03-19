@@ -8,7 +8,7 @@ export ZSH="/Users/olivier/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="avit"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -17,7 +17,7 @@ ZSH_THEME="robbyrussell"
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+CASE_SENSITIVE="true"
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
@@ -68,11 +68,39 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+  autojump
+  dotenv
+  git
+  git-prompt
+  git-flow
+  helm
+  httpie
+  kubectl
+  node
+  per-directory-history
+  react-native
+  ripgrep
+  rsync
+  rust
+  safe-paste
+  screen
+  ssh-agent
+  sudo
+  tmux
+  vscode
+  yarn
+)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+
+export BREW_PREFIX=/usr/local
+if [ -d "$BREW_PREFIX/opt/coreutils/libexec" ]; then
+  export PATH=$BREW_PREFIX/opt/coreutils/libexec/gnubin:$BREW_PREFIX/opt/gnu-tar/libexec/gnubin:$PATH
+  export MANPATH=$BREW_PREFIX/opt/coreutils/libexec/gnuman:$MANPATH
+fi
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -95,5 +123,9 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias zshconfig="code ~/.zshrc"
+alias ohmyzsh="code ~/.oh-my-zsh"
+alias sudo='sudo '
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
