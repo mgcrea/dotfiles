@@ -148,10 +148,10 @@ alias sudo='sudo '
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
-# kubectl (https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/kubectl)
-if [ -f ~/.dotfiles/aliases/kubectl.bash ]; then
-    . ~/.dotfiles/aliases/kubectl.bash
-fi
+# Load aliases
+for alias in ~/.dotfiles/aliases/*.bash; do
+    . $alias
+done;
 
 # Support microk8s
 if [ -s /snap/bin/microk8s.kubectl ]; then

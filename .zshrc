@@ -70,7 +70,7 @@ CASE_SENSITIVE="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   autojump
-  dotenv
+  # dotenv
   git
   git-prompt
   git-flow
