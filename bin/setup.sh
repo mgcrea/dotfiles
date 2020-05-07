@@ -51,6 +51,8 @@ echo -e "\n${HR}"
 echo -e "Dotfiles successfully setup at ${DATE}."
 echo -e "${HR}\n"
 
+# ln -s /usr/local/Cellar/gnu-sed/4.8/libexec/gnubin/sed /usr/local/opt/coreutils/libexec/gnubin/sed
+
 # echo "Apply osx config"
 # bash "$p/osx/.osx"
 # echo "."

@@ -97,15 +97,31 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 export BREW_PREFIX=/usr/local
+
+# gnu tools
 if [ -d "$BREW_PREFIX/opt/coreutils/libexec" ]; then
   export PATH=$BREW_PREFIX/opt/coreutils/libexec/gnubin:$BREW_PREFIX/opt/gnu-tar/libexec/gnubin:$PATH
   export MANPATH=$BREW_PREFIX/opt/coreutils/libexec/gnuman:$MANPATH
 fi
 
+# esp32 toolchain
+if [ -d "$HOME/.platformio/packages/toolchain-xtensa32/bin" ]; then
+  export PATH="$HOME/.platformio/packages/toolchain-xtensa32/bin":$PATH
+fi
+
+# nvm
+# export NVM_DIR="$HOME/.nvm"
+# if [ -s "$BREW_PREFIX/opt/nvm/nvm.sh" ]; then
+#   . /usr/local/opt/nvm/nvm.sh
+# fi
+
+  # [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then

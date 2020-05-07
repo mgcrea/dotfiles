@@ -66,9 +66,14 @@
 # | **rnaws440**   | `react-native run-ios --simulator "Apple Watch Series 4 - 40mm"`             |
 # | **rnaws444**   | `react-native run-ios --simulator "Apple Watch Series 4 - 44mm"`             |
 
+alias kls="kubectl logs --namespace=\"kube-system\""
 
 alias ys="yarn start"
 alias yr="yarn run"
+
+alias rni="npx react-native init --template react-native-template-typescript"
+alias rnimac="npx react-native-macos-init"
+
 
 # sprunge (https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/sprunge)
 
@@ -223,6 +228,7 @@ alias dkl="docker logs --tail=200 -f"
 alias dkc="docker-compose"
 alias dkcl="docker-compose logs --tail=200 -f"
 alias dkcr="docker-compose restart"
+alias dkcpl="cat docker-compose.yml | grep image: | sed 's/image://' | xargs -n1 docker pull"
 alias dkm="docker-machine"
 function dkb() { docker exec -it $1 script -q -c "TERM=xterm /bin/bash" /dev/null; }
 function dkrb() { docker run --rm -it -v /tmp:/tmp/host ${1:-"ubuntu:18.04"} script -q -c "TERM=xterm /bin/bash" /dev/null; }
@@ -309,7 +315,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   function docker-ls { docker inspect --format='{{.Name}}' $(docker ps -aq --no-trunc) | cut -c2-; }
 
   # Homebrew
-  alias bubu="brew update && brew upgrade"
+  alias bubu="brew update && brew upgrade; brew cask upgrade"
 
   # NodeJS
   function nvm-upgrade() { nvm install stable --reinstall-packages-from=`nvm current`; }

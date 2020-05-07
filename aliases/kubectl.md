@@ -1,4 +1,5 @@
 https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/kubectl/README.md
+https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/kubectl/kubectl.plugin.zsh
 
 ## Aliases
 
