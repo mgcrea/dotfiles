@@ -109,6 +109,18 @@ if [ -d "$HOME/.platformio/packages/toolchain-xtensa32/bin" ]; then
   export PATH="$HOME/.platformio/packages/toolchain-xtensa32/bin":$PATH
 fi
 
+# android tools
+if [ -d "$HOME/Library/Android/sdk" ]; then
+  export ANDROID_HOME=$HOME/Library/Android/sdk
+  export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
+  export ANDROID_AVD_HOME=$HOME/.android/avd
+fi
+
+# autojump
+if [ -f /usr/local/etc/profile.d/autojump.sh ]; then
+  . /usr/local/etc/profile.d/autojump.sh
+fi
+
 # nvm
 # export NVM_DIR="$HOME/.nvm"
 # if [ -s "$BREW_PREFIX/opt/nvm/nvm.sh" ]; then
