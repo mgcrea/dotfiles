@@ -8,7 +8,7 @@ echo -e "Setting up dotfiles..."
 echo -e "${HR}\n"
 
 baseDirectory="$(realpath $DIRNAME/..)";
-for f in $(find $baseDirectory -maxdepth 1 -mindepth 1 -type f ! -name '.DS_Store' -print0 | xargs -0); do
+for f in $(find $baseDirectory -maxdepth 1 -mindepth 1 -type f ! -name '.DS_Store' ! -name '.gitignore' -print0 | xargs -0); do
 	f="$(basename "$f")"
 	echo -n "Linking \"$f\"..."
 	ln -fs ".dotfiles/$f" "$HOME/$f"
