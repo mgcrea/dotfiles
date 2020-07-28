@@ -147,8 +147,8 @@ alias grep="grep --color"
 alias tf="tail -fn200"
 alias hr="printf '%*s\n' \"${COLUMNS:-$(tput cols)}\" '' | tr ' ' ="
 function rename() { find . -type f -name "*.${1}" | sed -e "p;s/\.${1}$/.${2}/" | xargs -n2 echo; }
-function findf() { find . -type f -iname "*.${1}" }
-function rgf() { rg --files -g "*${1}*" }
+function findf() { find . -type f -iname "*.${1}"; }
+function rgf() { rg --files -g "*${1}*"; }
 function evalexport() { eval $(make export); }
 
 # Rights
