@@ -143,13 +143,13 @@ alias up2="cd ../.."
 alias up3="cd ../../.."
 alias up4="cd ../../../.."
 alias up5="cd ../../../../.."
-alias evalexport="eval $(make export)"
 alias grep="grep --color"
 alias tf="tail -fn200"
 alias hr="printf '%*s\n' \"${COLUMNS:-$(tput cols)}\" '' | tr ' ' ="
 function rename() { find . -type f -name "*.${1}" | sed -e "p;s/\.${1}$/.${2}/" | xargs -n2 echo; }
 function findf() { find . -type f -iname "*.${1}" }
 function rgf() { rg --files -g "*${1}*" }
+function evalexport() { eval $(make export); }
 
 # Rights
 alias ssu="sudo -s"
@@ -249,9 +249,9 @@ function docker-clean() {
 
 ## Ansible
 alias asb="ansible -s -i hosts.yml -m shell -a"
-alias asbp="ansible -s -i hosts.yml -i inventories/ -m shell -a"
+alias asbp="ansible -s -i inventories/ -m shell -a"
 alias apb="ansible-playbook -i hosts.yml playbook.yml"
-alias apbp="ansible-playbook -i hosts.yml -i inventories/ playbook.yml"
+alias apbp="ansible-playbook -i inventories/ playbook.yml"
 
 # Custom OSX
 if [[ $OSTYPE =~ "darwin" ]]; then
