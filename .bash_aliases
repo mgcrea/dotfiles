@@ -1,115 +1,10 @@
 # ~/.bash_aliases: executed by bash(1) for non-login shells.
 
 # react-native (https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/react-native)
-
-# | Alias          | React Native command                                                         |
-# | :------------  | :-------------------------------------------------                           |
-# | **rn**         | `react-native`                                                               |
-# | **rns**        | `react-native start`                                                         |
-# | **rnlink**     | `react-native link`                                                          |
-# | _Logging_      |                                                                              |
-# | **rnland**     | `react-native log-android`                                                   |
-# | **rnlios**     | `react-native log-ios`                                                       |
-# | _App Testing_  |                                                                              |
-# | **rnand**      | `react-native run-android`                                                   |
-# | **rnios**      | `react-native run-ios`                                                       |
-# | _iPhone_       |                                                                              |
-# | **rnios4s**    | `react-native run-ios --simulator "iPhone 4s"`                               |
-# | **rnios5**     | `react-native run-ios --simulator "iPhone 5"`                                |
-# | **rnios5s**    | `react-native run-ios --simulator "iPhone 5s"`                               |
-# | **rnios6**     | `react-native run-ios --simulator "iPhone 6"`                                |
-# | **rnios6s**    | `react-native run-ios --simulator "iPhone 6s"`                               |
-# | **rnios6p**    | `react-native run-ios --simulator "iPhone 6 Plus"`                           |
-# | **rnios6sp**   | `react-native run-ios --simulator "iPhone 6s Plus"`                          |
-# | **rnios7**     | `react-native run-ios --simulator "iPhone 7"`                                |
-# | **rnios7p**    | `react-native run-ios --simulator "iPhone 7 Plus"`                           |
-# | **rnios8**     | `react-native run-ios --simulator "iPhone 8"`                                |
-# | **rnios8p**    | `react-native run-ios --simulator "iPhone 8 Plus"`                           |
-# | **rniosse**    | `react-native run-ios --simulator "iPhone SE"`                               |
-# | **rniosx**     | `react-native run-ios --simulator "iPhone X"`                                |
-# | **rniosxs**    | `react-native run-ios --simulator "iPhone Xs"`                               |
-# | **rniosxsm**   | `react-native run-ios --simulator "iPhone Xs Max"`                           |
-# | **rniosxr**    | `react-native run-ios --simulator "iPhone Xʀ"`                               |
-# | **rnios11**    | `react-native run-ios --simulator "iPhone 11"`                               |
-# | **rnios11p**   | `react-native run-ios --simulator "iPhone 11 Pro"`                           |
-# | **rnios11pm**  | `react-native run-ios --simulator "iPhone 11 Pro Max"`                       |
-# | _iPad_         |                                                                              |
-# | **rnipad2**    | `react-native run-ios --simulator "iPad 2"`                                  |
-# | **rnipad5**    | `react-native run-ios --simulator "iPad (5th generation)"`                   |
-# | **rnipad6**    | `react-native run-ios --simulator "iPad (6th generation)"`                   |
-# | **rnipadr**    | `react-native run-ios --simulator "iPad Retina"`                             |
-# | **rnipada**    | `react-native run-ios --simulator "iPad Air"`                                |
-# | **rnipada2**   | `react-native run-ios --simulator "iPad Air 2"`                              |
-# | **rnipada3**   | `react-native run-ios --simulator "iPad Air (3rd generation)"`               |
-# | **rnipadm2**   | `react-native run-ios --simulator "iPad mini 2"`                             |
-# | **rnipadm3**   | `react-native run-ios --simulator "iPad mini 3"`                             |
-# | **rnipadm4**   | `react-native run-ios --simulator "iPad mini 4"`                             |
-# | **rnipadm5**   | `react-native run-ios --simulator "iPad mini (5th generation)"`              |
-# | **rnipadp9**   | `react-native run-ios --simulator "iPad Pro (9.7-inch)"`                     |
-# | **rnipadp12**  | `react-native run-ios --simulator "iPad Pro (12.9-inch)"`                    |
-# | **rnipadp122** | `react-native run-ios --simulator "iPad Pro (12.9-inch) (2nd generation)"`   |
-# | **rnipadp10**  | `react-native run-ios --simulator "iPad Pro (10.5-inch)"`                    |
-# | **rnipad11**   | `react-native run-ios --simulator "iPad Pro (11-inch)"`                      |
-# | **rnipad123**  | `react-native run-ios --simulator "iPad Pro (12.9-inch) (3rd generation)"`   |
-# | _Apple TV_     |                                                                              |
-# | **rnatv**      | `react-native run-ios --simulator "Apple TV"`                                |
-# | **rnatv4k**    | `react-native run-ios --simulator "Apple TV 4K"`                             |
-# | **rnatv4k1080**| `react-native run-ios --simulator "Apple TV 4K (at 1080p)"`                  |
-# | **rnipad123**  | `react-native run-ios --simulator "iPad Pro (12.9-inch) (3rd generation)"`   |
-# | _Apple Watch_  |                                                                              |
-# | **rnaw38**     | `react-native run-ios --simulator "Apple Watch - 38mm"`                      |
-# | **rnaw42**     | `react-native run-ios --simulator "Apple Watch - 42mm"`                      |
-# | **rnaws238**   | `react-native run-ios --simulator "Apple Watch Series 2 - 38mm"`             |
-# | **rnaws242**   | `react-native run-ios --simulator "Apple Watch Series 2 - 42mm"`             |
-# | **rnaws338**   | `react-native run-ios --simulator "Apple Watch Series 3 - 38mm"`             |
-# | **rnaws342**   | `react-native run-ios --simulator "Apple Watch Series 3 - 42mm"`             |
-# | **rnaws440**   | `react-native run-ios --simulator "Apple Watch Series 4 - 40mm"`             |
-# | **rnaws444**   | `react-native run-ios --simulator "Apple Watch Series 4 - 44mm"`             |
-
-alias kls="kubectl logs --namespace=\"kube-system\""
-alias kcsc='kubectl config set-context'
-alias kcscn='kubectl config set-context --current --namespace '
-
-alias ys="yarn start"
-alias yr="yarn run"
-
-alias rni="npx react-native init --template react-native-template-typescript"
-alias rnimac="npx react-native-macos-init"
-
-
 # sprunge (https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/sprunge)
-
-# | Command                      | Description                               |
-# |------------------------------|-------------------------------------------|
-# | `sprunge filename.txt`       | Uploads filename.txt                      |
-# | `sprunge "this is a string"` | Uploads plain text                        |
-# | `sprunge < filename.txt`     | Redirects filename.txt content to sprunge |
-# | `echo data \| sprunge`       | Any piped data will be uploaded           |
-
 # rsync (https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/rsync)
-
-# | Alias               | Command                                          |
-# | ------------------- | ------------------------------------------------ |
-# | *rsync-copy*        | `rsync -avz --progress -h`                       |
-# | *rsync-move*        | `rsync -avz --progress -h --remove-source-files` |
-# | *rsync-update*      | `rsync -avzu --progress -h`                      |
-# | *rsync-synchronize* | `rsync -avzu --delete --progress -h`             |
-
 # vscode (https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/vscode)
-
-# | Alias                   | Command                        | Description                                                                                                 |
-# | ----------------------- | ------------------------------ | ----------------------------------------------------------------------------------------------------------- |
-# | vsc                     | code .                         | Open the current folder in VS code                                                                          |
-# | vsca `dir`              | code --add `dir`               | Add folder(s) to the last active window                                                                     |
-# | vscd `file` `file`      | code --diff `file` `file`      | Compare two files with each other.                                                                          |
-# | vscg `file:line[:char]` | code --goto `file:line[:char]` | Open a file at the path on the specified line and character position.                                       |
-# | vscn                    | code --new-window              | Force to open a new window.                                                                                 |
-# | vscr                    | code --reuse-window            | Force to open a file or folder in the last active window.                                                   |
-# | vscw                    | code --wait                    | Wait for the files to be closed before returning.                                                           |
-# | vscu `dir`              | code --user-data-dir `dir`     | Specifies the directory that user data is kept in. Can be used to open multiple distinct instances of Code. |
-
-# https://code.visualstudio.com/shortcuts/keyboard-shortcuts-macos.pdf
-
+# vscode https://code.visualstudio.com/shortcuts/keyboard-shortcuts-macos.pdf
 
 
 # Directory
@@ -130,6 +25,7 @@ function fdir() { find . -maxdepth 1 -mindepth 1 -type d -print0 | xargs -0 -I '
 alias please="sudo"
 alias clear="clear && printf '\e[3J'"
 alias c="clear"
+alias m="make"
 alias h="cd ~"
 alias ..="cd .."
 alias ...="cd ../.."
@@ -144,8 +40,8 @@ alias up3="cd ../../.."
 alias up4="cd ../../../.."
 alias up5="cd ../../../../.."
 alias grep="grep --color"
-alias tf="tail -fn200"
 alias hr="printf '%*s\n' \"${COLUMNS:-$(tput cols)}\" '' | tr ' ' ="
+alias tf="tail -fn200"
 function rename() { find . -type f -name "*.${1}" | sed -e "p;s/\.${1}$/.${2}/" | xargs -n2 echo; }
 function findf() { find . -type f -iname "*.${1}"; }
 function rgf() { rg --files -g "*${1}*"; }
@@ -187,6 +83,7 @@ function gtgd() {
   git tag v${VERSION};
   git push; git push --tags;
 }
+# find . -name .git -type d -print0 | xargs -0 -I {} sh -c "cd {}/.. && git repack && cd -"
 
 # Ssh
 alias sshc="find ~/.ssh/conf.d -type f -name '*.conf' -print0 | xargs -0 -I file cat file > ~/.ssh/config"
@@ -213,18 +110,36 @@ alias static-py="python -m SimpleHTTPServer"
 alias static-dev="http-server -c-1"
 alias scan-local="sudo nmap -sP -n $@"
 function screencap() { file="screencap_$(date +%Y%m%d_%H%M%S).png"; adb -d exec-out screencap -p > "${file}"; gm convert "${file}" -crop 1080x2160 "${file}"; }
+function rsync-backup() { rsync -avP --delete --exclude 'Developer/Xcode' --exclude 'Photos Library.photoslibrary' --exclude 'com.docker.docker' --exclude 'node_modules' --exclude '.yarn' --delete-excluded /Users/olivier/ /Volumes/Olivier/backup; }
+
+
+alias rni="npx react-native init --template react-native-template-typescript"
+alias rnimac="npx react-native-macos-init"
 
 ## NodeJS
 
 ### npm
 alias npmr="npm run"
+alias nr="npm run"
 alias npms="npm start"
+alias ns="npm start"
 alias npmt="npm test"
+alias nt="npm test"
+function npm-clean() { find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +; }
+
+### yarn
+alias ys="yarn start"
+alias yr="yarn run"
 
 ### npm modules
 alias ncuu="ncu -u"
 alias sv="standard-version"
 function svr() { standard-version $@ && git push --follow-tags && npm publish; }
+
+## Kubernetes
+alias klks="kubectl logs --namespace=\"kube-system\""
+alias kcscn='kubectl config set-context --current --namespace '
+alias kcv='kubectl config view'
 
 ## Docker
 alias dk="docker"
@@ -235,7 +150,6 @@ alias dkl="docker logs --tail=200 -f"
 alias dkc="docker-compose"
 alias dkcl="docker-compose logs --tail=200 -f"
 alias dkcr="docker-compose restart"
-alias dkcpl="cat docker-compose.yml | grep image: | sed 's/image://' | xargs -n1 docker pull"
 alias dkm="docker-machine"
 function dkb() { docker exec -it $1 script -q -c "TERM=xterm /bin/bash" /dev/null; }
 function dkrb() { docker run --rm -it -v /tmp:/tmp/host ${1:-"ubuntu:18.04"} script -q -c "TERM=xterm /bin/bash" /dev/null; }
@@ -252,6 +166,7 @@ alias asb="ansible -s -i hosts.yml -m shell -a"
 alias asbp="ansible -s -i inventories/ -m shell -a"
 alias apb="ansible-playbook -i hosts.yml playbook.yml"
 alias apbp="ansible-playbook -i inventories/ playbook.yml"
+alias trf="terraform"
 
 # Custom OSX
 if [[ $OSTYPE =~ "darwin" ]]; then
@@ -331,7 +246,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   function flushdnsnew() { sudo discoveryutil mdnsflushcache; sudo discoveryutil udnsflushcaches; }
   function flushdns() { dscacheutil -flushcache; sudo killall -HUP mDNSResponder; }
   function marked() { open -a /Applications/Marked\ 2.app/Contents/MacOS/Marked\ 2 "`pwd`/$1"; }
-  function open-static() { open -a /Applications/Google\ Chrome.app "http://localhost:8080"; http-server $@ -c-1; }
+  function open-static() { open -a /Applications/Google\ Chrome.app "http://localhost:8080"; http-server $1 -P 'http://localhost:8080?' -c -1; }
   alias update="sudo softwareupdate -i -a; sudo port selfupdate; sudo port upgrade outdated; sudo npm update -g"
   function chownwww() { sudo chown -R `whoami`:staff ${1:-*}; }
   function dmg() { hdiutil create -volname "$(basename "$1")" -srcfolder "$1" -ov -format UDZO "$(basename "$1").dmg"; }

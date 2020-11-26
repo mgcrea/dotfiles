@@ -79,6 +79,7 @@ plugins=(
   kubectl
   node
   per-directory-history
+  # react-native (https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/react-native)
   react-native
   ripgrep
   rsync
@@ -98,6 +99,11 @@ source $ZSH/oh-my-zsh.sh
 
 export BREW_PREFIX=/usr/local
 
+# nodejs
+if [ -d "$BREW_PREFIX/opt/coreutils/libexec" ]; then
+  export PATH=$BREW_PREFIX/opt/node@14/bin:$PATH
+fi
+
 # gnu tools
 if [ -d "$BREW_PREFIX/opt/coreutils/libexec" ]; then
   export PATH=$BREW_PREFIX/opt/coreutils/libexec/gnubin:$BREW_PREFIX/opt/gnu-tar/libexec/gnubin:$PATH
@@ -114,12 +120,16 @@ if [ -d "$HOME/Library/Android/sdk" ]; then
   export ANDROID_HOME=$HOME/Library/Android/sdk
   export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
   export ANDROID_AVD_HOME=$HOME/.android/avd
+  # export PATH=$PATH:$ANDROID_HOME/emulator
+  # export PATH=$PATH:$ANDROID_HOME/tools
+  # export PATH=$PATH:$ANDROID_HOME/tools/bin
+  # export PATH=$PATH:$ANDROID_HOME/platform-tools
 fi
 
 # autojump
-if [ -f /usr/local/etc/profile.d/autojump.sh ]; then
-  . /usr/local/etc/profile.d/autojump.sh
-fi
+# if [ -f /usr/local/etc/profile.d/autojump.sh ]; then
+#   . /usr/local/etc/profile.d/autojump.sh
+# fi
 
 # nvm
 # export NVM_DIR="$HOME/.nvm"

@@ -1,4 +1,4 @@
 .DS_Store
-osx/.osxrc
+.vscode/
+.idea/
 !.gitignore
-.history/

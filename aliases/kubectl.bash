@@ -1,3 +1,4 @@
+
 # This command is used a LOT both below and in daily life
 alias k=kubectl
 
@@ -19,7 +20,7 @@ alias kccc='kubectl config current-context'
 # List all contexts
 alias kcgc='kubectl config get-contexts'
 
-# General aliases
+# General aliases
 alias kdel='kubectl delete'
 alias kdelf='kubectl delete -f'
 
@@ -34,6 +35,9 @@ alias kdelp='kubectl delete pods'
 
 # get pod by label: kgpl "app=myapp" -n myns
 alias kgpl='kgp -l'
+
+# get pod by namespace: kgpn kube-system"
+alias kgpn='kgp -n'
 
 # Service management.
 alias kgs='kubectl get svc'
@@ -134,3 +138,21 @@ alias kgpvcw='kgpvc --watch'
 alias kepvc='kubectl edit pvc'
 alias kdpvc='kubectl describe pvc'
 alias kdelpvc='kubectl delete pvc'
+
+# Service account management.
+alias kgsa="kubectl get sa"
+alias kdsa="kubectl describe sa"
+alias kdelsa="kubectl delete sa"
+
+# DaemonSet management.
+alias kgds='kubectl get daemonset'
+alias kgdsw='kgds --watch'
+alias keds='kubectl edit daemonset'
+alias kdds='kubectl describe daemonset'
+alias kdelds='kubectl delete daemonset'
+
+# CronJob management.
+alias kgcj='kubectl get cronjob'
+alias kecj='kubectl edit cronjob'
+alias kdcj='kubectl describe cronjob'
+alias kdelcj='kubectl delete cronjob'

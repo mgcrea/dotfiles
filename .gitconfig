@@ -1,7 +1,6 @@
 [user]
 	name = Olivier Louvignes
 	email = olivier@mgcrea.io
-#	signingkey = 46E1684E3BEA9E92
 
 [core]
 	autocrlf = input
@@ -61,3 +60,5 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[pull]
+	rebase = false
