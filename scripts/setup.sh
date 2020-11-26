@@ -12,6 +12,6 @@ declare -a arr=(
 
 for file in "${arr[@]}"; do
 	echo -n "Linking \"$file\"..."
-  ln -fs ".dotfiles/${file}" "${HOME}${file}"
+  ln -fs ".dotfiles/${file}" "${HOME}/${file}"
 	printf ' \e[1;32m%s\e[m\n' ✔
 done
