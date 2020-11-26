@@ -106,8 +106,7 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 # Load aliases
-DIR="$( dirname "$(readlink -f "$0")" )"
-for aliases in ${DIR}/aliases/*.bash; do
+for aliases in ${HOME}/.dotfiles/aliases/*.bash; do
     . $aliases
 done;
 
