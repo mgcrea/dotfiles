@@ -68,13 +68,14 @@ alias gaa="git add --all"
 alias gcnv="git commit --no-verify -m"
 function gtp() { git add --all .; git ci --no-verify -am "feat(update): ${1:-minor changes}"; git push; }
 function gtg() {
+  npm i
   VERSION=`cat package.json | jq -r .version`
   git ci -am "chore(release): cut the ${VERSION} release";
   git tag v${VERSION};
   git push; git push --tags;
   PRIVATE=`cat package.json | jq -r .private`
   [[ ${PRIVATE} == "null" || ${PRIVATE} == "false" ]] && {
-    npm publish;
+    npm publish --access=public;
   }
 }
 function gtgd() {
@@ -83,6 +84,7 @@ function gtgd() {
   git tag v${VERSION};
   git push; git push --tags;
 }
+alias rgf='rg --files | rg'
 # find . -name .git -type d -print0 | xargs -0 -I {} sh -c "cd {}/.. && git repack && cd -"
 
 # Ssh
@@ -95,6 +97,7 @@ alias clean-hosts="sed '/^192/ d' -i ~/.ssh/known_hosts; sed '/^player-/ d' -i ~
 function randpw() { < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-16}; echo; }
 alias sshps="sshp -p2222 -A"
 alias rsyncs="rsync -avzP -e 'ssh -p2222' --rsync-path 'sudo rsync'"
+alias watchman-reset="watchman watch-del '$(pwd)' && watchman watch-project '$(pwd)'"
 
 # Network
 function lsport() { lsof -i :$1; }
@@ -120,12 +123,17 @@ alias rnimac="npx react-native-macos-init"
 
 ### npm
 alias npmr="npm run"
-alias nr="npm run"
-alias npms="npm start"
-alias ns="npm start"
+alias npms="npm start --"
 alias npmt="npm test"
+alias ns="npm start --"
+alias nr="npm run"
+alias nb="npm run build"
 alias nt="npm test"
-function npm-clean() { find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +; }
+alias ni="npm install"
+alias nn="cat package.json | jq -r .name | pbcopy"
+alias npml="npm link; cat package.json | jq -r .name | sed -e 's/^/npm link /' | pbcopy"
+
+function clean-node-modules() { find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +; }
 
 ### yarn
 alias ys="yarn start"
@@ -147,9 +155,9 @@ alias dkps="docker ps"
 alias dki="docker inspect"
 alias dkr="docker restart"
 alias dkl="docker logs --tail=200 -f"
-alias dkc="docker-compose"
-alias dkcl="docker-compose logs --tail=200 -f"
-alias dkcr="docker-compose restart"
+alias dkc="docker compose"
+alias dkcl="dkc logs --tail=200 -f"
+alias dkcr="dkc restart"
 alias dkm="docker-machine"
 function dkb() { docker exec -it $1 script -q -c "TERM=xterm /bin/bash" /dev/null; }
 function dkrb() { docker run --rm -it -v /tmp:/tmp/host ${1:-"ubuntu:18.04"} script -q -c "TERM=xterm /bin/bash" /dev/null; }
@@ -182,7 +190,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   alias org='code --new-window "/Users/olivier/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/inbox.org"'
 
   # Applications
-  # alias code="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
+  alias code="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
   # alias vscode="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
   # alias vscodei="/Applications/Visual\ Studio\ Code\ -\ Insiders.app/Contents/Resources/app/bin/code"
   # alias vscodee="/Applications/Visual\ Studio\ Code\ -\ Exploration.app/Contents/Resources/app/bin/code"
@@ -238,7 +246,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   function docker-ls { docker inspect --format='{{.Name}}' $(docker ps -aq --no-trunc) | cut -c2-; }
 
   # Homebrew
-  alias bubu="brew update && brew upgrade; brew cask upgrade"
+  alias bubu="brew update && brew upgrade; brew upgrade --cask"
 
   # NodeJS
   function nvm-upgrade() { nvm install stable --reinstall-packages-from=`nvm current`; }
@@ -255,6 +263,7 @@ if [[ $OSTYPE =~ "darwin" ]]; then
   alias cdvp="cd cordova; cordova prepare; cd -"
   alias dunmount="diskutil unmountDisk"
   alias lsusb="ioreg -p IOUSB -l -w 0"
+  alias ssh-load="/usr/bin/ssh-add --apple-load-keychain"
 
 # Custom *NIX
 else

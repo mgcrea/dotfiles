@@ -9,6 +9,15 @@ export ZSH="/Users/olivier/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="avit"
+# ZSH_THEME="spaceship"
+# SPACESHIP_PROMPT_ADD_NEWLINE="true"
+# SPACESHIP_CHAR_SYMBOL=" \uf0e7"
+# SPACESHIP_CHAR_PREFIX="\uf296"
+# SPACESHIP_CHAR_SUFFIX=(" ")
+# SPACESHIP_CHAR_COLOR_SUCCESS="yellow"
+# SPACESHIP_PROMPT_DEFAULT_PREFIX="$USER"
+# SPACESHIP_PROMPT_FIRST_PREFIX_SHOW="true"
+# SPACESHIP_USER_SHOW="true"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -71,14 +80,14 @@ CASE_SENSITIVE="true"
 plugins=(
   autojump
   # dotenv
-  git
+  # git
   git-prompt
   git-flow
   helm
   httpie
   kubectl
   node
-  per-directory-history
+  # per-directory-history
   # react-native (https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/react-native)
   react-native
   ripgrep
@@ -88,7 +97,7 @@ plugins=(
   screen
   ssh-agent
   sudo
-  tmux
+  # tmux
   vscode
   yarn
 )
@@ -97,17 +106,34 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export BREW_PREFIX=/usr/local
+export BREW_PREFIX=/opt/homebrew
+export PATH=$BREW_PREFIX/bin:$PATH
+alias kubectl=$BREW_PREFIX/bin/kubectl
 
-# nodejs
-if [ -d "$BREW_PREFIX/opt/coreutils/libexec" ]; then
-  export PATH=$BREW_PREFIX/opt/node@14/bin:$PATH
+# node lts
+if [ -d "$BREW_PREFIX/opt/node@16/bin" ]; then
+  export PATH="$BREW_PREFIX/opt/node@16/bin:$PATH"
 fi
 
-# gnu tools
+# coreutils
 if [ -d "$BREW_PREFIX/opt/coreutils/libexec" ]; then
-  export PATH=$BREW_PREFIX/opt/coreutils/libexec/gnubin:$BREW_PREFIX/opt/gnu-tar/libexec/gnubin:$PATH
+  export PATH=$BREW_PREFIX/opt/coreutils/libexec/gnubin:$PATH
   export MANPATH=$BREW_PREFIX/opt/coreutils/libexec/gnuman:$MANPATH
+fi
+# make
+if [ -d "$BREW_PREFIX/opt/coreutils/libexec" ]; then
+  export PATH=$BREW_PREFIX/opt/make/libexec/gnubin:$PATH
+  export MANPATH=$BREW_PREFIX/opt/make/libexec/gnuman:$MANPATH
+fi
+# gnu tar
+if [ -d "$BREW_PREFIX/opt/gnu-tar/libexec" ]; then
+  export PATH=$BREW_PREFIX/opt/gnu-tar/libexec/gnubin:$PATH
+  export MANPATH=$BREW_PREFIX/opt/gnu-tar/libexec/gnuman:$MANPATH
+fi
+# gnu sed
+if [ -d "$BREW_PREFIX/opt/gnu-sed/libexec" ]; then
+  export PATH=$BREW_PREFIX/opt/gnu-sed/libexec/gnubin:$PATH
+  export MANPATH=$BREW_PREFIX/opt/gnu-sed/libexec/gnuman:$MANPATH
 fi
 
 # esp32 toolchain
@@ -117,14 +143,15 @@ fi
 
 # android tools
 if [ -d "$HOME/Library/Android/sdk" ]; then
-  export ANDROID_HOME=$HOME/Library/Android/sdk
   export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
-  export ANDROID_AVD_HOME=$HOME/.android/avd
-  # export PATH=$PATH:$ANDROID_HOME/emulator
-  # export PATH=$PATH:$ANDROID_HOME/tools
-  # export PATH=$PATH:$ANDROID_HOME/tools/bin
-  # export PATH=$PATH:$ANDROID_HOME/platform-tools
+  export ANDROID_HOME=$HOME/Library/Android/sdk
+  export PATH=$PATH:$ANDROID_HOME/emulator
+  export PATH=$PATH:$ANDROID_HOME/tools
+  export PATH=$PATH:$ANDROID_HOME/tools/bin
+  export PATH=$PATH:$ANDROID_HOME/platform-tools
 fi
+
+
 
 # autojump
 # if [ -f /usr/local/etc/profile.d/autojump.sh ]; then
